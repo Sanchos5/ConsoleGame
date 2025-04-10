@@ -5,6 +5,8 @@
 #include <SFML/Audio.hpp>
 #include "Game.h"
 
+using namespace ApplesGame;
+
 int main()
 {
 	//Init window
@@ -18,7 +20,7 @@ int main()
 
 	sf::Clock gameClock;
 	float lastTime = gameClock.getElapsedTime().asSeconds();
-	
+
 	while (window.isOpen())
 	{
 		sf::sleep(sf::milliseconds(16));
@@ -35,7 +37,7 @@ int main()
 				window.close();
 				break;
 			}
-			if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
 			{
 				window.close();
 				break;
