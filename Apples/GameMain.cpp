@@ -1,6 +1,7 @@
 ﻿// ©2023, XYZ School. All rights reserved.
 // Authored by Aleksandr Rybalka (polterageist@gmail.com)
 
+#include "iostream"
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "Game.h"
@@ -43,8 +44,19 @@ int main()
 				break;
 			}
 		}
+		
 
-		UpdateGame(game, deltaTime);
+		if(game.isGameFinished)
+		{
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			{
+				game.isGameFinished = false;
+			}
+		}
+		else
+		{
+			UpdateGame(game, deltaTime);
+		}
 
 		window.clear();
 		DrawGame(game, window);

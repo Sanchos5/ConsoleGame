@@ -12,9 +12,10 @@ namespace ApplesGame
 	const float ACCELERATION = 10.0f;
 
 	const float APPLE_SIZE = 20.0f;
-	const int NUM_APPLES = 10;
+	/*const */int NUM_APPLES = 10;
+	int numApple;
 
-	const float ROCK_SIZE = 30.0f;
+	const float ROCK_SIZE = 20.0f;
 	const int NUM_ROCKS = 10;
 
 	const float FINISHED_LENGTH = 3.0f;

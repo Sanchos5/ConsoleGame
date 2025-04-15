@@ -7,14 +7,16 @@
 #include "Player.h"
 #include "Apple.h"
 #include "Rock.h"
+#include "UI.h"
 
 namespace ApplesGame
 {
 	struct Game
 	{
 		Player player;
-		Apple apples[NUM_APPLES];
+		//Apple apples[NUM_APPLES];
 		Rock rocks[NUM_ROCKS];
+		UIState uiState;
 
 		//Global game data
 		int numEatenApples = 0;

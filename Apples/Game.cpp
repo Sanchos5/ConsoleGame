@@ -2,6 +2,7 @@
 #include "Game.h"
 #include <cassert>
 #include <string>
+#include <iostream>
 
 
 namespace ApplesGame
@@ -11,10 +12,19 @@ namespace ApplesGame
 		game.scoreText.setPosition(10.f, 10.f);
 		window.draw(game.scoreText);
 
+		game.uiState.inputHintText.setPosition(window.getSize().x - 10.f, 10.f);
+		window.draw(game.uiState.inputHintText);
+
 		if (game.isGameOverTextVisible)
 		{
 			game.gameOverText.setPosition(window.getSize().x / 2.f, window.getSize().y / 2.f);
 			window.draw(game.gameOverText);
+		}
+
+		if(game.uiState.isStartGameTextVisible)
+		{
+			game.uiState.startGameText.setPosition(window.getSize().x / 2.f, (window.getSize().y / 2.f) - 100.f);
+			window.draw(game.uiState.startGameText);
 		}
 	}
 
@@ -27,6 +37,8 @@ namespace ApplesGame
 		assert(game.soundDeath.loadFromFile(RESOURCES_PATH + "\\Death.wav"));
 
 		assert(game.font.loadFromFile(RESOURCES_PATH + "Fonts/Roboto-Regular.ttf"));
+
+		InitUI(game.uiState, game.font);
 
 		game.background.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
 		game.background.setFillColor(sf::Color::Black);
@@ -42,6 +54,9 @@ namespace ApplesGame
 		game.gameOverText.setFillColor(sf::Color::Red);
 		game.gameOverText.setString("GAME OVER");
 		game.gameOverText.setOrigin(GetTextOrigin(game.gameOverText, { 0.5f, 0.5f }));
+
+		std::cout << "число €блок";
+		std::cin >> numApple;
 
 		RestartGame(game);
 	}
@@ -68,7 +83,7 @@ namespace ApplesGame
 
 	void UpdateGame(Game& game, float deltaTime)
 	{
-		if (!game.isGameFinished)
+		if (!game.isGameFinished && !game.uiState.isStartGameTextVisible)
 		{
 			HandleInput(game);
 			UpdateInput(game, deltaTime);
@@ -101,20 +116,23 @@ namespace ApplesGame
 			game.scoreText.setString("Apples eaten: " + std::to_string(game.numEatenApples));
 		}
 
+		if(game.uiState.isStartGameTextVisible)
+		{
+			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			{
+				game.uiState.isStartGameTextVisible = false;
+			}
+		}
+
 		if (game.isGameFinished)
 		{
-			game.timeSinceGameFinished -= deltaTime;
-
-			if (game.timeSinceGameFinished <= 0.0f)
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 			{
-				game.background.setFillColor(sf::Color::Black);
-
 				RestartGame(game);
 			}
 			else
 			{
 				game.isGameOverTextVisible = true;
-				//game.background.setFillColor(sf::Color::Red);
 			}
 		}
 
