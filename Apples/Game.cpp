@@ -2,7 +2,6 @@
 #include "Game.h"
 #include <cassert>
 #include <string>
-#include <iostream>
 
 
 namespace ApplesGame
@@ -30,6 +29,9 @@ namespace ApplesGame
 
 	void InitGame(Game& game)
 	{
+		std::cout << "num apples";
+		std::cin >> game.numApple;
+
 		assert(game.playerTexture.loadFromFile(RESOURCES_PATH + "\\Player.png"));
 		assert(game.appleTexture.loadFromFile(RESOURCES_PATH + "\\Apple.png"));
 		assert(game.rockTexture.loadFromFile(RESOURCES_PATH + "\\Rock.png"));
@@ -55,9 +57,6 @@ namespace ApplesGame
 		game.gameOverText.setString("GAME OVER");
 		game.gameOverText.setOrigin(GetTextOrigin(game.gameOverText, { 0.5f, 0.5f }));
 
-		//std::cout << "число €блок";
-		//std::cin >> game.numApple;
-
 		RestartGame(game);
 	}
 
@@ -65,8 +64,9 @@ namespace ApplesGame
 	{
 		InitPlayer(game.player, game);
 
-		for (int i = 0; i < NUM_APPLES; ++i)
+		for (int i = 0; i < game.numApple; ++i)
 		{
+			game.apples.push_back(game.apple);
 			InitApple(game.apples[i], game);
 		}
 		for (int i = 0; i < NUM_ROCKS; ++i)
@@ -75,6 +75,7 @@ namespace ApplesGame
 		}
 
 		//Paused
+		game.sound.stop();
 		game.numEatenApples = 0;
 		game.isGameFinished = false;
 		game.isGameOverTextVisible = false;
@@ -88,8 +89,7 @@ namespace ApplesGame
 			HandleInput(game);
 			UpdateInput(game, deltaTime);
 
-			//Find players collision with apples
-			for (int i = 0; i < NUM_APPLES; ++i)
+			for (int i = 0; i < game.numApple; ++i)
 			{
 				//Check collision for circle
 				if(IsCirclesCollide(game.player.position, PLAYER_SIZE,
@@ -101,6 +101,7 @@ namespace ApplesGame
 					++game.numEatenApples;
 				}
 			}
+
 			for (int i = 0; i < NUM_ROCKS; ++i)
 			{
 				if (IsRectanglesCollide(game.player.position, { PLAYER_SIZE, PLAYER_SIZE },
@@ -114,6 +115,20 @@ namespace ApplesGame
 			}
 
 			game.scoreText.setString("Apples eaten: " + std::to_string(game.numEatenApples));
+		}
+
+		//check screen borders collision
+		if (game.player.position.X - PLAYER_SIZE / 2.0f < 0.0f || game.player.position.X + PLAYER_SIZE / 2.0f > SCREEN_WIDTH ||
+			game.player.position.Y - PLAYER_SIZE / 2.0f < 0.0f || game.player.position.Y + PLAYER_SIZE / 2.0f > SCREEN_HEIGHT)
+		{
+			// stop game
+			if (!game.isGameFinished)
+			{
+				game.sound.setBuffer(game.soundDeath);
+				game.sound.play();
+				game.isGameFinished = true;
+				game.timeSinceGameFinished = FINISHED_LENGTH;
+			}
 		}
 
 		if(game.uiState.isStartGameTextVisible)
@@ -135,21 +150,6 @@ namespace ApplesGame
 				game.isGameOverTextVisible = true;
 			}
 		}
-
-		//check screen borders collision
-		if (game.player.position.X - PLAYER_SIZE / 2.0f < 0.0f || game.player.position.X + PLAYER_SIZE / 2.0f > SCREEN_WIDTH ||
-			game.player.position.Y - PLAYER_SIZE / 2.0f < 0.0f || game.player.position.Y + PLAYER_SIZE / 2.0f > SCREEN_HEIGHT)
-		{
-			// stop game
-			if (!game.isGameFinished)
-			{
-				game.sound.setBuffer(game.soundDeath);
-				game.sound.play();
-				
-				game.isGameFinished = true;
-				game.timeSinceGameFinished = FINISHED_LENGTH;
-			}
-		}
 	}
 
 	void DrawGame(Game& game, sf::RenderWindow& window)
@@ -157,7 +157,10 @@ namespace ApplesGame
 		window.draw(game.background);
 		DrawPlayer(game.player, window);
 
-		for (int i = 0; i < NUM_APPLES; ++i)
+		//std::vector<Apple> apples(game.numApple);
+		//apples.reserve(game.numApple);
+
+		for (int i = 0; i < game.numApple; ++i)
 		{
 			game.apples[i].sprite.setPosition(game.apples[i].position.X, game.apples[i].position.Y);
 			window.draw(game.apples[i].sprite);
@@ -173,7 +176,7 @@ namespace ApplesGame
 
 	void DeinitializeGame(Game& game)
 	{
-
+		
 	}
 }
 

@@ -14,14 +14,17 @@ namespace ApplesGame
 {
 	struct Game
 	{
+		std::vector<Apple> apples;
+
+		
 		Player player;
-		Apple apples;
+		Apple apple;
 		Rock rocks[NUM_ROCKS];
 		UIState uiState;
 
-		Apple* numApple = new Apple(apples);
-
+		
 		//Global game data
+		int numApple = 10;
 		int numEatenApples = 0;
 		bool isGameFinished = false;
 		float timeSinceGameFinished = 0.0f;

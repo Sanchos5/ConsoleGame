@@ -13,7 +13,7 @@ namespace ApplesGame
 
 	const float APPLE_SIZE = 20.0f;
 	//const int NUM_APPLES = 10;
-	int numApple = 15;
+	//int numApple = 15;
 	
 
 	const float ROCK_SIZE = 20.0f;

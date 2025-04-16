@@ -17,6 +17,7 @@ int main()
 	srand(seed);
 
 	Game game;
+
 	InitGame(game);
 
 	sf::Clock gameClock;
@@ -44,7 +45,6 @@ int main()
 				break;
 			}
 		}
-		
 
 		if(game.isGameFinished)
 		{
