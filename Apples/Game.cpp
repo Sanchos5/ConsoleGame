@@ -55,8 +55,8 @@ namespace ApplesGame
 		game.gameOverText.setString("GAME OVER");
 		game.gameOverText.setOrigin(GetTextOrigin(game.gameOverText, { 0.5f, 0.5f }));
 
-		std::cout << "число €блок";
-		std::cin >> numApple;
+		//std::cout << "число €блок";
+		//std::cin >> game.numApple;
 
 		RestartGame(game);
 	}

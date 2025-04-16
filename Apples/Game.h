@@ -8,15 +8,18 @@
 #include "Apple.h"
 #include "Rock.h"
 #include "UI.h"
+#include <iostream>
 
 namespace ApplesGame
 {
 	struct Game
 	{
 		Player player;
-		//Apple apples[NUM_APPLES];
+		Apple apples;
 		Rock rocks[NUM_ROCKS];
 		UIState uiState;
+
+		Apple* numApple = new Apple(apples);
 
 		//Global game data
 		int numEatenApples = 0;
