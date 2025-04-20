@@ -15,8 +15,8 @@ namespace ApplesGame
 	struct Game
 	{
 		std::vector<Apple> apples;
-
 		
+		sf::Event event;
 		Player player;
 		Apple apple;
 		Rock rocks[NUM_ROCKS];
@@ -41,6 +41,8 @@ namespace ApplesGame
 		sf::Font font;
 		sf::Text scoreText;
 		sf::Text gameOverText;
+
+		int gameMode = 1;
 	};
 
 	void RestartGame(Game& game);
@@ -48,5 +50,6 @@ namespace ApplesGame
 	void UpdateGame(Game& game, float deltaTime);
 	void DrawGame(Game& game, sf::RenderWindow& window);
 	void DrawUI(Game& uiState, sf::RenderWindow& window);
+	void ChooseGameMode(Game& game);
 	void DeinitializeGame(Game& game);
 }

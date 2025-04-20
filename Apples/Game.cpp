@@ -6,6 +6,35 @@
 
 namespace ApplesGame
 {
+	void ChooseGameMode(Game& game)
+	{
+		//sf::Event event;
+
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+		{
+			game.gameMode |= MODE_FINITE_APPLES;
+			game.numApple = 20;
+			game.apples.push_back(game.apple);
+			game.apples.resize(game.numApple);
+		}
+		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+		{
+			game.gameMode |= MODE_INFINITE_APPLES;
+			game.numApple = 20;
+			game.apples.push_back(game.apple);
+			game.apples.resize(game.numApple);
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+		{
+			game.gameMode |= MODE_ACCELERATED_PLAYER;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
+		{
+			game.gameMode |= MODE_NO_ACCELERATION;
+		}
+	}
+
 	void DrawUI(Game& game, sf::RenderWindow& window)
 	{
 		game.scoreText.setPosition(10.f, 10.f);
@@ -24,14 +53,14 @@ namespace ApplesGame
 		{
 			game.uiState.startGameText.setPosition(window.getSize().x / 2.f, (window.getSize().y / 2.f) - 100.f);
 			window.draw(game.uiState.startGameText);
+
+			game.uiState.hintText.setPosition(window.getSize().x / 2.f, (window.getSize().y / 2.f));
+			window.draw(game.uiState.hintText);
 		}
 	}
 
 	void InitGame(Game& game)
 	{
-		std::cout << "num apples";
-		std::cin >> game.numApple;
-
 		assert(game.playerTexture.loadFromFile(RESOURCES_PATH + "\\Player.png"));
 		assert(game.appleTexture.loadFromFile(RESOURCES_PATH + "\\Apple.png"));
 		assert(game.rockTexture.loadFromFile(RESOURCES_PATH + "\\Rock.png"));
@@ -64,11 +93,12 @@ namespace ApplesGame
 	{
 		InitPlayer(game.player, game);
 
-		for (int i = 0; i < game.numApple; ++i)
+		/*for (int i = 0; i < game.numApple; ++i)
 		{
-			game.apples.push_back(game.apple);
+			game.apples.resize(game.numApple);
 			InitApple(game.apples[i], game);
-		}
+		}*/
+
 		for (int i = 0; i < NUM_ROCKS; ++i)
 		{
 			InitRock(game.rocks[i], game);
@@ -95,7 +125,26 @@ namespace ApplesGame
 				if(IsCirclesCollide(game.player.position, PLAYER_SIZE,
 					game.apples[i].position, APPLE_SIZE))
 				{
-					game.apples[i].position = GetRandomPositionInScreen(SCREEN_WIDTH + 1, SCREEN_HEIGHT + 1);
+					if(game.gameMode & MODE_FINITE_APPLES)
+					{
+						game.apples.erase(game.apples.begin() + i);
+						game.apples.resize(game.numApple);
+					}
+
+					if(game.gameMode & MODE_INFINITE_APPLES)
+					{
+						game.apples[i].position = GetRandomPositionInScreen(SCREEN_WIDTH + 1, SCREEN_HEIGHT + 1);
+					}
+					
+					if(game.gameMode & MODE_ACCELERATED_PLAYER)
+					{
+						game.player.speed += ACCELERATION;
+					}
+					if (game.gameMode & MODE_NO_ACCELERATION)
+					{
+						game.player.speed = INITIAL_SPEED;
+					}
+					
 					game.sound.setBuffer(game.soundAppleEat);
 					game.sound.play();
 					++game.numEatenApples;
@@ -133,9 +182,18 @@ namespace ApplesGame
 
 		if(game.uiState.isStartGameTextVisible)
 		{
+			ChooseGameMode(game);
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 			{
 				game.uiState.isStartGameTextVisible = false;
+				game.apples.push_back(game.apple);
+				game.apples.resize(game.numApple);
+
+				for (int i = 0; i < game.numApple; ++i)
+				{
+					InitApple(game.apples[i], game);
+				}
+				
 			}
 		}
 
@@ -157,14 +215,15 @@ namespace ApplesGame
 		window.draw(game.background);
 		DrawPlayer(game.player, window);
 
-		//std::vector<Apple> apples(game.numApple);
-		//apples.reserve(game.numApple);
-
-		for (int i = 0; i < game.numApple; ++i)
+		if (!game.uiState.isStartGameTextVisible)
 		{
-			game.apples[i].sprite.setPosition(game.apples[i].position.X, game.apples[i].position.Y);
-			window.draw(game.apples[i].sprite);
+			for (int i = 0; i < game.numApple; ++i)
+			{
+				game.apples[i].sprite.setPosition(game.apples[i].position.X, game.apples[i].position.Y);
+				window.draw(game.apples[i].sprite);
+			}
 		}
+		
 		for (int i = 0; i < NUM_ROCKS; ++i)
 		{
 			game.rocks[i].sprite.setPosition(game.rocks[i].position.X, game.rocks[i].position.Y);

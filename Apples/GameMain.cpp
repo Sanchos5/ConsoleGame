@@ -45,18 +45,9 @@ int main()
 				break;
 			}
 		}
-
-		if(game.isGameFinished)
-		{
-			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-			{
-				game.isGameFinished = false;
-			}
-		}
-		else
-		{
-			UpdateGame(game, deltaTime);
-		}
+			
+		UpdateGame(game, deltaTime);
+		
 
 		window.clear();
 		DrawGame(game, window);

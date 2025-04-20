@@ -11,6 +11,7 @@ namespace ApplesGame
 
 
 		sf::Text startGameText;
+		sf::Text hintText;
 		sf::Text gameOverText;
 
 		sf::Text inputHintText;
