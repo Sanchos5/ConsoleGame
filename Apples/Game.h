@@ -8,7 +8,9 @@
 #include "Apple.h"
 #include "Rock.h"
 #include "UI.h"
+#include "GameRecords.h"
 #include <iostream>
+#include <unordered_map>
 
 namespace ApplesGame
 {
@@ -16,11 +18,10 @@ namespace ApplesGame
 	{
 		FiniteApples = 1 << 0, // 0001
 		InfinityApples = 1 << 1, // 0010
-		AcceleratedPlayer = 1 << 2, // 0100
-		NoAcceleratedPlayer = 1 << 3, // 1000
+		NoAcceleratedPlayer = 1 << 2, // 0100
+		AcceleratedPlayer = 1 << 3, // 1000
 
 		Default = InfinityApples,
-		Empty = 0,
 	};
 
 	struct Game
@@ -32,7 +33,7 @@ namespace ApplesGame
 		Apple apple;
 		Rock rocks[NUM_ROCKS];
 		UIState uiState;
-
+		GameRecordState recordsState;
 		
 		//Global game data
 		int numApple = 10;
@@ -54,6 +55,8 @@ namespace ApplesGame
 		sf::Text gameOverText;
 
 		GameModeOption gamemode = GameModeOption::Default;
+
+		std::unordered_map<std::string, int> leaderboads;
 	};
 
 	void RestartGame(Game& game);

@@ -21,9 +21,6 @@ namespace ApplesGame
 
 	const float FINISHED_LENGTH = 3.0f;
 
-	//Game mode
-	const int MODE_FINITE_APPLES = 1 << 0; // 0001
-	const int MODE_INFINITE_APPLES = 1 << 1; // 0010
-	const int MODE_ACCELERATED_PLAYER = 1 << 2; // 0100
-	const int MODE_NO_ACCELERATION = 1 << 3; // 1000
+	const int MAX_RECORDS_TABLE_SIZE = 5;
+	extern const char* PLAYER_NAME; // We need to define this constant in some SPP
 }

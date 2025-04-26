@@ -7,6 +7,8 @@
 
 namespace ApplesGame
 {
+	const char* PLAYER_NAME = "Player";
+
 	void ChooseGameMode(Game& game)
 	{
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
@@ -42,8 +44,9 @@ namespace ApplesGame
 
 		if (game.isGameOverTextVisible)
 		{
-			game.gameOverText.setPosition(window.getSize().x / 2.f, window.getSize().y / 2.f);
+			game.gameOverText.setPosition(window.getSize().x / 2.f, 50.0f);
 			window.draw(game.gameOverText);
+			DrawGameRecord(game.recordsState, window);
 		}
 
 		if(game.uiState.isStartGameTextVisible)
@@ -66,6 +69,15 @@ namespace ApplesGame
 
 		assert(game.font.loadFromFile(RESOURCES_PATH + "Fonts/Roboto-Regular.ttf"));
 
+		game.leaderboads =
+		{
+			{"Alice", rand() % 10},
+			{"Bob", rand() % 10},
+			{"Carol", rand() % 10},
+			{"Dave", rand() % 10},
+			{"John", rand() % 10},
+		};
+		
 		InitUI(game.uiState, game.font);
 
 		game.background.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -83,6 +95,7 @@ namespace ApplesGame
 		game.gameOverText.setString("GAME OVER");
 		game.gameOverText.setOrigin(GetTextOrigin(game.gameOverText, { 0.5f, 0.5f }));
 
+		
 		RestartGame(game);
 	}
 
@@ -132,18 +145,19 @@ namespace ApplesGame
 						game.apples[i].position = GetRandomPositionInScreen(SCREEN_WIDTH + 1, SCREEN_HEIGHT + 1);
 					}
 					
-					if((std::uint8_t)GameModeOption::AcceleratedPlayer)
-					{
-						game.player.speed += ACCELERATION;
-					}
-					else if ((std::uint8_t)GameModeOption::NoAcceleratedPlayer)
+					if ((std::uint8_t)GameModeOption::NoAcceleratedPlayer)
 					{
 						game.player.speed = INITIAL_SPEED;
+					}
+					else if ((std::uint8_t)GameModeOption::AcceleratedPlayer)
+					{
+						game.player.speed += ACCELERATION;
 					}
 					
 					game.sound.setBuffer(game.soundAppleEat);
 					game.sound.play();
 					++game.numEatenApples;
+					
 				}
 			}
 
@@ -155,7 +169,6 @@ namespace ApplesGame
 					game.sound.setBuffer(game.soundDeath);
 					game.sound.play();
 					game.isGameFinished = true;
-					game.timeSinceGameFinished = FINISHED_LENGTH;
 				}
 			}
 
@@ -172,7 +185,6 @@ namespace ApplesGame
 				game.sound.setBuffer(game.soundDeath);
 				game.sound.play();
 				game.isGameFinished = true;
-				game.timeSinceGameFinished = FINISHED_LENGTH;
 			}
 		}
 
@@ -200,6 +212,8 @@ namespace ApplesGame
 			}
 			else
 			{
+				game.leaderboads[PLAYER_NAME] = std::max(game.leaderboads[PLAYER_NAME], game.numEatenApples);
+				InitGameRecord(game.recordsState, game);
 				game.isGameOverTextVisible = true;
 			}
 		}
