@@ -2,6 +2,7 @@
 #include "Game.h"
 #include <cassert>
 #include <string>
+#include <algorithm>
 
 
 namespace ApplesGame
@@ -15,14 +16,12 @@ namespace ApplesGame
 			game.gameMode |= MODE_FINITE_APPLES;
 			game.numApple = 20;
 			game.apples.push_back(game.apple);
-			game.apples.resize(game.numApple);
 		}
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 		{
 			game.gameMode |= MODE_INFINITE_APPLES;
 			game.numApple = 20;
 			game.apples.push_back(game.apple);
-			game.apples.resize(game.numApple);
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
@@ -186,7 +185,6 @@ namespace ApplesGame
 			if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 			{
 				game.uiState.isStartGameTextVisible = false;
-				game.apples.push_back(game.apple);
 				game.apples.resize(game.numApple);
 
 				for (int i = 0; i < game.numApple; ++i)

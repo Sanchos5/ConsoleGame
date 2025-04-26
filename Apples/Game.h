@@ -15,7 +15,7 @@ namespace ApplesGame
 	struct Game
 	{
 		std::vector<Apple> apples;
-		
+
 		sf::Event event;
 		Player player;
 		Apple apple;
