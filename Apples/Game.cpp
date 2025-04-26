@@ -9,28 +9,26 @@ namespace ApplesGame
 {
 	void ChooseGameMode(Game& game)
 	{
-		//sf::Event event;
-
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 		{
-			game.gameMode |= MODE_FINITE_APPLES;
+			game.gamemode = GameModeOption::FiniteApples;
 			game.numApple = 20;
 			game.apples.push_back(game.apple);
 		}
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 		{
-			game.gameMode |= MODE_INFINITE_APPLES;
+			game.gamemode = GameModeOption::InfinityApples;
 			game.numApple = 20;
 			game.apples.push_back(game.apple);
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
 		{
-			game.gameMode |= MODE_ACCELERATED_PLAYER;
+			game.gamemode = GameModeOption::AcceleratedPlayer;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
 		{
-			game.gameMode |= MODE_NO_ACCELERATION;
+			game.gamemode = GameModeOption::NoAcceleratedPlayer;
 		}
 	}
 
@@ -92,11 +90,11 @@ namespace ApplesGame
 	{
 		InitPlayer(game.player, game);
 
-		/*for (int i = 0; i < game.numApple; ++i)
+		for (int i = 0; i < game.numApple; ++i)
 		{
 			game.apples.resize(game.numApple);
 			InitApple(game.apples[i], game);
-		}*/
+		}
 
 		for (int i = 0; i < NUM_ROCKS; ++i)
 		{
@@ -124,22 +122,21 @@ namespace ApplesGame
 				if(IsCirclesCollide(game.player.position, PLAYER_SIZE,
 					game.apples[i].position, APPLE_SIZE))
 				{
-					if(game.gameMode & MODE_FINITE_APPLES)
+					if((std::uint8_t)GameModeOption::FiniteApples)
 					{
 						game.apples.erase(game.apples.begin() + i);
 						game.apples.resize(game.numApple);
 					}
-
-					if(game.gameMode & MODE_INFINITE_APPLES)
+					else if((std::uint8_t)GameModeOption::InfinityApples)
 					{
 						game.apples[i].position = GetRandomPositionInScreen(SCREEN_WIDTH + 1, SCREEN_HEIGHT + 1);
 					}
 					
-					if(game.gameMode & MODE_ACCELERATED_PLAYER)
+					if((std::uint8_t)GameModeOption::AcceleratedPlayer)
 					{
 						game.player.speed += ACCELERATION;
 					}
-					if (game.gameMode & MODE_NO_ACCELERATION)
+					else if ((std::uint8_t)GameModeOption::NoAcceleratedPlayer)
 					{
 						game.player.speed = INITIAL_SPEED;
 					}

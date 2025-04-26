@@ -12,6 +12,17 @@
 
 namespace ApplesGame
 {
+	enum class GameModeOption : std::uint8_t
+	{
+		FiniteApples = 1 << 0, // 0001
+		InfinityApples = 1 << 1, // 0010
+		AcceleratedPlayer = 1 << 2, // 0100
+		NoAcceleratedPlayer = 1 << 3, // 1000
+
+		Default = InfinityApples,
+		Empty = 0,
+	};
+
 	struct Game
 	{
 		std::vector<Apple> apples;
@@ -42,7 +53,7 @@ namespace ApplesGame
 		sf::Text scoreText;
 		sf::Text gameOverText;
 
-		int gameMode = 1;
+		GameModeOption gamemode = GameModeOption::Default;
 	};
 
 	void RestartGame(Game& game);
