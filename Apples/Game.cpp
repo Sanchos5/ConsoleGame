@@ -13,24 +13,32 @@ namespace ApplesGame
 	{
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 		{
-			game.gamemode = GameModeOption::FiniteApples;
+			game.gamemode = static_cast<GameModeOption>(static_cast<int>(game.gamemode) 
+				& ~static_cast<int>(GameModeOption::InfinityApples) | static_cast<int>(GameModeOption::FiniteApples));
+			//game.gamemode = GameModeOption::FiniteApples;
 			game.numApple = 20;
 			game.apples.push_back(game.apple);
 		}
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 		{
-			game.gamemode = GameModeOption::InfinityApples;
+			game.gamemode = static_cast<GameModeOption>(static_cast<int>(game.gamemode)
+				& ~static_cast<int>(GameModeOption::FiniteApples) | static_cast<int>(GameModeOption::InfinityApples));
+			//game.gamemode = GameModeOption::InfinityApples;
 			game.numApple = 20;
 			game.apples.push_back(game.apple);
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
 		{
-			game.gamemode = GameModeOption::AcceleratedPlayer;
+			game.gamemode = static_cast<GameModeOption>(static_cast<int>(game.gamemode)
+				& ~static_cast<int>(GameModeOption::NoAcceleratedPlayer) | static_cast<int>(GameModeOption::AcceleratedPlayer));
+			//game.gamemode = GameModeOption::AcceleratedPlayer;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
 		{
-			game.gamemode = GameModeOption::NoAcceleratedPlayer;
+			static_cast<GameModeOption>(static_cast<int>(game.gamemode)
+				& ~static_cast<int>(GameModeOption::AcceleratedPlayer) | static_cast<int>(GameModeOption::NoAcceleratedPlayer));
+			//game.gamemode = GameModeOption::NoAcceleratedPlayer;
 		}
 	}
 
@@ -46,6 +54,15 @@ namespace ApplesGame
 		{
 			game.gameOverText.setPosition(window.getSize().x / 2.f, 50.0f);
 			window.draw(game.gameOverText);
+
+			if (game.numEatenApples > game.leaderboads[PLAYER_NAME])
+			{
+				game.leaderboads[PLAYER_NAME] = game.numEatenApples;
+
+			}
+
+			InitGameRecord(game.recordsState, game);
+
 			DrawGameRecord(game.recordsState, window);
 		}
 
@@ -79,6 +96,7 @@ namespace ApplesGame
 		};
 		
 		InitUI(game.uiState, game.font);
+		//InitGameRecord(game.recordsState, game);
 
 		game.background.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
 		game.background.setFillColor(sf::Color::Black);
@@ -135,21 +153,21 @@ namespace ApplesGame
 				if(IsCirclesCollide(game.player.position, PLAYER_SIZE,
 					game.apples[i].position, APPLE_SIZE))
 				{
-					if((std::uint8_t)GameModeOption::FiniteApples)
+					if(static_cast<int>(game.gamemode) & static_cast<int>(GameModeOption::FiniteApples))
 					{
 						game.apples.erase(game.apples.begin() + i);
 						game.apples.resize(game.numApple);
 					}
-					else if((std::uint8_t)GameModeOption::InfinityApples)
+					else if(static_cast<int>(game.gamemode) & static_cast<int>(GameModeOption::InfinityApples))
 					{
 						game.apples[i].position = GetRandomPositionInScreen(SCREEN_WIDTH + 1, SCREEN_HEIGHT + 1);
 					}
 					
-					if ((std::uint8_t)GameModeOption::NoAcceleratedPlayer)
+					if (static_cast<int>(game.gamemode) & static_cast<int>(GameModeOption::NoAcceleratedPlayer))
 					{
 						game.player.speed = INITIAL_SPEED;
 					}
-					else if ((std::uint8_t)GameModeOption::AcceleratedPlayer)
+					else if (static_cast<int>(game.gamemode) & static_cast<int>(GameModeOption::AcceleratedPlayer))
 					{
 						game.player.speed += ACCELERATION;
 					}
@@ -212,8 +230,11 @@ namespace ApplesGame
 			}
 			else
 			{
-				game.leaderboads[PLAYER_NAME] = std::max(game.leaderboads[PLAYER_NAME], game.numEatenApples);
-				InitGameRecord(game.recordsState, game);
+				/*if(game.numEatenApples > game.leaderboads[PLAYER_NAME])
+				{
+					game.leaderboads[PLAYER_NAME] = game.numEatenApples;
+				}*/
+				//InitGameRecord(game.recordsState, game);
 				game.isGameOverTextVisible = true;
 			}
 		}
@@ -239,6 +260,8 @@ namespace ApplesGame
 			window.draw(game.rocks[i].sprite);
 		}
 
+		
+		
 		DrawUI(game, window);
 	}
 
