@@ -54,13 +54,9 @@ namespace ApplesGame
 		{
 			game.gameOverText.setPosition(window.getSize().x / 2.f, 50.0f);
 			window.draw(game.gameOverText);
-
-			if (game.numEatenApples > game.leaderboads[PLAYER_NAME])
-			{
-				game.leaderboads[PLAYER_NAME] = game.numEatenApples;
-
-			}
-
+			
+			const char* PLAYER_NAME = "Player";
+			game.leaderboads[PLAYER_NAME] = std::max(game.leaderboads[PLAYER_NAME], game.numEatenApples);
 			InitGameRecord(game.recordsState, game);
 
 			DrawGameRecord(game.recordsState, window);
@@ -86,13 +82,14 @@ namespace ApplesGame
 
 		assert(game.font.loadFromFile(RESOURCES_PATH + "Fonts/Roboto-Regular.ttf"));
 
+
 		game.leaderboads =
 		{
 			{"Alice", rand() % 10},
 			{"Bob", rand() % 10},
 			{"Carol", rand() % 10},
 			{"Dave", rand() % 10},
-			{"John", rand() % 10},
+			{"John", rand() % 1},
 		};
 		
 		InitUI(game.uiState, game.font);
@@ -230,10 +227,9 @@ namespace ApplesGame
 			}
 			else
 			{
-				/*if(game.numEatenApples > game.leaderboads[PLAYER_NAME])
-				{
-					game.leaderboads[PLAYER_NAME] = game.numEatenApples;
-				}*/
+				//const char* PLAYER_NAME = "Player";
+				//game.leaderboads[PLAYER_NAME] = std::max(game.leaderboads[PLAYER_NAME], game.numEatenApples);
+
 				//InitGameRecord(game.recordsState, game);
 				game.isGameOverTextVisible = true;
 			}
