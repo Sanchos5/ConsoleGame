@@ -48,6 +48,7 @@ namespace ApplesGame
 		window.draw(game.scoreText);
 
 		game.uiState.inputHintText.setPosition(window.getSize().x - 10.f, 10.f);
+		
 		window.draw(game.uiState.inputHintText);
 
 		if (game.isGameOverTextVisible)
@@ -57,8 +58,8 @@ namespace ApplesGame
 			
 			const char* PLAYER_NAME = "Player";
 			game.leaderboads[PLAYER_NAME] = std::max(game.leaderboads[PLAYER_NAME], game.numEatenApples);
+			
 			InitGameRecord(game.recordsState, game);
-
 			DrawGameRecord(game.recordsState, window);
 		}
 
