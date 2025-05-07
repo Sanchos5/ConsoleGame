@@ -90,7 +90,7 @@ namespace ApplesGame
 			{"Bob", rand() % 10},
 			{"Carol", rand() % 10},
 			{"Dave", rand() % 10},
-			{"John", rand() % 1},
+			{"John", rand() % 3},
 		};
 		
 		InitUI(game.uiState, game.font);

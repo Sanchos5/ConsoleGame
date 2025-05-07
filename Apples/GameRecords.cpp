@@ -14,9 +14,10 @@ namespace ApplesGame
 		data.titleText.setFillColor(sf::Color::Red);
 		data.titleText.setCharacterSize(30);
 
+		data.tableTexts.clear();
 		data.tableTexts.reserve(MAX_RECORDS_TABLE_SIZE);
 
-		data.tableTexts.clear();
+		
 
 		std::multimap<int, std::string> sortedRecordsTable;
 		for (const auto& item : game.leaderboads)
