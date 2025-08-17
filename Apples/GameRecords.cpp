@@ -20,10 +20,10 @@ namespace ApplesGame
 		
 
 		std::multimap<int, std::string> sortedRecordsTable;
-		for (const auto& item : game.leaderboads)
+		/*for (const auto& item : game.leaderboads)
 		{
 			sortedRecordsTable.insert(std::make_pair(item.second, item.first));
-		}
+		}*/
 
 		auto it = sortedRecordsTable.rbegin();
 		for (int i = 0; i < MAX_RECORDS_TABLE_SIZE && it != sortedRecordsTable.rend(); ++i, ++it)
@@ -38,14 +38,14 @@ namespace ApplesGame
 			text.setFont(data.font);
 			text.setFillColor(sf::Color::White);
 			text.setCharacterSize(24);
-			if(it->second == PLAYER_NAME)
+			/*if(it->second == PLAYER_NAME)
 			{
 				text.setFillColor(sf::Color::Green);
 			}
 			else
 			{
 				text.setFillColor(sf::Color::White);
-			}
+			}*/
 		}
 	}
 

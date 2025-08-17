@@ -77,37 +77,12 @@ namespace ApplesGame
 					if ((std::uint8_t)game.options & (std::uint8_t)GameModeOption::InfinityApples)
 					{
 						data.apples[i].position = GetRandomPositionInScreen(SCREEN_WIDTH + 1, SCREEN_HEIGHT + 1);
-						// Move apple to a new random position
-						//ResetAppleState(*collidingApples[i]);
-						//AddAppleToGrid(data.applesGrid, *collidingApples[i]);
 					}
 					else
 					{
 						data.apples.erase(data.apples.begin() + i);
 						data.apples.resize(data.numApple);
-						// Mark apple as eaten
-						//MarkAppleAsEaten(*collidingApples[i]);
-						//RemoveAppleFromGrid(data.applesGrid, *collidingApples[i]);
 					}
-
-					/*if (static_cast<int>(game.options) & static_cast<int>(GameModeOption::FiniteApples))
-					{
-						data.apples.erase(data.apples.begin() + i);
-						data.apples.resize(data.numApple);
-					}
-					else if (static_cast<int>(game.options) & static_cast<int>(GameModeOption::InfinityApples))
-					{
-						data.apples[i].position = GetRandomPositionInScreen(SCREEN_WIDTH + 1, SCREEN_HEIGHT + 1);
-					}
-
-					if (static_cast<int>(game.options) & static_cast<int>(GameModeOption::NoAcceleratedPlayer))
-					{
-						data.player.speed = INITIAL_SPEED;
-					}
-					else if (static_cast<int>(game.options) & static_cast<int>(GameModeOption::AcceleratedPlayer))
-					{
-						data.player.speed += ACCELERATION;
-					}*/
 
 					if ((std::uint8_t)game.options & (std::uint8_t)GameModeOption::AcceleratedPlayer)
 					{
@@ -140,6 +115,7 @@ namespace ApplesGame
 			// stop game
 			if (!data.isGameFinished)
 			{
+
 				data.sound.setBuffer(data.soundDeath);
 				data.sound.play();
 				data.isGameFinished = true;
@@ -148,6 +124,25 @@ namespace ApplesGame
 		}
 
 		data.scoreText.setString("Apples eaten: " + std::to_string(data.numEatenApples));
+
+		if (data.isGameFinished)
+		{
+			// Find player in records table and update his score
+			for (RecordsTableItem& item : game.recordsTable)
+			{
+				if (item.name == "Player")
+				{
+					item.score = data.numEatenApples;
+					break;
+				}
+			}
+
+			// Sort records table
+			std::sort(std::begin(game.recordsTable), std::end(game.recordsTable));
+
+			PushGameState(game, GameStateType::GameOver, false);
+		}
+
 	}
 
 	void DrawGameStatePlaying(GameStatePlayingData& data, Game& game, sf::RenderWindow& window)

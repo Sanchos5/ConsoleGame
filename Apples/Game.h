@@ -7,8 +7,6 @@
 #include "Player.h"
 #include "Apple.h"
 #include "Rock.h"
-#include "UI.h"
-#include "GameRecords.h"
 #include <iostream>
 #include <unordered_map>
 
@@ -16,14 +14,20 @@ namespace ApplesGame
 {
 	enum class GameModeOption : std::uint8_t
 	{
-		//FiniteApples = 1 << 0, // 0001
-		InfinityApples = 1 << 0, // 0010
-		//NoAcceleratedPlayer = 1 << 2, // 0100
-		AcceleratedPlayer = 1 << 1, // 1000
+		InfinityApples = 1 << 0,
+		AcceleratedPlayer = 1 << 1,
 
 		Default = InfinityApples | AcceleratedPlayer,
 		Empty = 0
 	};
+
+	struct RecordsTableItem
+	{
+		std::string name;
+		int score = 0;
+	};
+
+	bool operator<(const RecordsTableItem& lhs, const RecordsTableItem& rhs);
 
 	enum class GameStateType
 	{
@@ -59,7 +63,7 @@ namespace ApplesGame
 
 		GameModeOption options = GameModeOption::Default;
 
-		std::unordered_map<std::string, int> leaderboads;
+		RecordsTableItem recordsTable[MAX_RECORDS_TABLE_SIZE];
 	};
 
 	void InitGame(Game& game);
@@ -68,8 +72,6 @@ namespace ApplesGame
 	void DrawGame(Game& game, sf::RenderWindow& window);
 	void ShutdownGame(Game& game);
 
-	void RestartGame(Game& game);
-	
 	// Add new game state on top of the stack
 	void PushGameState(Game& game, GameStateType stateType, bool isExclusivelyVisible);
 
@@ -84,7 +86,4 @@ namespace ApplesGame
 	void HandleWindowEventGameState(Game& game, GameState& state, sf::Event& event);
 	void UpdateGameState(Game& game, GameState& state, float timeDelta);
 	void DrawGameState(Game& game, GameState& state, sf::RenderWindow& window);
-	
-	void DrawUI(Game& uiState, sf::RenderWindow& window);
-	//void ChooseGameMode(Game& game);
 }

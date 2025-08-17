@@ -21,6 +21,5 @@ namespace ApplesGame
 
 	const float FINISHED_LENGTH = 3.0f;
 
-	const int MAX_RECORDS_TABLE_SIZE = 5;
-	extern const char* PLAYER_NAME; // We need to define this constant in some SPP
+	const int MAX_RECORDS_TABLE_SIZE = 6;
 }

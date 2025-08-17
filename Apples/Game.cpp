@@ -5,117 +5,30 @@
 #include <algorithm>
 #include "GameStateMainMenu.h"
 #include "GameStatePlaying.h"
+#include "GameStateGameOver.h"
 #include "GameStateExitDialog.h"
 
 
 namespace ApplesGame
 {
-	const char* PLAYER_NAME = "Player";
-
-	/*void ChooseGameMode(Game& game)
+	bool operator<(const RecordsTableItem& lhs, const RecordsTableItem& rhs)
 	{
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
-		{
-			game.gamemode = static_cast<GameModeOption>(static_cast<int>(game.gamemode) 
-				& ~static_cast<int>(GameModeOption::InfinityApples) | static_cast<int>(GameModeOption::FiniteApples));
-			game.numApple = 20;
-			game.apples.push_back(game.apple);
-		}
-		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
-		{
-			game.gamemode = static_cast<GameModeOption>(static_cast<int>(game.gamemode)
-				& ~static_cast<int>(GameModeOption::FiniteApples) | static_cast<int>(GameModeOption::InfinityApples));
-			game.numApple = 20;
-			game.apples.push_back(game.apple);
-		}
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
-		{
-			game.gamemode = static_cast<GameModeOption>(static_cast<int>(game.gamemode)
-				& ~static_cast<int>(GameModeOption::NoAcceleratedPlayer) | static_cast<int>(GameModeOption::AcceleratedPlayer));
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
-		{
-			static_cast<GameModeOption>(static_cast<int>(game.gamemode)
-				& ~static_cast<int>(GameModeOption::AcceleratedPlayer) | static_cast<int>(GameModeOption::NoAcceleratedPlayer));
-		}
-	}*/
-
-	//void DrawUI(Game& game, sf::RenderWindow& window)
-	//{
-	//	//game.scoreText.setPosition(10.f, 10.f);
-	//	//window.draw(game.scoreText);
-
-	//	//game.uiState.inputHintText.setPosition(window.getSize().x - 10.f, 10.f);
-	//	
-	//	//window.draw(game.uiState.inputHintText);
-
-	//	if (game.isGameOverTextVisible)
-	//	{
-	//		game.gameOverText.setPosition(window.getSize().x / 2.f, 50.0f);
-	//		window.draw(game.gameOverText);
-	//		
-	//		const char* PLAYER_NAME = "Player";
-	//		//game.leaderboads[PLAYER_NAME] = std::max(game.leaderboads[PLAYER_NAME], game.numEatenApples);
-	//		
-	//		InitGameRecord(game.recordsState, game);
-	//		DrawGameRecord(game.recordsState, window);
-	//	}
-
-	//	if(game.uiState.isStartGameTextVisible)
-	//	{
-	//		game.uiState.startGameText.setPosition(window.getSize().x / 2.f, (window.getSize().y / 2.f) - 100.f);
-	//		window.draw(game.uiState.startGameText);
-
-	//		game.uiState.hintText.setPosition(window.getSize().x / 2.f, (window.getSize().y / 2.f));
-	//		window.draw(game.uiState.hintText);
-	//	}
-	//}
-
+		return lhs.score > rhs.score;
+	}
 	void InitGame(Game& game)
 	{
-		//assert(game.playerTexture.loadFromFile(RESOURCES_PATH + "\\Player.png"));
-		//assert(game.appleTexture.loadFromFile(RESOURCES_PATH + "\\Apple.png"));
-		//assert(game.rockTexture.loadFromFile(RESOURCES_PATH + "\\Rock.png"));
-		//assert(game.soundAppleEat.loadFromFile(RESOURCES_PATH + "\\AppleEat.wav"));
-		//assert(game.soundDeath.loadFromFile(RESOURCES_PATH + "\\Death.wav"));
-
-		//assert(game.font.loadFromFile(RESOURCES_PATH + "Fonts/Roboto-Regular.ttf"));
-
-
-		game.leaderboads =
-		{
-			{"Alice", rand() % 10},
-			{"Bob", rand() % 10},
-			{"Carol", rand() % 10},
-			{"Dave", rand() % 10},
-			{"John", rand() % 3},
-		};
+		game.recordsTable[0] = { "Alice", rand() % 10 };
+		game.recordsTable[1] = { "Bob", rand() % 10 };
+		game.recordsTable[2] = { "Carol", rand() % 10 };
+		game.recordsTable[3] = { "Dave", rand() % 10 };
+		game.recordsTable[4] = { "John", rand() % 3 };
+		game.recordsTable[5] = { "Player", 0 };
 		
-		//InitUI(game.uiState, game.font);
-		//InitGameRecord(game.recordsState, game);
-
-		/*game.background.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
-		game.background.setFillColor(sf::Color::Black);
-		game.background.setPosition(0.0f, 0.0f);*/
-
-		//game.scoreText.setFont(game.font);
-		//game.scoreText.setCharacterSize(24);
-		//game.scoreText.setFillColor(sf::Color::White);
-
-		/*game.gameOverText.setFont(game.font);
-		game.gameOverText.setCharacterSize(48);
-		game.gameOverText.setStyle(sf::Text::Bold);
-		game.gameOverText.setFillColor(sf::Color::Red);
-		game.gameOverText.setString("GAME OVER");
-		game.gameOverText.setOrigin(GetTextOrigin(game.gameOverText, { 0.5f, 0.5f }));*/
-
 		game.gameStateChangeType = GameStateChangeType::None;
 		game.pendingGameStateType = GameStateType::None;
 		game.pendingGameStateIsExclusivelyVisible = false;
 
 		SwitchGameState(game, GameStateType::MainMenu);
-		//RestartGame(game);
 	}
 
 	void HandleWindowEvents(Game& game, sf::RenderWindow& window)
@@ -135,29 +48,6 @@ namespace ApplesGame
 			}
 		}
 	}
-
-	//void RestartGame(Game& game)
-	//{
-	//	//InitPlayer(game.player, game);
-
-	//	/*for (int i = 0; i < game.numApple; ++i)
-	//	{
-	//		game.apples.resize(game.numApple);
-	//		InitApple(game.apples[i], game);
-	//	}
-
-	//	for (int i = 0; i < NUM_ROCKS; ++i)
-	//	{
-	//		InitRock(game.rocks[i], game);
-	//	}*/
-
-	//	//Paused
-	//	//game.sound.stop();
-	//	//game.numEatenApples = 0;
-	//	//game.isGameFinished = false;
-	//	game.isGameOverTextVisible = false;
-	//	game.timeSinceGameFinished = 0.0f;
-	//}
 
 	bool UpdateGame(Game& game, float deltaTime)
 	{
@@ -274,8 +164,8 @@ namespace ApplesGame
 		}
 		case GameStateType::GameOver:
 		{
-			//state.data = new GameStateGameOverData();
-			//InitGameStateGameOver(*(GameStateGameOverData*)state.data, game);
+			state.data = new GameStateGameOverData();
+			InitGameStateGameOver(*(GameStateGameOverData*)state.data, game);
 			break;
 		}
 		case GameStateType::ExitDialog:
@@ -308,8 +198,8 @@ namespace ApplesGame
 		}
 		case GameStateType::GameOver:
 		{
-			//ShutdownGameStateGameOver(*(GameStateGameOverData*)state.data, game);
-			//delete (GameStateGameOverData*)state.data;
+			ShutdownGameStateGameOver(*(GameStateGameOverData*)state.data, game);
+			delete (GameStateGameOverData*)state.data;
 			break;
 		}
 		case GameStateType::ExitDialog:
@@ -342,7 +232,7 @@ namespace ApplesGame
 		}
 		case GameStateType::GameOver:
 		{
-			//HandleGameStateGameOverWindowEvent(*(GameStateGameOverData*)state.data, game, event);
+			HandleGameStateGameOverWindowEvent(*(GameStateGameOverData*)state.data, game, event);
 			break;
 		}
 		case GameStateType::ExitDialog:
@@ -372,7 +262,7 @@ namespace ApplesGame
 		}
 		case GameStateType::GameOver:
 		{
-			//UpdateGameStateGameOver(*(GameStateGameOverData*)state.data, game, timeDelta);
+			UpdateGameStateGameOver(*(GameStateGameOverData*)state.data, game, timeDelta);
 			break;
 		}
 		case GameStateType::ExitDialog:
@@ -402,7 +292,7 @@ namespace ApplesGame
 		}
 		case GameStateType::GameOver:
 		{
-			//DrawGameStateGameOver(*(GameStateGameOverData*)state.data, game, window);
+			DrawGameStateGameOver(*(GameStateGameOverData*)state.data, game, window);
 			break;
 		}
 		case GameStateType::ExitDialog:
@@ -415,7 +305,5 @@ namespace ApplesGame
 			break;
 		}
 	}
-
-	
 }
 

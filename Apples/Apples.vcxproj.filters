@@ -28,9 +28,6 @@
     <ClCompile Include="Game.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="GameRecords.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
@@ -45,6 +42,9 @@
     </ClCompile>
     <ClCompile Include="Menu.cpp">
       <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStateGameOver.cpp">
+      <Filter>Sources\GameState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -66,9 +66,6 @@
     <ClInclude Include="Game.h">
       <Filter>Sources</Filter>
     </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
     <ClInclude Include="GameRecords.h">
       <Filter>Sources</Filter>
     </ClInclude>
@@ -83,6 +80,9 @@
     </ClInclude>
     <ClInclude Include="Menu.h">
       <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStateGameOver.h">
+      <Filter>Sources\GameState</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
