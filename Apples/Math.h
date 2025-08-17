@@ -4,11 +4,6 @@
 
 namespace ApplesGame
 {
-	/*namespace sf
-	{
-		class Sprite;
-	}*/
-
 	struct Vector2D
 	{
 		float X = 0.0f;
@@ -27,5 +22,22 @@ namespace ApplesGame
 
 	void SetSpriteSize(sf::Sprite& sprite, float desiredWidth, float desiredHeight);
 	void SetSpriteRelativeOrigin(sf::Sprite& sprite, float originX, float originY);
-	sf::Vector2f GetTextOrigin(const sf::Text& text, const Vector2D& relativePosition);
+	sf::Vector2f GetTextOrigin(const sf::Text& text, const sf::Vector2f& relativePosition);
+
+	// Helper method for organizing text items
+	enum class Orientation
+	{
+		Horizontal,
+		Vertical
+	};
+
+	enum class Alignment
+	{
+		Min, // Left or Top
+		Middle,
+		Max // Right or Bottom
+	};
+
+	void DrawItemsList(sf::RenderWindow& window, const std::vector<sf::Text*>& items, float spacing, Orientation orientation, Alignment alignment, const sf::Vector2f& position, const sf::Vector2f& origin);
+
 }

@@ -23,10 +23,11 @@ namespace ApplesGame
 	};
 
 	struct Game;
+	struct GameStatePlayingData;
 
-	void InitPlayer(Player& player, const Game& game);
+	void InitPlayer(Player& player, const sf::Texture& texture);
 	void DrawPlayer(Player& player, sf::RenderWindow& window);
 
-	void HandleInput(Game& game);
-	void UpdateInput(Game& game, float deltaTime);
+	void HandleInput(GameStatePlayingData& data);
+	void UpdateInput(GameStatePlayingData& data, float deltaTime);
 }

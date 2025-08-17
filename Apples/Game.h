@@ -16,54 +16,75 @@ namespace ApplesGame
 {
 	enum class GameModeOption : std::uint8_t
 	{
-		FiniteApples = 1 << 0, // 0001
-		InfinityApples = 1 << 1, // 0010
-		NoAcceleratedPlayer = 1 << 2, // 0100
-		AcceleratedPlayer = 1 << 3, // 1000
+		//FiniteApples = 1 << 0, // 0001
+		InfinityApples = 1 << 0, // 0010
+		//NoAcceleratedPlayer = 1 << 2, // 0100
+		AcceleratedPlayer = 1 << 1, // 1000
 
-		Default = InfinityApples,
+		Default = InfinityApples | AcceleratedPlayer,
+		Empty = 0
+	};
+
+	enum class GameStateType
+	{
+		None = 0,
+		MainMenu,
+		Playing,
+		GameOver,
+		ExitDialog,
+	};
+
+	struct GameState
+	{
+		GameStateType type = GameStateType::None;
+		void* data = nullptr;
+		bool isExclusivelyVisible = false;
+	};
+
+	enum class GameStateChangeType
+	{
+		None,
+		Push,
+		Pop,
+		Switch
 	};
 
 	struct Game
 	{
-		std::vector<Apple> apples;
+		std::vector<GameState> gameStateStack;
+		GameStateChangeType gameStateChangeType = GameStateChangeType::None;
+		GameStateType pendingGameStateType = GameStateType::None;
+		bool pendingGameStateIsExclusivelyVisible = false;
 
-		sf::Event event;
-		Player player;
-		Apple apple;
-		Rock rocks[NUM_ROCKS];
-		UIState uiState;
-		GameRecordState recordsState;
-		
-		//Global game data
-		int numApple = 10;
-		int numEatenApples = 0;
-		bool isGameFinished = false;
-		float timeSinceGameFinished = 0.0f;
-		bool isGameOverTextVisible = false;
-		sf::RectangleShape background;
 
-		sf::Texture playerTexture;
-		sf::Texture appleTexture;
-		sf::Texture rockTexture;
-		sf::SoundBuffer soundAppleEat;
-		sf::SoundBuffer soundDeath;
-		sf::Sound sound;
-
-		sf::Font font;
-		sf::Text scoreText;
-		sf::Text gameOverText;
-
-		GameModeOption gamemode = GameModeOption::Default;
+		GameModeOption options = GameModeOption::Default;
 
 		std::unordered_map<std::string, int> leaderboads;
 	};
 
-	void RestartGame(Game& game);
 	void InitGame(Game& game);
-	void UpdateGame(Game& game, float deltaTime);
+	void HandleWindowEvents(Game& game, sf::RenderWindow& window);
+	bool UpdateGame(Game& game, float deltaTime);
 	void DrawGame(Game& game, sf::RenderWindow& window);
+	void ShutdownGame(Game& game);
+
+	void RestartGame(Game& game);
+	
+	// Add new game state on top of the stack
+	void PushGameState(Game& game, GameStateType stateType, bool isExclusivelyVisible);
+
+	// Remove current game state from the stack
+	void PopGameState(Game& game);
+
+	// Remove all game states from the stack and add new one
+	void SwitchGameState(Game& game, GameStateType newState);
+
+	void InitGameState(Game& game, GameState& state);
+	void ShutdownGameState(Game& game, GameState& state);
+	void HandleWindowEventGameState(Game& game, GameState& state, sf::Event& event);
+	void UpdateGameState(Game& game, GameState& state, float timeDelta);
+	void DrawGameState(Game& game, GameState& state, sf::RenderWindow& window);
+	
 	void DrawUI(Game& uiState, sf::RenderWindow& window);
-	void ChooseGameMode(Game& game);
-	void DeinitializeGame(Game& game);
+	//void ChooseGameMode(Game& game);
 }

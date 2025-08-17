@@ -1,9 +1,10 @@
 #include "Player.h"
 #include "Game.h"
+#include "GameStatePlaying.h"
 
 namespace ApplesGame
 {
-	void InitPlayer(Player& player, const Game& game)
+	void InitPlayer(Player& player, const sf::Texture& texture)
 	{
 		//Init player state
 		player.position = { SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f };
@@ -11,7 +12,7 @@ namespace ApplesGame
 		player.direction = PlayerDirection::Right;
 
 		//Init player sprite
-		player.sprite.setTexture(game.playerTexture);
+		player.sprite.setTexture(texture);
 		SetSpriteSize(player.sprite, PLAYER_SIZE, PLAYER_SIZE);
 		SetSpriteRelativeOrigin(player.sprite, 0.5f, 0.5f);
 	}
@@ -22,54 +23,54 @@ namespace ApplesGame
 		window.draw(player.sprite);
 	}
 
-	void HandleInput(Game& game)
+	void HandleInput(GameStatePlayingData& data)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
-			game.player.direction = PlayerDirection::Right;
+			data.player.direction = PlayerDirection::Right;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
-			game.player.direction = PlayerDirection::Up;
+			data.player.direction = PlayerDirection::Up;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		{
-			game.player.direction = PlayerDirection::Left;
+			data.player.direction = PlayerDirection::Left;
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
-			game.player.direction = PlayerDirection::Down;
+			data.player.direction = PlayerDirection::Down;
 		}
 	}
 
-	void UpdateInput(Game& game, float deltaTime)
+	void UpdateInput(GameStatePlayingData& data, float deltaTime)
 	{
-		switch (game.player.direction)
+		switch (data.player.direction)
 		{
 			case PlayerDirection::Right:
 			{
-				game.player.position.X += game.player.speed * deltaTime;
-				SetSpriteSize(game.player.sprite, PLAYER_SIZE, PLAYER_SIZE);
-				game.player.sprite.setRotation(0.0f);
+				data.player.position.X += data.player.speed * deltaTime;
+				SetSpriteSize(data.player.sprite, PLAYER_SIZE, PLAYER_SIZE);
+				data.player.sprite.setRotation(0.0f);
 				break;
 			}
 			case PlayerDirection::Up:
 			{
-				game.player.position.Y -= game.player.speed * deltaTime;
-				game.player.sprite.setRotation(-90.0f);
+				data.player.position.Y -= data.player.speed * deltaTime;
+				data.player.sprite.setRotation(-90.0f);
 				break;
 			}
 			case PlayerDirection::Left:
 			{
-				game.player.position.X -= game.player.speed * deltaTime;
-				SetSpriteSize(game.player.sprite, PLAYER_SIZE, PLAYER_SIZE * (-1.0f));
-				game.player.sprite.setRotation(-180.0f);
+				data.player.position.X -= data.player.speed * deltaTime;
+				SetSpriteSize(data.player.sprite, PLAYER_SIZE, PLAYER_SIZE * (-1.0f));
+				data.player.sprite.setRotation(-180.0f);
 				break;
 			}
 			case PlayerDirection::Down:
 			{
-				game.player.position.Y += game.player.speed * deltaTime;
-				game.player.sprite.setRotation(90.0f);
+				data.player.position.Y += data.player.speed * deltaTime;
+				data.player.sprite.setRotation(90.0f);
 				break;
 			}
 		}

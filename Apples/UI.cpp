@@ -10,11 +10,11 @@ namespace ApplesGame
 		uiState.scoreText.setCharacterSize(24);
 		uiState.scoreText.setFillColor(sf::Color::Yellow);*/
 
-		uiState.inputHintText.setFont(font);
+		/*uiState.inputHintText.setFont(font);
 		uiState.inputHintText.setCharacterSize(16);
 		uiState.inputHintText.setFillColor(sf::Color::White);
 		uiState.inputHintText.setString("Use arrow keys to move, Space to restart, ESC to exit");
-		uiState.inputHintText.setOrigin(GetTextOrigin(uiState.inputHintText, { 1.f, 0.f }));
+		uiState.inputHintText.setOrigin(GetTextOrigin(uiState.inputHintText, { 1.f, 0.f }));*/
 
 
 		uiState.isStartGameTextVisible = true;
