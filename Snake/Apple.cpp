@@ -7,7 +7,7 @@ namespace SnakeGame
 {
 	void InitApple(Apple& apple, const sf::Texture& texture)
 	{
-		apple.position = GetRandomPositionInScreen(SCREEN_WIDTH, SCREEN_HEIGHT);
+		apple.position = GetRandomPositionInScreen(SCREEN_WIDTH - 50, SCREEN_HEIGHT - 50);
 
 		//Init apple sprite
 		apple.sprite.setTexture(texture);

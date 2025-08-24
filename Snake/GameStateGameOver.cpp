@@ -1,9 +1,12 @@
 #include "GameStateGameOver.h"
 #include <assert.h>
 #include "Game.h"
+#include <sstream>
 
 namespace SnakeGame
 {
+	const char* PLAYER_NAME = "Player";
+
 	void InitGameStateGameOver(GameStateGameOverData& data, Game& game)
 	{
 		assert(data.font.loadFromFile(RESOURCES_PATH + "Fonts/Roboto-Regular.ttf"));
@@ -23,11 +26,48 @@ namespace SnakeGame
 		data.hintText.setString("Press Space to restart");
 		data.hintText.setOrigin(GetTextOrigin(data.hintText, { 0.5f, 1.f }));
 
-		data.recordsTableText.setFont(data.font);
-		data.recordsTableText.setCharacterSize(24);
-		data.recordsTableText.setFillColor(sf::Color::Green);
-		data.recordsTableText.setString("Records:\nPlayer: 999\nPlayer: 999\nPlayer: 999\nPlayer: 999\nPlayer: 999\nPlayer: 999");
-		data.recordsTableText.setOrigin(GetTextOrigin(data.recordsTableText, { 0.5f, 0.f }));
+		data.recordsTableTexts.reserve(MAX_RECORDS_TABLE_SIZE);
+
+		std::multimap<int, std::string> sortedRecordsTable;
+		int snakeScores = game.recordsTable[PLAYER_NAME];
+		for (const auto& item : game.recordsTable)
+		{
+			sortedRecordsTable.insert(std::make_pair(item.second, item.first));
+		}
+
+		bool isSnakeInTable = false;
+		auto it = sortedRecordsTable.rbegin();
+		for (int i = 0; i < MAX_RECORDS_TABLE_SIZE && it != sortedRecordsTable.rend(); ++i, ++it) // Note, we can do several actions in for action block
+		{
+			data.recordsTableTexts.emplace_back(); // Create text in place
+			sf::Text& text = data.recordsTableTexts.back();
+
+			// We can use streams for writing into string and reading from it
+			std::stringstream sstream;
+			sstream << i + 1 << ". " << it->second << ": " << it->first;
+			text.setString(sstream.str());
+			text.setFont(data.font);
+			text.setCharacterSize(24);
+			if (it->second == PLAYER_NAME)
+			{
+				text.setFillColor(sf::Color::Green);
+				isSnakeInTable = true;
+			}
+			else
+			{
+				text.setFillColor(sf::Color::White);
+			}
+		}
+
+		// If snake is not in table, replace last element with him
+		if (!isSnakeInTable)
+		{
+			sf::Text& text = data.recordsTableTexts.back();
+			std::stringstream sstream;
+			sstream << MAX_RECORDS_TABLE_SIZE << ". " << PLAYER_NAME << ": " << snakeScores;
+			text.setString(sstream.str());
+			text.setFillColor(sf::Color::Green);
+		}
 	}
 
 	void ShutdownGameStateGameOver(GameStateGameOverData& data, Game& game)
@@ -57,23 +97,39 @@ namespace SnakeGame
 		sf::Color gameOverTextColor = (int)data.timeSinceGameOver % 2 ? sf::Color::Red : sf::Color::Yellow;
 		data.gameOverText.setFillColor(gameOverTextColor);
 
-		data.recordsTableText.setString("Records:");
+		/*data.recordsTableText.setString("Records:");
 		for (const RecordsTableItem& item : game.recordsTable)
 		{
 			data.recordsTableText.setString(data.recordsTableText.getString() + "\n" + item.name + ": " + std::to_string(item.score));
 		}
-		data.recordsTableText.setOrigin(GetTextOrigin(data.recordsTableText, { 0.5f, 0.f }));
+		data.recordsTableText.setOrigin(GetTextOrigin(data.recordsTableText, { 0.5f, 0.f }));*/
 	}
 
 	void DrawGameStateGameOver(GameStateGameOverData& data, Game& game, sf::RenderWindow& window)
 	{
 		sf::Vector2f viewSize = window.getView().getSize();
 
-		data.gameOverText.setPosition(viewSize.x / 2.f, viewSize.y / 2.f);
+		data.gameOverText.setPosition(viewSize.x / 2.f, viewSize.y / 2.f - 150.f);
 		window.draw(data.gameOverText);
 
-		data.recordsTableText.setPosition(viewSize.x / 2.f, 30.f);
-		window.draw(data.recordsTableText);
+		// We need to create new vector here as DrawItemsList needs vector of pointers
+		std::vector<sf::Text*> textsList;
+		textsList.reserve(data.recordsTableTexts.size());
+		for (auto& text : data.recordsTableTexts)
+		{
+			textsList.push_back(&text);
+		}
+
+		for (int i = 0; i < MAX_RECORDS_TABLE_SIZE; ++i)
+		{
+			data.recordsTableTexts[i].setOrigin(GetTextOrigin(data.recordsTableTexts[i], { 0.5f, 0.f }));
+			data.recordsTableTexts[i].setPosition(window.getSize().x / 2.f, 200 + i * 50.f);
+
+			window.draw(data.recordsTableTexts[i]);
+		}
+
+		//sf::Vector2f tablePosition = { viewSize.x / 2, viewSize.y / 2.f };
+		//window.draw(data.recordsTableTexts[i]);
 
 		data.hintText.setPosition(viewSize.x / 2.f, viewSize.y - 10.f);
 		window.draw(data.hintText);

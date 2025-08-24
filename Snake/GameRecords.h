@@ -7,7 +7,7 @@ namespace SnakeGame
 {
 	struct Game;
 
-	struct GameRecordState
+	struct GameStateRecordsData
 	{
 		sf::Font font;
 
@@ -16,7 +16,9 @@ namespace SnakeGame
 		sf::Text hintText;
 	};
 
-	void InitGameRecord(GameRecordState& data, Game& game);
-	void UpdateGameRecord(GameRecordState& data, Game& game, float timeDelta);
-	void DrawGameRecord(GameRecordState& data, sf::RenderWindow& window);
+	void ShutdownGameStateRecords(GameStateRecordsData& data, Game& game);
+	void HandleGameStateRecordsWindowEvent(GameStateRecordsData& data, Game& game, const sf::Event& event);
+	void InitGameRecord(GameStateRecordsData& data, Game& game);
+	void UpdateGameStateRecords(GameStateRecordsData& data, Game& game, float timeDelta);
+	void DrawGameStateRecords(GameStateRecordsData& data, Game& game, sf::RenderWindow& window);
 }

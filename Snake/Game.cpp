@@ -7,22 +7,22 @@
 #include "GameStatePlaying.h"
 #include "GameStateGameOver.h"
 #include "GameStateExitDialog.h"
+#include "GameRecords.h"
 
 
 namespace SnakeGame
 {
-	bool operator<(const RecordsTableItem& lhs, const RecordsTableItem& rhs)
-	{
-		return lhs.score > rhs.score;
-	}
 	void InitGame(Game& game)
 	{
-		game.recordsTable[0] = { "Alice", rand() % 10 };
-		game.recordsTable[1] = { "Bob", rand() % 10 };
-		game.recordsTable[2] = { "Carol", rand() % 10 };
-		game.recordsTable[3] = { "Dave", rand() % 10 };
-		game.recordsTable[4] = { "John", rand() % 3 };
-		game.recordsTable[5] = { "Player", 0 };
+		// Generate fake records table
+		game.recordsTable =
+		{
+			{"John", rand() % 10},
+			{"Jane", rand() % 10 },
+			{"Alice", rand() % 10 },
+			{"Bob", rand() % 10 },
+			{"Clementine", rand() % 10 },
+		};
 		
 		game.gameStateChangeType = GameStateChangeType::None;
 		game.pendingGameStateType = GameStateType::None;
@@ -174,6 +174,12 @@ namespace SnakeGame
 			InitGameStateExitDialog(*(GameStateExitDialogData*)state.data, game);
 			break;
 		}
+		case GameStateType::Records:
+		{
+			state.data = new GameStateRecordsData();
+			InitGameRecord(*(GameStateRecordsData*)state.data, game);
+			break;
+		}
 		default:
 			assert(false); // We want to know if we forgot to implement new game statee
 			break;
@@ -208,6 +214,12 @@ namespace SnakeGame
 			delete (GameStateExitDialogData*)state.data;
 			break;
 		}
+		case GameStateType::Records:
+		{
+			ShutdownGameStateRecords(*(GameStateRecordsData*)state.data, game);
+			delete (GameStateRecordsData*)state.data;
+			break;
+		}
 		default:
 			assert(false); // We want to know if we forgot to implement new game statee
 			break;
@@ -240,6 +252,11 @@ namespace SnakeGame
 			HandleGameStateExitDialogWindowEvent(*(GameStateExitDialogData*)state.data, game, event);
 			break;
 		}
+		case GameStateType::Records:
+		{
+			HandleGameStateRecordsWindowEvent(*(GameStateRecordsData*)state.data, game, event);
+			break;
+		}
 		default:
 			assert(false); // We want to know if we forgot to implement new game statee
 			break;
@@ -270,6 +287,11 @@ namespace SnakeGame
 			UpdateGameStateExitDialog(*(GameStateExitDialogData*)state.data, game, timeDelta);
 			break;
 		}
+		case GameStateType::Records:
+		{
+			UpdateGameStateRecords(*(GameStateRecordsData*)state.data, game, timeDelta);
+			break;
+		}
 		default:
 			assert(false); // We want to know if we forgot to implement new game statee
 			break;
@@ -298,6 +320,11 @@ namespace SnakeGame
 		case GameStateType::ExitDialog:
 		{
 			DrawGameStateExitDialog(*(GameStateExitDialogData*)state.data, game, window);
+			break;
+		}
+		case GameStateType::Records:
+		{
+			DrawGameStateRecords(*(GameStateRecordsData*)state.data, game, window);
 			break;
 		}
 		default:

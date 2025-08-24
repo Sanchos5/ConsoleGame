@@ -1,11 +1,12 @@
 #include "GameRecords.h"
 #include "Game.h"
+#include "Constants.h"
 #include <assert.h>
 #include <sstream>
 
 namespace SnakeGame
 {
-	void SnakeGame::InitGameRecord(GameRecordState& data, Game& game)
+	void InitGameRecord(GameStateRecordsData& data, Game& game)
 	{
 		assert(data.font.loadFromFile(RESOURCES_PATH + "Fonts/Roboto-Regular.ttf"));
 
@@ -17,13 +18,11 @@ namespace SnakeGame
 		data.tableTexts.clear();
 		data.tableTexts.reserve(MAX_RECORDS_TABLE_SIZE);
 
-		
-
-		std::multimap<int, std::string> sortedRecordsTable;
-		/*for (const auto& item : game.leaderboads)
+		std::map<int, std::string> sortedRecordsTable;
+		for (const auto& item : game.recordsTable)
 		{
-			sortedRecordsTable.insert(std::make_pair(item.second, item.first));
-		}*/
+			sortedRecordsTable[item.second] = item.first;
+		}
 
 		auto it = sortedRecordsTable.rbegin();
 		for (int i = 0; i < MAX_RECORDS_TABLE_SIZE && it != sortedRecordsTable.rend(); ++i, ++it)
@@ -38,29 +37,35 @@ namespace SnakeGame
 			text.setFont(data.font);
 			text.setFillColor(sf::Color::White);
 			text.setCharacterSize(24);
-			/*if(it->second == PLAYER_NAME)
-			{
-				text.setFillColor(sf::Color::Green);
-			}
-			else
-			{
-				text.setFillColor(sf::Color::White);
-			}*/
 		}
 	}
 
-	void SnakeGame::UpdateGameRecord(GameRecordState& data, Game& game, float timeDelta)
+	void ShutdownGameStateRecords(GameStateRecordsData& data, Game& game)
+	{
+		// Nothing to clear here
+	}
+
+	void HandleGameStateRecordsWindowEvent(GameStateRecordsData& data, Game& game, const sf::Event& event)
+	{
+		if (event.type == sf::Event::KeyPressed)
+		{
+			if (event.key.code == sf::Keyboard::Escape)
+			{
+				PopGameState(game);
+			}
+		}
+	}
+
+	void UpdateGameStateRecords(GameStateRecordsData& data, Game& game, float timeDelta)
 	{
 
 	}
 
-	void SnakeGame::DrawGameRecord(GameRecordState& data, sf::RenderWindow& window)
+	void DrawGameStateRecords(GameStateRecordsData& data, Game& game, sf::RenderWindow& window)
 	{
-		
 		data.titleText.setOrigin(GetTextOrigin(data.titleText, { 0.5f, 0.f }));
 		data.titleText.setPosition(window.getSize().x / 2.f, 100.0f);
 		window.draw(data.titleText);
-
 		
 		// We need to create new vector here as DrawItemsList needs vector of pointers
 		std::vector<sf::Text*> textsList;

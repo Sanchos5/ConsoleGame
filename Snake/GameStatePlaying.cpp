@@ -1,23 +1,30 @@
 #include "GameStatePlaying.h"
 #include "Game.h"
 #include "assert.h"
+#include <sstream>
 
 namespace SnakeGame
 {
 	void InitGameStatePlaying(GameStatePlayingData& data, Game& game)
 	{
 		// Init game resources (terminate if error)
-		assert(data.playerTexture.loadFromFile(TEXTURES_PATH + "\\head.png"));
+		LoadSnakeTextures(data.snake);
 
 		assert(data.appleTexture.loadFromFile(TEXTURES_PATH + "\\apple.png"));
 		assert(data.rockTexture.loadFromFile(RESOURCES_PATH + "\\Rock.png"));
 
-		//assert(data.soundAppleEat.loadFromFile(RESOURCES_PATH + "\\AppleEat.wav"));
-		//assert(data.soundDeath.loadFromFile(RESOURCES_PATH + "\\Death.wav"));
+		assert(data.soundAppleEat.loadFromFile(SOUNDS_PATH + "\\AppleEat.wav"));
+		assert(data.soundDeath.loadFromFile(SOUNDS_PATH + "\\GameOver.wav"));
+		assert(data.soundBackground.loadFromFile(SOUNDS_PATH + "\\Background.wav"));
 
 		assert(data.font.loadFromFile(RESOURCES_PATH + "Fonts/Roboto-Regular.ttf"));
 
-		InitPlayer(data.player, data.playerTexture);
+		// Init background
+		data.background.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
+		data.background.setPosition(0.f, 0.f);
+		data.background.setFillColor(sf::Color(0, 200, 0));
+
+		InitPlayer(data.snake);
 
 		for (int i = 0; i < data.numApple; ++i)
 		{
@@ -28,10 +35,10 @@ namespace SnakeGame
 		for (int i = 0; i < NUM_ROCKS; ++i)
 		{
 			
-			//InitRock(data.rocks[i], data.rockTexture);
+			InitRock(data.rocks[i], data.rockTexture);
 		}
 
-		data.sound.stop();
+		//data.sound.stop();
 		data.numEatenApples = 0;
 
 		data.scoreText.setFont(data.font);
@@ -43,6 +50,10 @@ namespace SnakeGame
 		data.inputHintText.setFillColor(sf::Color::White);
 		data.inputHintText.setString("Use arrow keys to move, ESC to exit");
 		data.inputHintText.setOrigin(GetTextOrigin(data.inputHintText, { 1.f, 0.f }));
+
+		data.soundBack.setBuffer(data.soundBackground);
+		data.soundBack.setLoop(true);
+		data.soundBack.play();
 	}
 
 	void ShutdownGameStatePlaying(GameStatePlayingData& data, Game& game)
@@ -63,92 +74,65 @@ namespace SnakeGame
 
 	void UpdateGameStatePlaying(GameStatePlayingData& data, Game& game, float deltaTime)
 	{
-		if (!data.isGameFinished)
+		HandleInput(data.snake);
+		UpdateInput(data.snake, deltaTime);
+
+		for (int i = 0; i < data.numApple; ++i)
 		{
-			HandleInput(data);
-			UpdateInput(data, deltaTime);
-
-			for (int i = 0; i < data.numApple; ++i)
+			//Check collision for circle
+			if (CheckSpriteIntersection(*data.snake.head, data.apples[i].sprite))
 			{
-				//Check collision for circle
-				if (IsCirclesCollide(data.player.position, PLAYER_SIZE,
-					data.apples[i].position, APPLE_SIZE))
-				{
-					if ((std::uint8_t)game.options & (std::uint8_t)GameModeOption::InfinityApples)
-					{
-						data.apples[i].position = GetRandomPositionInScreen(SCREEN_WIDTH + 1, SCREEN_HEIGHT + 1);
-					}
-					else
-					{
-						data.apples.erase(data.apples.begin() + i);
-						data.apples.resize(data.numApple);
-					}
+				GrowSnake(data.snake);
+				data.numEatenApples++;
+				data.apples[i].position = GetRandomPositionInScreen(SCREEN_WIDTH - 50, SCREEN_HEIGHT - 50);
 
-					if ((std::uint8_t)game.options & (std::uint8_t)GameModeOption::AcceleratedPlayer)
-					{
-						data.player.speed += ACCELERATION;
-					}
-
-					data.sound.setBuffer(data.soundAppleEat);
-					data.sound.play();
-					++data.numEatenApples;
+				if ((std::uint8_t)game.options & (std::uint8_t)GameModeOption::AcceleratedPlayer) {
+					data.snake.speed += ACCELERATION;
 				}
-			}
 
-			for (int i = 0; i < NUM_ROCKS; ++i)
-			{
-				if (IsRectanglesCollide(data.player.position, { PLAYER_SIZE, PLAYER_SIZE },
-					data.rocks[i].position, { ROCK_SIZE, ROCK_SIZE }))
-				{
-					data.sound.setBuffer(data.soundDeath);
-					data.sound.play();
-					data.isGameFinished = true;
-					PushGameState(game, GameStateType::GameOver, false);
-				}
-			}
-		}
-		
-		//check screen borders collision
-		if (data.player.position.X - PLAYER_SIZE / 2.0f < 0.0f || data.player.position.X + PLAYER_SIZE / 2.0f > SCREEN_WIDTH ||
-			data.player.position.Y - PLAYER_SIZE / 2.0f < 0.0f || data.player.position.Y + PLAYER_SIZE / 2.0f > SCREEN_HEIGHT)
-		{
-			// stop game
-			if (!data.isGameFinished)
-			{
-
-				data.sound.setBuffer(data.soundDeath);
+				data.sound.setBuffer(data.soundAppleEat);
 				data.sound.play();
-				data.isGameFinished = true;
-				PushGameState(game, GameStateType::GameOver, false);
 			}
 		}
 
 		data.scoreText.setString("Apples eaten: " + std::to_string(data.numEatenApples));
 
-		if (data.isGameFinished)
+		for (int i = 0; i < NUM_ROCKS; ++i)
 		{
-			// Find player in records table and update his score
-			for (RecordsTableItem& item : game.recordsTable)
+			if (data.isGameFinished
+				|| !HasSnakeCollisionWithRect(data.snake, data.background.getGlobalBounds()) // Check collision with screen border
+				|| CheckSnakeCollisionWithHimself(data.snake)		// Check collision with screen border
+				|| CheckSpriteIntersection(*data.snake.head, data.rocks[i].sprite)) // Check collision with rocks)
 			{
-				if (item.name == "Player")
+
+				// Find snake in records table and update his score
+				/*for (RecordsTableItem& item : game.recordsTable)
 				{
-					item.score = data.numEatenApples;
-					break;
-				}
+					if (item.name == "Player")
+					{
+						item.score = data.numEatenApples;
+						break;
+					}
+				}*/
+
+				// Find snake in records table and update his score
+				game.recordsTable[PLAYER_NAME] = std::max(game.recordsTable[PLAYER_NAME], data.numEatenApples);
+
+				// Sort records table
+				//std::sort(std::begin(game.recordsTable), std::end(game.recordsTable));
+
+				data.soundBack.stop();
+				data.sound.setBuffer(data.soundDeath);
+				data.sound.play();
+				PushGameState(game, GameStateType::GameOver, false);
 			}
-
-			// Sort records table
-			std::sort(std::begin(game.recordsTable), std::end(game.recordsTable));
-
-			PushGameState(game, GameStateType::GameOver, false);
 		}
-
 	}
 
 	void DrawGameStatePlaying(GameStatePlayingData& data, Game& game, sf::RenderWindow& window)
 	{
-		// Draw player
-		DrawPlayer(data.player, window);
+		// Draw snake
+		DrawPlayer(data.snake, window);
 
 		for (Apple& apple : data.apples)
 		{

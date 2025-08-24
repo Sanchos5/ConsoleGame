@@ -1,11 +1,10 @@
 #pragma once
 
-
 #include "SFML/Graphics.hpp"
 #include "SFML/Audio.hpp"
 #include "Apple.h"
 #include "Rock.h"
-#include "Player.h"
+#include "Snake.h"
 
 namespace SnakeGame
 {
@@ -19,21 +18,24 @@ namespace SnakeGame
 		sf::Texture rockTexture;
 		sf::SoundBuffer soundAppleEat;
 		sf::SoundBuffer soundDeath;
+		sf::SoundBuffer soundBackground;
 		sf::Sound sound;
+		sf::Sound soundBack;
 		sf::Font font;
 
 		//Game data
-		Player player;
+		Snake snake;
 		Apple apple;
 		Rock rocks[NUM_ROCKS];
 		std::vector<Apple> apples;
-		int numApple = 10;
+		int numApple = 5;
 		int numEatenApples = 0;
 		bool isGameFinished = false;
 
 		// UI data
 		sf::Text scoreText;
 		sf::Text inputHintText;
+		sf::RectangleShape background;
 	};
 
 	void InitGameStatePlaying(GameStatePlayingData& data, Game& game);

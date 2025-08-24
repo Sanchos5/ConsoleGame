@@ -33,19 +33,6 @@ namespace SnakeGame
 		return squareDistance <= squareRadisuSum;
 	}
 
-	void SetSpriteSize(sf::Sprite& sprite, float desiredWidth, float desiredHeight)
-	{
-		sf::FloatRect spriteRect = sprite.getLocalBounds();
-		sf::Vector2f scale = { desiredWidth / spriteRect.width,  desiredHeight / spriteRect.height };
-		sprite.setScale(scale);
-	}
-
-	void SetSpriteRelativeOrigin(sf::Sprite& sprite, float originX, float originY)
-	{
-		sf::FloatRect spriteRect = sprite.getLocalBounds();
-		sprite.setOrigin(originX * spriteRect.width, originY * spriteRect.height);
-	}
-
 	sf::Vector2f GetTextOrigin(const sf::Text& text, const sf::Vector2f& relativePosition)
 	{
 		sf::FloatRect textSize = text.getLocalBounds();

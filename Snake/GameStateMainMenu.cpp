@@ -6,50 +6,57 @@ namespace SnakeGame
 {
 	void InitGameStateMainMenu(GameStateMainMenuData& data, Game& game)
 	{
-		assert(data.font.loadFromFile(RESOURCES_PATH + "Fonts/Roboto-Regular.ttf"));
+		assert(data.font.loadFromFile(FONTS_PATH + "Roboto-Regular.ttf"));
 
-		auto setTextParameters = [&data](sf::Text& itemText, const std::string& title, int fontSize, sf::Color color = sf::Color::Transparent)
+		assert(data.soundBtnHover.loadFromFile(SOUNDS_PATH + "\\menu-hover.wav"));
+
+		auto setTextParameters = [&data](sf::Text& itemText, const std::wstring& title, int fontSize, sf::Color color = sf::Color::Transparent)
 			{
 				itemText.setString(title);
 				itemText.setFont(data.font);
 				itemText.setCharacterSize(fontSize);
-				if (color != sf::Color::Transparent) //цвет по умолчанию
+				if (color != sf::Color::Transparent)
 				{
 					itemText.setFillColor(color);
 				}
 			};
 
-		setTextParameters(data.menu.rootItem.hintText, "Apples Game", 48, sf::Color::Red);
+		setTextParameters(data.menu.rootItem.hintText, L"Змейка", 48, sf::Color::Red);
 		data.menu.rootItem.childrenOrientation = Orientation::Vertical;
 		data.menu.rootItem.childrenAlignment = Alignment::Middle;
 		data.menu.rootItem.childrenSpacing = 10.f;
 		data.menu.rootItem.children.push_back(&data.startGameItem);
 		data.menu.rootItem.children.push_back(&data.optionsItem);
+		data.menu.rootItem.children.push_back(&data.recordsItem);
 		data.menu.rootItem.children.push_back(&data.exitGameItem);
 
-		setTextParameters(data.startGameItem.text, "Start Game", 24);
-		setTextParameters(data.optionsItem.text, "Options", 24);
+		setTextParameters(data.startGameItem.text, L"Начать игру", 24);
+		setTextParameters(data.optionsItem.text, L"Настройки", 24);
+		setTextParameters(data.recordsItem.text, L"Таблица рекордов", 24);
 
-		setTextParameters(data.optionsItem.hintText, "Options", 48, sf::Color::Red);
+		setTextParameters(data.optionsItem.hintText, L"Настройки", 48, sf::Color::Red);
 		data.optionsItem.childrenOrientation = Orientation::Vertical;
 		data.optionsItem.childrenAlignment = Alignment::Middle;
 		data.optionsItem.childrenSpacing = 10.f;
 		data.optionsItem.children.push_back(&data.optionsInfiniteApplesItem);
 		data.optionsItem.children.push_back(&data.optionsWithAccelerationItem);
 
-		setTextParameters(data.optionsInfiniteApplesItem.text, "Infinite Apples: On/Off", 24);
-		setTextParameters(data.optionsWithAccelerationItem.text, "With Acceleration: On/Off", 24);
-		setTextParameters(data.exitGameItem.text, "Exit Game", 24);
+		//setTextParameters(data.recordsItem.hintText, "Records", 24, sf::Color::Red);
 
-		setTextParameters(data.exitGameItem.hintText, "Are you sure?", 48, sf::Color::Red);
+
+		setTextParameters(data.optionsInfiniteApplesItem.text, L"Infinite Apples: On/Off", 24);
+		setTextParameters(data.optionsWithAccelerationItem.text, L"With Acceleration: On/Off", 24);
+		setTextParameters(data.exitGameItem.text, L"Выйти из игры", 24);
+
+		setTextParameters(data.exitGameItem.hintText, L"Are you sure?", 48, sf::Color::Red);
 		data.exitGameItem.childrenOrientation = Orientation::Horizontal;
 		data.exitGameItem.childrenAlignment = Alignment::Middle;
 		data.exitGameItem.childrenSpacing = 10.f;
 		data.exitGameItem.children.push_back(&data.yesItem);
 		data.exitGameItem.children.push_back(&data.noItem);
 
-		setTextParameters(data.yesItem.text, "Yes", 24);
-		setTextParameters(data.noItem.text, "No", 24);
+		setTextParameters(data.yesItem.text, L"Да", 24);
+		setTextParameters(data.noItem.text, L"Нет", 24);
 
 		InitMenuItem(data.menu.rootItem);
 		SelectMenuItem(data.menu, &data.startGameItem);
@@ -75,6 +82,9 @@ namespace SnakeGame
 			}
 			else if (event.key.code == sf::Keyboard::Enter)
 			{
+				data.sound.setBuffer(data.soundBtnHover);
+				data.sound.play();
+
 				if (data.menu.selectedItem == &data.startGameItem)
 				{
 					SwitchGameState(game, GameStateType::Playing);
@@ -90,6 +100,10 @@ namespace SnakeGame
 				else if (data.menu.selectedItem == &data.optionsWithAccelerationItem)
 				{
 					game.options = (GameModeOption)((std::uint8_t)game.options ^ (std::uint8_t)GameModeOption::AcceleratedPlayer);
+				}
+				else if (data.menu.selectedItem == &data.recordsItem)
+				{
+					PushGameState(game, GameStateType::Records, true);
 				}
 				else if (data.menu.selectedItem == &data.exitGameItem)
 				{

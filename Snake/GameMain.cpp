@@ -1,10 +1,6 @@
-﻿// ©2023, XYZ School. All rights reserved.
-// Authored by Aleksandr Rybalka (polterageist@gmail.com)
-
-//#include "iostream"
+﻿//#include "iostream"
 #include <SFML/Graphics.hpp>
 #include <cstdlib>
-//#include <SFML/Audio.hpp>
 
 #include "Game.h"
 
@@ -25,10 +21,11 @@ int main()
 
 	// Init game clock
 	sf::Clock gameClock;
-	sf::Time lastTime = gameClock.getElapsedTime();
 
 	while (window.isOpen())
 	{
+		float startTime = gameClock.getElapsedTime().asSeconds();
+
 		HandleWindowEvents(*game, window);
 
 		if (!window.isOpen())
@@ -36,12 +33,7 @@ int main()
 			break;
 		}
 
-		//calculate time delta
-		sf::Time currentTime = gameClock.getElapsedTime();
-		float deltaTime = currentTime.asSeconds() - lastTime.asSeconds();
-		lastTime = currentTime;
-
-		if(UpdateGame(*game, deltaTime))
+		if(UpdateGame(*game, TIME_PER_FRAME))
 		{
 			// Draw everything here
 			// Clear the window first
@@ -56,8 +48,14 @@ int main()
 			window.close();
 		}
 
-			
-		//UpdateGame(*game, deltaTime);
+		float endTime = gameClock.getElapsedTime().asSeconds();
+		float deltaTime = endTime - startTime;
+
+		if(deltaTime < TIME_PER_FRAME)
+		{
+			// Reduce framerate to not spam CPU and GPU
+			sf::sleep(sf::seconds(TIME_PER_FRAME - deltaTime));
+		}
 	}
 
 	ShutdownGame(*game);

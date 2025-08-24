@@ -13,7 +13,7 @@
     <ClCompile Include="GameMain.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="Snake.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Math.cpp">
@@ -46,9 +46,12 @@
     <ClCompile Include="GameStateGameOver.cpp">
       <Filter>Sources\GameState</Filter>
     </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="Snake.h">
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="Math.h">
@@ -83,6 +86,9 @@
     </ClInclude>
     <ClInclude Include="GameStateGameOver.h">
       <Filter>Sources\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Sources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

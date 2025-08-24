@@ -4,7 +4,8 @@
 #include <SFML/Audio.hpp>
 #include "Constants.h"
 #include "Math.h"
-#include "Player.h"
+#include "Sprite.h"
+#include "Snake.h"
 #include "Apple.h"
 #include "Rock.h"
 #include <iostream>
@@ -21,13 +22,13 @@ namespace SnakeGame
 		Empty = 0
 	};
 
-	struct RecordsTableItem
+	/*struct RecordsTableItem
 	{
 		std::string name;
 		int score = 0;
-	};
+	};*/
 
-	bool operator<(const RecordsTableItem& lhs, const RecordsTableItem& rhs);
+	//bool operator<(const RecordsTableItem& lhs, const RecordsTableItem& rhs);
 
 	enum class GameStateType
 	{
@@ -36,6 +37,7 @@ namespace SnakeGame
 		Playing,
 		GameOver,
 		ExitDialog,
+		Records
 	};
 
 	struct GameState
@@ -63,7 +65,9 @@ namespace SnakeGame
 
 		GameModeOption options = GameModeOption::Default;
 
-		RecordsTableItem recordsTable[MAX_RECORDS_TABLE_SIZE];
+		std::unordered_map<std::string, int> recordsTable;
+
+		//RecordsTableItem recordsTable[MAX_RECORDS_TABLE_SIZE];
 	};
 
 	void InitGame(Game& game);

@@ -15,7 +15,7 @@ namespace SnakeGame
 		// UI data
 		sf::Text gameOverText;
 		sf::Text hintText;
-		sf::Text recordsTableText;
+		std::vector<sf::Text> recordsTableTexts;
 	};
 
 	// Returns pointer to the allocated data

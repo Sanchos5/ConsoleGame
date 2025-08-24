@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 #include "Menu.h"
 
 namespace SnakeGame
@@ -15,10 +16,14 @@ namespace SnakeGame
 		MenuItem optionsItem;
 		MenuItem optionsInfiniteApplesItem;
 		MenuItem optionsWithAccelerationItem;
+		MenuItem recordsItem;
 		MenuItem exitGameItem;
 		MenuItem yesItem;
 		MenuItem noItem;
 		Menu menu;
+
+		sf::SoundBuffer soundBtnHover;
+		sf::Sound sound;
 	};
 
 	void InitGameStateMainMenu(GameStateMainMenuData& data, Game& game);
