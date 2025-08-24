@@ -13,6 +13,12 @@ namespace SnakeGame
 		sf::Font font;
 
 		MenuItem startGameItem;
+		MenuItem difficultyItem;
+		MenuItem difficultyEasyItem;
+		MenuItem difficultyNormalItem;
+		MenuItem difficultyHardItem;
+		MenuItem difficultyInsaneItem;
+		MenuItem difficultyImpossibleItem;
 		MenuItem optionsItem;
 		MenuItem optionsInfiniteApplesItem;
 		MenuItem optionsWithAccelerationItem;

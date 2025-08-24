@@ -18,17 +18,18 @@ namespace SnakeGame
 		InfinityApples = 1 << 0,
 		AcceleratedPlayer = 1 << 1,
 
-		Default = InfinityApples | AcceleratedPlayer,
+		Default = InfinityApples,
 		Empty = 0
 	};
 
-	/*struct RecordsTableItem
+	enum class DifficultyLevel : std::uint8_t
 	{
-		std::string name;
-		int score = 0;
-	};*/
-
-	//bool operator<(const RecordsTableItem& lhs, const RecordsTableItem& rhs);
+		Easy,
+		Normal,
+		Hard,
+		Insane,
+		Impossible,
+	};
 
 	enum class GameStateType
 	{
@@ -62,12 +63,11 @@ namespace SnakeGame
 		GameStateType pendingGameStateType = GameStateType::None;
 		bool pendingGameStateIsExclusivelyVisible = false;
 
-
 		GameModeOption options = GameModeOption::Default;
+		DifficultyLevel difficulty = DifficultyLevel::Normal;
 
 		std::unordered_map<std::string, int> recordsTable;
 
-		//RecordsTableItem recordsTable[MAX_RECORDS_TABLE_SIZE];
 	};
 
 	void InitGame(Game& game);

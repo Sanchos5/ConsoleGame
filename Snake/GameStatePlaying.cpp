@@ -54,6 +54,27 @@ namespace SnakeGame
 		data.soundBack.setBuffer(data.soundBackground);
 		data.soundBack.setLoop(true);
 		data.soundBack.play();
+
+		if (game.difficulty == DifficultyLevel::Easy)
+		{
+			data.snake.speed = INITIAL_SPEED * 0.5f;
+		}
+		else if (game.difficulty == DifficultyLevel::Normal)
+		{
+			data.snake.speed = INITIAL_SPEED;
+		}
+		else if (game.difficulty == DifficultyLevel::Hard)
+		{
+			data.snake.speed = INITIAL_SPEED * 2.f;
+		}
+		else if (game.difficulty == DifficultyLevel::Insane)
+		{
+			data.snake.speed = INITIAL_SPEED * 3.f;
+		}
+		else if (game.difficulty == DifficultyLevel::Impossible)
+		{
+			data.snake.speed = INITIAL_SPEED * 4.f;
+		}
 	}
 
 	void ShutdownGameStatePlaying(GameStatePlayingData& data, Game& game)
@@ -83,12 +104,35 @@ namespace SnakeGame
 			if (CheckSpriteIntersection(*data.snake.head, data.apples[i].sprite))
 			{
 				GrowSnake(data.snake);
-				data.numEatenApples++;
+
+				if (game.difficulty == DifficultyLevel::Easy)
+				{
+					data.numEatenApples += 1;
+				}
+				else if (game.difficulty == DifficultyLevel::Normal)
+				{
+					data.numEatenApples += 2;
+				}
+				else if (game.difficulty == DifficultyLevel::Hard)
+				{
+					data.numEatenApples += 3;
+				}
+				else if (game.difficulty == DifficultyLevel::Insane)
+				{
+					data.numEatenApples += 4;
+				}
+				else if (game.difficulty == DifficultyLevel::Impossible)
+				{
+					data.numEatenApples += 5;
+				}
+
+				//data.numEatenApples++;
 				data.apples[i].position = GetRandomPositionInScreen(SCREEN_WIDTH - 50, SCREEN_HEIGHT - 50);
 
 				if ((std::uint8_t)game.options & (std::uint8_t)GameModeOption::AcceleratedPlayer) {
 					data.snake.speed += ACCELERATION;
 				}
+
 
 				data.sound.setBuffer(data.soundAppleEat);
 				data.sound.play();
