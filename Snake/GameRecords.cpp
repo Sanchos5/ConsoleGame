@@ -10,12 +10,11 @@ namespace SnakeGame
 	{
 		assert(data.font.loadFromFile(RESOURCES_PATH + "Fonts/Roboto-Regular.ttf"));
 
-		data.titleText.setString("RECORDS");
+		data.titleText.setString(L"Рекорды");
 		data.titleText.setFont(data.font);
 		data.titleText.setFillColor(sf::Color::Red);
 		data.titleText.setCharacterSize(30);
 
-		data.tableTexts.clear();
 		data.tableTexts.reserve(MAX_RECORDS_TABLE_SIZE);
 
 		std::map<int, std::string> sortedRecordsTable;

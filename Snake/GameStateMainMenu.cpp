@@ -8,7 +8,9 @@ namespace SnakeGame
 	{
 		assert(data.font.loadFromFile(FONTS_PATH + "Roboto-Regular.ttf"));
 
-		assert(data.soundBtnHover.loadFromFile(SOUNDS_PATH + "\\menu-hover.wav"));
+		assert(data.soundBtnHoverBuffer.loadFromFile(SOUNDS_PATH + "\\menu-hover.wav"));
+
+		data.soundBtnHover.setBuffer(data.soundBtnHoverBuffer);
 
 		auto setTextParameters = [&data](sf::Text& itemText, const std::wstring& title, int fontSize, sf::Color color = sf::Color::Transparent)
 			{
@@ -55,14 +57,14 @@ namespace SnakeGame
 		data.optionsItem.childrenOrientation = Orientation::Vertical;
 		data.optionsItem.childrenAlignment = Alignment::Middle;
 		data.optionsItem.childrenSpacing = 10.f;
-		data.optionsItem.children.push_back(&data.optionsInfiniteApplesItem);
-		data.optionsItem.children.push_back(&data.optionsWithAccelerationItem);
+		data.optionsItem.children.push_back(&data.optionsSoundItem);
+		data.optionsItem.children.push_back(&data.optionsMusicItem);
 
-		setTextParameters(data.optionsInfiniteApplesItem.text, L"Infinite Apples: On/Off", 24);
-		setTextParameters(data.optionsWithAccelerationItem.text, L"With Acceleration: On/Off", 24);
+		setTextParameters(data.optionsSoundItem.text, L"Infinite Apples: On/Off", 24);
+		setTextParameters(data.optionsMusicItem.text, L"With Acceleration: On/Off", 24);
 		setTextParameters(data.exitGameItem.text, L"Выйти из игры", 24);
 
-		setTextParameters(data.exitGameItem.hintText, L"Are you sure?", 48, sf::Color::Red);
+		setTextParameters(data.exitGameItem.hintText, L"Вы уверены?", 48, sf::Color::Red);
 		data.exitGameItem.childrenOrientation = Orientation::Horizontal;
 		data.exitGameItem.childrenAlignment = Alignment::Middle;
 		data.exitGameItem.childrenSpacing = 10.f;
@@ -96,8 +98,10 @@ namespace SnakeGame
 			}
 			else if (event.key.code == sf::Keyboard::Enter)
 			{
-				data.sound.setBuffer(data.soundBtnHover);
-				data.sound.play();
+				if((std::uint8_t)game.options & (std::uint8_t)GameModeOption::Sound)
+				{
+					data.soundBtnHover.play();
+				}
 
 				if (data.menu.selectedItem == &data.startGameItem)
 				{
@@ -135,13 +139,13 @@ namespace SnakeGame
 				{
 					ExpandSelectedItem(data.menu);
 				}
-				else if (data.menu.selectedItem == &data.optionsInfiniteApplesItem)
+				else if (data.menu.selectedItem == &data.optionsSoundItem)
 				{
-					game.options = (GameModeOption)((std::uint8_t)game.options ^ (std::uint8_t)GameModeOption::InfinityApples);
+					game.options = (GameModeOption)((std::uint8_t)game.options ^ (std::uint8_t)GameModeOption::Sound);
 				}
-				else if (data.menu.selectedItem == &data.optionsWithAccelerationItem)
+				else if (data.menu.selectedItem == &data.optionsMusicItem)
 				{
-					game.options = (GameModeOption)((std::uint8_t)game.options ^ (std::uint8_t)GameModeOption::AcceleratedPlayer);
+					game.options = (GameModeOption)((std::uint8_t)game.options ^ (std::uint8_t)GameModeOption::Music);
 				}
 				else if (data.menu.selectedItem == &data.recordsItem)
 				{
@@ -187,11 +191,11 @@ namespace SnakeGame
 		data.difficultyInsaneItem.text.setString(L"Безумный: " + std::wstring(game.difficulty == DifficultyLevel::Insane ? L"Вкл" : L"Выкл"));
 		data.difficultyImpossibleItem.text.setString(L"Невозможный: " + std::wstring(game.difficulty == DifficultyLevel::Impossible ? L"Вкл" : L"Выкл"));
 			
-		bool isInfiniteApples = ((std::uint8_t)game.options & (std::uint8_t)GameModeOption::InfinityApples) != (std::uint8_t)GameModeOption::Empty;
-		data.optionsInfiniteApplesItem.text.setString("Infinite Apples: " + std::string(isInfiniteApples ? "On" : "Off"));
+		bool isSound = ((std::uint8_t)game.options & (std::uint8_t)GameModeOption::Sound);
+		data.optionsSoundItem.text.setString(L"Звук: " + std::wstring(isSound ? L"Вкл" : L"Выкл"));
 
-		bool isWithAcceleration = ((std::uint8_t)game.options & (std::uint8_t)GameModeOption::AcceleratedPlayer) != (std::uint8_t)GameModeOption::Empty;
-		data.optionsWithAccelerationItem.text.setString("With Acceleration: " + std::string(isWithAcceleration ? "On" : "Off"));
+		bool isMusic = ((std::uint8_t)game.options & (std::uint8_t)GameModeOption::Music);
+		data.optionsMusicItem.text.setString(L"Музыка: " + std::wstring(isMusic ? L"Вкл" : L"Выкл"));
 	}
 
 	void DrawGameStateMainMenu(GameStateMainMenuData& data, Game& game, sf::RenderWindow& window)

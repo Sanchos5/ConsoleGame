@@ -15,10 +15,10 @@ namespace SnakeGame
 {
 	enum class GameModeOption : std::uint8_t
 	{
-		InfinityApples = 1 << 0,
-		AcceleratedPlayer = 1 << 1,
+		Sound = 1 << 0,
+		Music = 1 << 1,
 
-		Default = InfinityApples,
+		Default = Sound | Music,
 		Empty = 0
 	};
 

@@ -13,9 +13,9 @@ namespace SnakeGame
 		assert(data.appleTexture.loadFromFile(TEXTURES_PATH + "\\apple.png"));
 		assert(data.rockTexture.loadFromFile(RESOURCES_PATH + "\\Rock.png"));
 
-		assert(data.soundAppleEat.loadFromFile(SOUNDS_PATH + "\\AppleEat.wav"));
-		assert(data.soundDeath.loadFromFile(SOUNDS_PATH + "\\GameOver.wav"));
-		assert(data.soundBackground.loadFromFile(SOUNDS_PATH + "\\Background.wav"));
+		assert(data.soundAppleEatBuffer.loadFromFile(SOUNDS_PATH + "\\AppleEat.wav"));
+		assert(data.soundDeathBuffer.loadFromFile(SOUNDS_PATH + "\\GameOver.wav"));
+		assert(data.soundBackgroundBuffer.loadFromFile(SOUNDS_PATH + "\\Background.wav"));
 
 		assert(data.font.loadFromFile(RESOURCES_PATH + "Fonts/Roboto-Regular.ttf"));
 
@@ -24,6 +24,7 @@ namespace SnakeGame
 		data.background.setPosition(0.f, 0.f);
 		data.background.setFillColor(sf::Color(0, 200, 0));
 
+		DifficultyLevelState(data, game);
 		InitPlayer(data.snake);
 
 		for (int i = 0; i < data.numApple; ++i)
@@ -48,13 +49,21 @@ namespace SnakeGame
 		data.inputHintText.setFont(data.font);
 		data.inputHintText.setCharacterSize(16);
 		data.inputHintText.setFillColor(sf::Color::White);
-		data.inputHintText.setString("Use arrow keys to move, ESC to exit");
+		data.inputHintText.setString(L"»спользуйте клавишы WASD дл€ перемещени€, ESC дл€ выхода");
 		data.inputHintText.setOrigin(GetTextOrigin(data.inputHintText, { 1.f, 0.f }));
 
-		data.soundBack.setBuffer(data.soundBackground);
-		data.soundBack.setLoop(true);
-		data.soundBack.play();
+		data.soundBackground.setBuffer(data.soundBackgroundBuffer);
+		if ((std::uint8_t)game.options & (std::uint8_t)GameModeOption::Music)
+		{
+			data.soundBackground.setLoop(true);
+			data.soundBackground.play();
+		}
+		data.soundAppleEat.setBuffer(data.soundAppleEatBuffer);
+		data.soundDeath.setBuffer(data.soundDeathBuffer);
+	}
 
+	void DifficultyLevelState(GameStatePlayingData& data, Game& game)
+	{
 		if (game.difficulty == DifficultyLevel::Easy)
 		{
 			data.snake.speed = INITIAL_SPEED * 0.5f;
@@ -128,18 +137,16 @@ namespace SnakeGame
 
 				//data.numEatenApples++;
 				data.apples[i].position = GetRandomPositionInScreen(SCREEN_WIDTH - 50, SCREEN_HEIGHT - 50);
+				data.snake.speed += ACCELERATION;
 
-				if ((std::uint8_t)game.options & (std::uint8_t)GameModeOption::AcceleratedPlayer) {
-					data.snake.speed += ACCELERATION;
+				if ((std::uint8_t)game.options & (std::uint8_t)GameModeOption::Sound) 
+				{
+					data.soundAppleEat.play();
 				}
-
-
-				data.sound.setBuffer(data.soundAppleEat);
-				data.sound.play();
 			}
 		}
 
-		data.scoreText.setString("Apples eaten: " + std::to_string(data.numEatenApples));
+		data.scoreText.setString(L"—ъедено €блок: " + std::to_wstring(data.numEatenApples));
 
 		for (int i = 0; i < NUM_ROCKS; ++i)
 		{
@@ -148,26 +155,14 @@ namespace SnakeGame
 				|| CheckSnakeCollisionWithHimself(data.snake)		// Check collision with screen border
 				|| CheckSpriteIntersection(*data.snake.head, data.rocks[i].sprite)) // Check collision with rocks)
 			{
-
-				// Find snake in records table and update his score
-				/*for (RecordsTableItem& item : game.recordsTable)
-				{
-					if (item.name == "Player")
-					{
-						item.score = data.numEatenApples;
-						break;
-					}
-				}*/
-
 				// Find snake in records table and update his score
 				game.recordsTable[PLAYER_NAME] = std::max(game.recordsTable[PLAYER_NAME], data.numEatenApples);
 
-				// Sort records table
-				//std::sort(std::begin(game.recordsTable), std::end(game.recordsTable));
-
-				data.soundBack.stop();
-				data.sound.setBuffer(data.soundDeath);
-				data.sound.play();
+				data.soundBackground.stop();
+				if ((std::uint8_t)game.options & (std::uint8_t)GameModeOption::Sound)
+				{
+					data.soundDeath.play();
+				}
 				PushGameState(game, GameStateType::GameOver, false);
 			}
 		}

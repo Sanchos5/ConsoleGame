@@ -13,23 +13,26 @@ namespace SnakeGame
 		sf::Font font;
 
 		MenuItem startGameItem;
+
 		MenuItem difficultyItem;
 		MenuItem difficultyEasyItem;
 		MenuItem difficultyNormalItem;
 		MenuItem difficultyHardItem;
 		MenuItem difficultyInsaneItem;
 		MenuItem difficultyImpossibleItem;
+
 		MenuItem optionsItem;
-		MenuItem optionsInfiniteApplesItem;
-		MenuItem optionsWithAccelerationItem;
+		MenuItem optionsSoundItem;
+		MenuItem optionsMusicItem;
+
 		MenuItem recordsItem;
 		MenuItem exitGameItem;
 		MenuItem yesItem;
 		MenuItem noItem;
 		Menu menu;
 
-		sf::SoundBuffer soundBtnHover;
-		sf::Sound sound;
+		sf::SoundBuffer soundBtnHoverBuffer;
+		sf::Sound soundBtnHover;
 	};
 
 	void InitGameStateMainMenu(GameStateMainMenuData& data, Game& game);

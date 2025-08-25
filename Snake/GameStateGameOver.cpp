@@ -17,13 +17,13 @@ namespace SnakeGame
 		data.gameOverText.setCharacterSize(48);
 		data.gameOverText.setStyle(sf::Text::Bold);
 		data.gameOverText.setFillColor(sf::Color::Red);
-		data.gameOverText.setString("GAME OVER");
+		data.gameOverText.setString(L"Вы проиграли");
 		data.gameOverText.setOrigin(GetTextOrigin(data.gameOverText, { 0.5f, 0.5f }));
 
 		data.hintText.setFont(data.font);
 		data.hintText.setCharacterSize(24);
 		data.hintText.setFillColor(sf::Color::White);
-		data.hintText.setString("Press Space to restart");
+		data.hintText.setString(L"Нажмите Space для перезапуска");
 		data.hintText.setOrigin(GetTextOrigin(data.hintText, { 0.5f, 1.f }));
 
 		data.recordsTableTexts.reserve(MAX_RECORDS_TABLE_SIZE);
@@ -96,13 +96,6 @@ namespace SnakeGame
 
 		sf::Color gameOverTextColor = (int)data.timeSinceGameOver % 2 ? sf::Color::Red : sf::Color::Yellow;
 		data.gameOverText.setFillColor(gameOverTextColor);
-
-		/*data.recordsTableText.setString("Records:");
-		for (const RecordsTableItem& item : game.recordsTable)
-		{
-			data.recordsTableText.setString(data.recordsTableText.getString() + "\n" + item.name + ": " + std::to_string(item.score));
-		}
-		data.recordsTableText.setOrigin(GetTextOrigin(data.recordsTableText, { 0.5f, 0.f }));*/
 	}
 
 	void DrawGameStateGameOver(GameStateGameOverData& data, Game& game, sf::RenderWindow& window)
@@ -127,10 +120,6 @@ namespace SnakeGame
 
 			window.draw(data.recordsTableTexts[i]);
 		}
-
-		//sf::Vector2f tablePosition = { viewSize.x / 2, viewSize.y / 2.f };
-		//window.draw(data.recordsTableTexts[i]);
-
 		data.hintText.setPosition(viewSize.x / 2.f, viewSize.y - 10.f);
 		window.draw(data.hintText);
 	}

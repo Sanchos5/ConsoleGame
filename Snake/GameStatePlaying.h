@@ -16,11 +16,11 @@ namespace SnakeGame
 		sf::Texture playerTexture;
 		sf::Texture appleTexture;
 		sf::Texture rockTexture;
-		sf::SoundBuffer soundAppleEat;
-		sf::SoundBuffer soundDeath;
-		sf::SoundBuffer soundBackground;
-		sf::Sound sound;
-		sf::Sound soundBack;
+
+		sf::SoundBuffer soundAppleEatBuffer;
+		sf::SoundBuffer soundDeathBuffer;
+		sf::SoundBuffer soundBackgroundBuffer;
+		
 		sf::Font font;
 
 		//Game data
@@ -36,6 +36,11 @@ namespace SnakeGame
 		sf::Text scoreText;
 		sf::Text inputHintText;
 		sf::RectangleShape background;
+
+		//Sound
+		sf::Sound soundAppleEat;
+		sf::Sound soundDeath;
+		sf::Sound soundBackground;
 	};
 
 	void InitGameStatePlaying(GameStatePlayingData& data, Game& game);
@@ -43,4 +48,6 @@ namespace SnakeGame
 	void HandleGameStatePlayingWindowEvent(GameStatePlayingData& data, Game& game, const sf::Event& event);
 	void UpdateGameStatePlaying(GameStatePlayingData& data, Game& game, float deltaTime);
 	void DrawGameStatePlaying(GameStatePlayingData& data, Game& game, sf::RenderWindow& window);
+
+	void DifficultyLevelState(GameStatePlayingData& data, Game& game);
 }
