@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <SFML/Graphics.hpp>
 
-namespace SnakeGame
+namespace ApplesGame
 {
 	Position2D GetRandomPositionInScreen(float screenWidth, float screenHeight)
 	{
