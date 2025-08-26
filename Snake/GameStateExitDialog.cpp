@@ -6,7 +6,7 @@ namespace SnakeGame
 {
 	void InitGameStateExitDialog(GameStateExitDialogData& data, Game& game)
 	{
-		assert(data.font.loadFromFile(RESOURCES_PATH + "Fonts/Roboto-Regular.ttf"));
+		assert(data.font.loadFromFile(FONTS_PATH + "Roboto-Regular.ttf"));
 
 		data.hintText.setString(L"Вы уверены что хотите завершить эту игру? Enter - Да, Esc - Нет");
 		data.hintText.setFont(data.font);

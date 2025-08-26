@@ -8,7 +8,7 @@ namespace SnakeGame
 {
 	void InitGameRecord(GameStateRecordsData& data, Game& game)
 	{
-		assert(data.font.loadFromFile(RESOURCES_PATH + "Fonts/Roboto-Regular.ttf"));
+		assert(data.font.loadFromFile(FONTS_PATH + "Roboto-Regular.ttf"));
 
 		data.titleText.setString(L"Рекорды");
 		data.titleText.setFont(data.font);

@@ -17,7 +17,7 @@ namespace SnakeGame
 		assert(data.soundDeathBuffer.loadFromFile(SOUNDS_PATH + "\\GameOver.wav"));
 		assert(data.soundBackgroundBuffer.loadFromFile(SOUNDS_PATH + "\\Background.wav"));
 
-		assert(data.font.loadFromFile(RESOURCES_PATH + "Fonts/Roboto-Regular.ttf"));
+		assert(data.font.loadFromFile(FONTS_PATH + "Roboto-Regular.ttf"));
 
 		// Init background
 		data.background.setSize(sf::Vector2f(SCREEN_WIDTH, SCREEN_HEIGHT));
