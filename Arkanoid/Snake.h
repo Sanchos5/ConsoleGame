@@ -34,13 +34,9 @@ namespace ArkanoidGame
 		float speed = INITIAL_SPEED;
 		SnakeDirection direction = SnakeDirection::Up;
 		SnakeDirection prevDirection = SnakeDirection::Up;
-		//sf::Sprite sprite;
 
 		std::array<sf::Texture, (size_t)SnakePart::Count> textures;
 	};
-
-	//struct Game;
-	//struct GameStatePlayingData;
 
 	void LoadSnakeTextures(Snake& snake);
 

@@ -8,8 +8,6 @@
 
 namespace ArkanoidGame
 {
-	struct Game;
-
 	struct GameStatePlayingData
 	{
 		//Resources
@@ -43,12 +41,12 @@ namespace ArkanoidGame
 		sf::Sound soundBackground;
 	};
 
-	void InitGameStatePlaying(GameStatePlayingData& data, Game& game);
-	void ShutdownGameStatePlaying(GameStatePlayingData& data, Game& game);
-	void HandleGameStatePlayingWindowEvent(GameStatePlayingData& data, Game& game, const sf::Event& event);
-	void UpdateGameStatePlaying(GameStatePlayingData& data, Game& game, float deltaTime);
-	void DrawGameStatePlaying(GameStatePlayingData& data, Game& game, sf::RenderWindow& window);
+	void InitGameStatePlaying(GameStatePlayingData& data);
+	void ShutdownGameStatePlaying(GameStatePlayingData& data);
+	void HandleGameStatePlayingWindowEvent(GameStatePlayingData& data, const sf::Event& event);
+	void UpdateGameStatePlaying(GameStatePlayingData& data, float deltaTime);
+	void DrawGameStatePlaying(GameStatePlayingData& data, sf::RenderWindow& window);
 
-	void DifficultyLevelState(GameStatePlayingData& data, Game& game);
+	void DifficultyLevelState(GameStatePlayingData& data);
 }
 

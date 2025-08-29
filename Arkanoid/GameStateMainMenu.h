@@ -6,8 +6,6 @@
 
 namespace ArkanoidGame
 {
-	struct Game;
-
 	struct GameStateMainMenuData
 	{
 		sf::Font font;
@@ -35,10 +33,10 @@ namespace ArkanoidGame
 		sf::Sound soundBtnHover;
 	};
 
-	void InitGameStateMainMenu(GameStateMainMenuData& data, Game& game);
-	void ShutdownGameStateMainMenu(GameStateMainMenuData& data, Game& game);
-	void HandleGameStateMainMenuWindowEvent(GameStateMainMenuData& data, Game& game, const sf::Event& event);
-	void UpdateGameStateMainMenu(GameStateMainMenuData& data, Game& game, float timeDelta);
-	void DrawGameStateMainMenu(GameStateMainMenuData& data, Game& game, sf::RenderWindow& window);
+	void InitGameStateMainMenu(GameStateMainMenuData& data);
+	void ShutdownGameStateMainMenu(GameStateMainMenuData& data);
+	void HandleGameStateMainMenuWindowEvent(GameStateMainMenuData& data, const sf::Event& event);
+	void UpdateGameStateMainMenu(GameStateMainMenuData& data, float timeDelta);
+	void DrawGameStateMainMenu(GameStateMainMenuData& data, sf::RenderWindow& window);
 }
 

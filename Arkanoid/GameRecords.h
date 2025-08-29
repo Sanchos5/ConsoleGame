@@ -5,8 +5,6 @@
 
 namespace ArkanoidGame
 {
-	struct Game;
-
 	struct GameStateRecordsData
 	{
 		sf::Font font;
@@ -16,10 +14,10 @@ namespace ArkanoidGame
 		sf::Text hintText;
 	};
 
-	void ShutdownGameStateRecords(GameStateRecordsData& data, Game& game);
-	void HandleGameStateRecordsWindowEvent(GameStateRecordsData& data, Game& game, const sf::Event& event);
-	void InitGameRecord(GameStateRecordsData& data, Game& game);
-	void UpdateGameStateRecords(GameStateRecordsData& data, Game& game, float timeDelta);
-	void DrawGameStateRecords(GameStateRecordsData& data, Game& game, sf::RenderWindow& window);
+	void ShutdownGameStateRecords(GameStateRecordsData& data);
+	void HandleGameStateRecordsWindowEvent(GameStateRecordsData& data, const sf::Event& event);
+	void InitGameRecord(GameStateRecordsData& data);
+	void UpdateGameStateRecords(GameStateRecordsData& data, float timeDelta);
+	void DrawGameStateRecords(GameStateRecordsData& data, sf::RenderWindow& window);
 }
 
