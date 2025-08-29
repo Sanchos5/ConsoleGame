@@ -8,6 +8,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Apples", "Apples\Apples.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Snake", "Snake\Snake.vcxproj", "{9FCF0520-90F3-4E4A-8BDC-8E370187687E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Arkanoid", "Arkanoid\Arkanoid.vcxproj", "{35D91029-0D6D-4729-85B2-96B8051724F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -39,6 +41,14 @@ Global
 		{9FCF0520-90F3-4E4A-8BDC-8E370187687E}.Release|x64.Build.0 = Release|x64
 		{9FCF0520-90F3-4E4A-8BDC-8E370187687E}.Release|x86.ActiveCfg = Release|Win32
 		{9FCF0520-90F3-4E4A-8BDC-8E370187687E}.Release|x86.Build.0 = Release|Win32
+		{35D91029-0D6D-4729-85B2-96B8051724F6}.Debug|x64.ActiveCfg = Debug|x64
+		{35D91029-0D6D-4729-85B2-96B8051724F6}.Debug|x64.Build.0 = Debug|x64
+		{35D91029-0D6D-4729-85B2-96B8051724F6}.Debug|x86.ActiveCfg = Debug|Win32
+		{35D91029-0D6D-4729-85B2-96B8051724F6}.Debug|x86.Build.0 = Debug|Win32
+		{35D91029-0D6D-4729-85B2-96B8051724F6}.Release|x64.ActiveCfg = Release|x64
+		{35D91029-0D6D-4729-85B2-96B8051724F6}.Release|x64.Build.0 = Release|x64
+		{35D91029-0D6D-4729-85B2-96B8051724F6}.Release|x86.ActiveCfg = Release|Win32
+		{35D91029-0D6D-4729-85B2-96B8051724F6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
