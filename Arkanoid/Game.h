@@ -13,7 +13,7 @@
 
 namespace ArkanoidGame
 {
-	enum class GameModeOption : std::uint8_t
+	enum class GameOptions : std::uint8_t
 	{
 		Sound = 1 << 0,
 		Music = 1 << 1,
@@ -63,7 +63,7 @@ namespace ArkanoidGame
 		GameStateType pendingGameStateType = GameStateType::None;
 		bool pendingGameStateIsExclusivelyVisible = false;
 
-		GameModeOption options = GameModeOption::Default;
+		GameOptions options = GameOptions::Default;
 		DifficultyLevel difficulty = DifficultyLevel::Normal;
 
 		std::unordered_map<std::string, int> recordsTable;
@@ -90,5 +90,8 @@ namespace ArkanoidGame
 	void HandleWindowEventGameState(Game& game, GameState& state, sf::Event& event);
 	void UpdateGameState(Game& game, GameState& state, float timeDelta);
 	void DrawGameState(Game& game, GameState& state, sf::RenderWindow& window);
+
+	bool IsEnableOptions(const Game& game, GameOptions option);
+	bool IsEnableDifficultyLevel(const Game& game, DifficultyLevel level);
 }
 

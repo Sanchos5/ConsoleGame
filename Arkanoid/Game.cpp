@@ -330,4 +330,16 @@ namespace ArkanoidGame
 			break;
 		}
 	}
+
+	bool IsEnableOptions(const Game& game, GameOptions option)
+	{
+		bool isEnable = ((std::uint8_t)game.options & (std::uint8_t)option) != (std::uint8_t)GameOptions::Empty;
+		return isEnable;
+	}
+
+	bool IsEnableDifficultyLevel(const Game& game, DifficultyLevel level)
+	{
+		bool isEnable = (std::uint8_t)game.difficulty & (std::uint8_t)level;
+		return isEnable;
+	}
 }
