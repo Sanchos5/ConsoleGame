@@ -29,8 +29,8 @@ namespace ArkanoidGame
 		data.recordsTableTexts.reserve(MAX_RECORDS_TABLE_SIZE);
 
 		std::multimap<int, std::string> sortedRecordsTable;
-		int snakeScores = Application::Instance().GetGame().recordsTable[PLAYER_NAME];
-		for (const auto& item : Application::Instance().GetGame().recordsTable)
+		Game& game = Application::Instance().GetGame();
+		for (const auto& item : game.GetRecordsTable())
 		{
 			sortedRecordsTable.insert(std::make_pair(item.second, item.first));
 		}
@@ -64,6 +64,7 @@ namespace ArkanoidGame
 		{
 			sf::Text& text = data.recordsTableTexts.back();
 			std::stringstream sstream;
+			int snakeScores = game.GetRecordByPlayerId(PLAYER_NAME);
 			sstream << MAX_RECORDS_TABLE_SIZE << ". " << PLAYER_NAME << ": " << snakeScores;
 			text.setString(sstream.str());
 			text.setFillColor(sf::Color::Green);
@@ -81,11 +82,11 @@ namespace ArkanoidGame
 		{
 			if (event.key.code == sf::Keyboard::Space)
 			{
-				SwitchGameState(Application::Instance().GetGame(), GameStateType::Playing);
+				Application::Instance().GetGame().SwitchStateTo(GameStateType::Playing);
 			}
 			else if (event.key.code == sf::Keyboard::Escape)
 			{
-				SwitchGameState(Application::Instance().GetGame(), GameStateType::MainMenu);
+				Application::Instance().GetGame().SwitchStateTo(GameStateType::MainMenu);
 			}
 		}
 	}

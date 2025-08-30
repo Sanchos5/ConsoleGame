@@ -28,11 +28,11 @@ namespace ArkanoidGame
 		{
 			if (event.key.code == sf::Keyboard::Escape)
 			{
-				PopGameState(Application::Instance().GetGame());
+				Application::Instance().GetGame().PopState();
 			}
 			else if (event.key.code == sf::Keyboard::Enter)
 			{
-				SwitchGameState(Application::Instance().GetGame(), GameStateType::MainMenu);
+				Application::Instance().GetGame().SwitchStateTo(GameStateType::MainMenu);
 			}
 		}
 	}

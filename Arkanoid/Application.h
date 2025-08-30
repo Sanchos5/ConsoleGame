@@ -15,7 +15,7 @@ namespace ArkanoidGame
 
 		private:
 			Application();
-			~Application();
+			~Application() = default;
 
 		private:
 			Game game;

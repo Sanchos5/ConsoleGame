@@ -4,7 +4,7 @@
 
 namespace ArkanoidGame
 {
-	struct Game;
+	class Game;
 
 	struct GameStateGameOverData
 	{

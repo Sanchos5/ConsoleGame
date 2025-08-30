@@ -17,8 +17,9 @@ namespace ArkanoidGame
 
 		data.tableTexts.reserve(MAX_RECORDS_TABLE_SIZE);
 
+		const Game& game = Application::Instance().GetGame();
 		std::map<int, std::string> sortedRecordsTable;
-		for (const auto& item : Application::Instance().GetGame().recordsTable)
+		for (const auto& item : game.GetRecordsTable())
 		{
 			sortedRecordsTable[item.second] = item.first;
 		}
@@ -50,7 +51,7 @@ namespace ArkanoidGame
 		{
 			if (event.key.code == sf::Keyboard::Escape)
 			{
-				PopGameState(Application::Instance().GetGame());
+				Application::Instance().GetGame().PopState();
 			}
 		}
 	}

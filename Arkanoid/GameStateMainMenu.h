@@ -6,19 +6,13 @@
 
 namespace ArkanoidGame
 {
-	struct Game;
+	class Game;
 
 	struct GameStateMainMenuData
 	{
 		sf::Font font;
 
 		Menu menu;
-
-		MenuItem difficultyEasy;
-		MenuItem difficultyNormal;
-		MenuItem difficultyHard;
-		MenuItem difficultyInsane;
-		MenuItem difficultyImpossible;
 
 		sf::SoundBuffer soundBtnHoverBuffer;
 		sf::Sound soundBtnHover;
