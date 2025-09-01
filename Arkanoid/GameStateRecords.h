@@ -1,14 +1,12 @@
 #pragma once
 
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
+#include <vector>
 
 namespace ArkanoidGame
 {
-	class Game;
-
-	class GameStateGameOverData
+	class GameStateRecordsData
 	{
-
 		public:
 
 			void Init();
@@ -20,11 +18,9 @@ namespace ArkanoidGame
 
 			sf::Font font;
 
-			float timeSinceGameOver = 0.f;
-
-			// UI data
-			sf::Text gameOverText;
+			sf::Text titleText;
+			std::vector<sf::Text> tableTexts;
 			sf::Text hintText;
-			std::vector<sf::Text> recordsTableTexts;
 	};
 }
+

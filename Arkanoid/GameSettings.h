@@ -9,20 +9,16 @@ namespace ArkanoidGame
 	const std::string FONTS_PATH = RESOURCES_PATH + "Fonts/";
 	const std::string SOUNDS_PATH = RESOURCES_PATH + "Sounds/";
 
-	const int SCREEN_WIDTH = 800;
-	const int SCREEN_HEIGHT = 600;
+	const unsigned int SCREEN_WIDTH = 800;
+	const unsigned int SCREEN_HEIGHT = 600;
 
-	const float SNAKE_SIZE = 20.0f;
-	const unsigned int INITIAL_SNAKE_SIZE = 3;
-	const float INITIAL_SPEED = 50.0f; //Pixels per second
-	const float ACCELERATION = 10.0f;
-
-	const float APPLE_SIZE = 20.0f;
-	//const int NUM_APPLES = 10;
-	//int numApple = 15;
-
-	const float ROCK_SIZE = 20.0f;
-	const int NUM_ROCKS = 10;
+	const unsigned int PLATFORM_WIDTH = 60;
+	const unsigned int PLATFORM_HEIGHT = 20;
+	const float PLATFORM_SPEED = 300.f;
+	
+	const unsigned int BALL_SIZE = 20;
+	const unsigned int BALL_SPEED = 400;
+	const float BALL_ACCELERATION = 10.0f;
 
 	const float TIME_PER_FRAME = 1.f / 60.f; // 60 fps
 

@@ -1,28 +1,24 @@
 #include "GameStateExitDialog.h"
 #include "Application.h"
+#include "Math.h"
 #include <assert.h>
 
 namespace ArkanoidGame
 {
-	void InitGameStateExitDialog(GameStateExitDialogData& data)
+	void GameStateExitDialogData::Init()
 	{
-		assert(data.font.loadFromFile(FONTS_PATH + "Roboto-Regular.ttf"));
+		assert(font.loadFromFile(FONTS_PATH + "Roboto-Regular.ttf"));
 
-		data.hintText.setString(L"Вы уверены что хотите завершить эту игру? Enter - Да, Esc - Нет");
-		data.hintText.setFont(data.font);
-		data.hintText.setCharacterSize(24);
-		data.hintText.setFillColor(sf::Color::White);
-		data.hintText.setOrigin(GetTextOrigin(data.hintText, { 0.5f, 0.5f }));
+		hintText.setString(L"Вы уверены что хотите завершить эту игру? Enter - Да, Esc - Нет");
+		hintText.setFont(font);
+		hintText.setCharacterSize(24);
+		hintText.setFillColor(sf::Color::White);
+		hintText.setOrigin(GetTextOrigin(hintText, { 0.5f, 0.5f }));
 
-		data.background.setFillColor(sf::Color(0, 0, 0, 128)); // Semi-transparent black
+		background.setFillColor(sf::Color(0, 0, 0, 128)); // Semi-transparent black
 	}
 
-	void ShutdownGameStateExitDialog(GameStateExitDialogData& data)
-	{
-		// We dont need to free resources here, because they will be freed automatically
-	}
-
-	void HandleGameStateExitDialogWindowEvent(GameStateExitDialogData& data, const sf::Event& event)
+	void GameStateExitDialogData::HandleWindowEvent(const sf::Event& event)
 	{
 		if (event.type == sf::Event::KeyPressed)
 		{
@@ -37,19 +33,19 @@ namespace ArkanoidGame
 		}
 	}
 
-	void UpdateGameStateExitDialog(GameStateExitDialogData& data, float timeDelta)
+	void GameStateExitDialogData::Update(float deltaTime)
 	{
 
 	}
 
-	void DrawGameStateExitDialog(GameStateExitDialogData& data, sf::RenderWindow& window)
+	void GameStateExitDialogData::Draw(sf::RenderWindow& window)
 	{
 		sf::Vector2f windowSize = (sf::Vector2f)window.getSize();
 
-		data.background.setSize(windowSize);
-		window.draw(data.background);
+		background.setSize(windowSize);
+		window.draw(background);
 
-		data.hintText.setPosition(windowSize / 2.f);
-		window.draw(data.hintText);
+		hintText.setPosition(windowSize / 2.f);
+		window.draw(hintText);
 	}
 }

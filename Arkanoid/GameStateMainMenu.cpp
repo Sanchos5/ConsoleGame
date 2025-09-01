@@ -4,18 +4,18 @@
 
 namespace ArkanoidGame
 {
-	void InitGameStateMainMenu(GameStateMainMenuData& data)
+	void GameStateMainMenuData::Init()
 	{
-		assert(data.font.loadFromFile(FONTS_PATH + "Roboto-Regular.ttf"));
+		assert(font.loadFromFile(FONTS_PATH + "Roboto-Regular.ttf"));
 
-		assert(data.soundBtnHoverBuffer.loadFromFile(SOUNDS_PATH + "\\menu-hover.wav"));
+		assert(soundBtnHoverBuffer.loadFromFile(SOUNDS_PATH + "\\menu-hover.wav"));
 
-		data.soundBtnHover.setBuffer(data.soundBtnHoverBuffer);
+		soundBtnHover.setBuffer(soundBtnHoverBuffer);
 
-		auto setTextParameters = [&data](sf::Text& itemText, const std::wstring& title, int fontSize, sf::Color color = sf::Color::Transparent)
+		auto setTextParameters = [&](sf::Text& itemText, const std::wstring& title, int fontSize, sf::Color color = sf::Color::Transparent)
 			{
 				itemText.setString(title);
-				itemText.setFont(data.font);
+				itemText.setFont(font);
 				itemText.setCharacterSize(fontSize);
 				if (color != sf::Color::Transparent)
 				{
@@ -31,7 +31,7 @@ namespace ArkanoidGame
 			{
 				Application::Instance().GetGame().SwitchStateTo(GameStateType::Playing);
 			};
-
+		
 		const bool isEasy = game.IsEnableDifficultyLevel(DifficultyLevel::Easy);
 		MenuItem difficultyEasy;
 		setTextParameters(difficultyEasy.text, L"Лёгкий: " + std::wstring(isEasy ? L"Вкл" : L"Выкл"), 24);
@@ -148,9 +148,9 @@ namespace ArkanoidGame
 
 		MenuItem noItem;
 		setTextParameters(noItem.text, L"Нет", 24);
-		noItem.onPressCallback = [&data](MenuItem&)
+		noItem.onPressCallback = [&](MenuItem&)
 			{
-				data.menu.GoBack();
+				menu.GoBack();
 			};
 
 		MenuItem exitGame;
@@ -164,7 +164,7 @@ namespace ArkanoidGame
 		exitGame.childrens.push_back(noItem);
 
 		MenuItem mainMenu;
-		setTextParameters(mainMenu.hintText, L"Змейка", 48, sf::Color::Red);
+		setTextParameters(mainMenu.hintText, L"Arcanoid", 48, sf::Color::Red);
 		mainMenu.childrenOrientation = Orientation::Vertical;
 		mainMenu.childrenAlignment = Alignment::Middle;
 		mainMenu.childrenSpacing = 10.f;
@@ -174,61 +174,54 @@ namespace ArkanoidGame
 		mainMenu.childrens.push_back(records);
 		mainMenu.childrens.push_back(exitGame);
 
-		data.menu.Init(mainMenu);
+		menu.Init(mainMenu);
 	}
 
-	void ShutdownGameStateMainMenu(GameStateMainMenuData& data)
+	void GameStateMainMenuData::HandleWindowEvent(const sf::Event& event)
 	{
-		// No need to do anything here
-	}
-
-	void HandleGameStateMainMenuWindowEvent(GameStateMainMenuData& data, const sf::Event& event)
-	{
-		Game& game = Application::Instance().GetGame();
-		
 		if (event.type == sf::Event::KeyPressed)
 		{
 			if (event.key.code == sf::Keyboard::Escape)
 			{
-				data.menu.GoBack();
+				menu.GoBack();
 			}
 			else if (event.key.code == sf::Keyboard::Enter)
 			{
-				if (game.IsEnableOptions(GameOptions::Sound))
+				if (Application::Instance().GetGame().IsEnableOptions(GameOptions::Sound))
 				{
-					data.soundBtnHover.play();
+					soundBtnHover.play();
 				}
-				data.menu.PressOnSelectedItem();
+				menu.PressOnSelectedItem();
 			}
 
-			Orientation orientation = data.menu.GetCurrentContext().childrenOrientation;
+			Orientation orientation = menu.GetCurrentContext().childrenOrientation;
 			if (orientation == Orientation::Vertical && event.key.code == sf::Keyboard::Up ||
 				orientation == Orientation::Horizontal && event.key.code == sf::Keyboard::Left)
 			{
-				data.menu.SwitchToPreviousMenuItem();
+				menu.SwitchToPreviousMenuItem();
 			}
 			else if (orientation == Orientation::Vertical && event.key.code == sf::Keyboard::Down ||
 				orientation == Orientation::Horizontal && event.key.code == sf::Keyboard::Right)
 			{
-				data.menu.SwitchToNextMenuItem();
+				menu.SwitchToNextMenuItem();
 			}
 		}
 	}
 
-	void UpdateGameStateMainMenu(GameStateMainMenuData& data, float timeDelta)
+	void GameStateMainMenuData::Update(float deltaTime)
 	{
 		
 	}
 
-	void DrawGameStateMainMenu(GameStateMainMenuData& data, sf::RenderWindow& window)
+	void GameStateMainMenuData::Draw(sf::RenderWindow& window)
 	{
 		sf::Vector2f viewSize = (sf::Vector2f)window.getSize();
 
-		sf::Text* hintText = &data.menu.GetCurrentContext().hintText;
+		sf::Text* hintText = &menu.GetCurrentContext().hintText;
 		hintText->setOrigin(GetTextOrigin(*hintText, { 0.5f, 0.f }));
 		hintText->setPosition(viewSize.x / 2.f, 150.f);
 		window.draw(*hintText);
 
-		data.menu.Draw(window, viewSize / 2.f, { 0.5f, 0.f });
+		menu.Draw(window, viewSize / 2.f, { 0.5f, 0.f });
 	}
 }

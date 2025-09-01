@@ -5,11 +5,7 @@
 
 #include "GameState.h"
 #include "GameSettings.h"
-#include "Math.h"
 #include "Sprite.h"
-#include "Snake.h"
-#include "Apple.h"
-#include "Rock.h"
 #include <unordered_map>
 
 namespace ArkanoidGame

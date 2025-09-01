@@ -3,7 +3,7 @@
 #include "GameStatePlaying.h"
 #include "GameStateGameOver.h"
 #include "GameStateExitDialog.h"
-#include "GameRecords.h"
+#include "GameStateRecords.h"
 #include <assert.h>
 
 namespace ArkanoidGame
@@ -17,31 +17,31 @@ namespace ArkanoidGame
 		case GameStateType::MainMenu:
 		{
 			data = new GameStateMainMenuData();
-			InitGameStateMainMenu(*(GameStateMainMenuData*)data);
+			((GameStateMainMenuData*)data)->Init();
 			break;
 		}
 		case GameStateType::Playing:
 		{
 			data = new GameStatePlayingData();
-			InitGameStatePlaying(*(GameStatePlayingData*)data);
+			((GameStatePlayingData*)data)->Init();
 			break;
 		}
 		case GameStateType::GameOver:
 		{
 			data = new GameStateGameOverData();
-			InitGameStateGameOver(*(GameStateGameOverData*)data);
+			((GameStateGameOverData*)data)->Init();
 			break;
 		}
 		case GameStateType::ExitDialog:
 		{
 			data = new GameStateExitDialogData();
-			InitGameStateExitDialog(*(GameStateExitDialogData*)data);
+			((GameStateExitDialogData*)data)->Init();
 			break;
 		}
 		case GameStateType::Records:
 		{
 			data = new GameStateRecordsData();
-			InitGameRecord(*(GameStateRecordsData*)data);
+			((GameStateRecordsData*)data)->Init();
 			break;
 		}
 		default:
@@ -57,31 +57,26 @@ namespace ArkanoidGame
 			{
 			case GameStateType::MainMenu:
 			{
-				ShutdownGameStateMainMenu(*(GameStateMainMenuData*)data);
 				delete ((GameStateMainMenuData*)data);
 				break;
 			}
 			case GameStateType::Playing:
 			{
-				ShutdownGameStatePlaying(*(GameStatePlayingData*)data);
 				delete ((GameStatePlayingData*)data);
 				break;
 			}
 			case GameStateType::GameOver:
 			{
-				ShutdownGameStateGameOver(*(GameStateGameOverData*)data);
 				delete ((GameStateGameOverData*)data);
 				break;
 			}
 			case GameStateType::ExitDialog:
 			{
-				ShutdownGameStateExitDialog(*(GameStateExitDialogData*)data);
 				delete ((GameStateExitDialogData*)data);
 				break;
 			}
 			case GameStateType::Records:
 			{
-				ShutdownGameStateRecords(*(GameStateRecordsData*)data);
 				delete ((GameStateRecordsData*)data);
 				break;
 			}
@@ -100,27 +95,27 @@ namespace ArkanoidGame
 		{
 		case GameStateType::MainMenu:
 		{
-			UpdateGameStateMainMenu(*(GameStateMainMenuData*)data, deltaTime);
+			((GameStateMainMenuData*)data)->Update(deltaTime);
 			break;
 		}
 		case GameStateType::Playing:
 		{
-			UpdateGameStatePlaying(*(GameStatePlayingData*)data, deltaTime);
+			((GameStatePlayingData*)data)->Update(deltaTime);
 			break;
 		}
 		case GameStateType::GameOver:
 		{
-			UpdateGameStateGameOver(*(GameStateGameOverData*)data, deltaTime);
+			((GameStateGameOverData*)data)->Update(deltaTime);
 			break;
 		}
 		case GameStateType::ExitDialog:
 		{
-			UpdateGameStateExitDialog(*(GameStateExitDialogData*)data, deltaTime);
+			((GameStateExitDialogData*)data)->Update(deltaTime);
 			break;
 		}
 		case GameStateType::Records:
 		{
-			UpdateGameStateRecords(*(GameStateRecordsData*)data, deltaTime);
+			((GameStateRecordsData*)data)->Update(deltaTime);
 			break;
 		}
 		default:
@@ -135,27 +130,27 @@ namespace ArkanoidGame
 		{
 		case GameStateType::MainMenu:
 		{
-			DrawGameStateMainMenu(*(GameStateMainMenuData*)data, window);
+			((GameStateMainMenuData*)data)->Draw(window);
 			break;
 		}
 		case GameStateType::Playing:
 		{
-			DrawGameStatePlaying(*(GameStatePlayingData*)data, window);
+			((GameStatePlayingData*)data)->Draw(window);
 			break;
 		}
 		case GameStateType::GameOver:
 		{
-			DrawGameStateGameOver(*(GameStateGameOverData*)data, window);
+			((GameStateGameOverData*)data)->Draw(window);
 			break;
 		}
 		case GameStateType::ExitDialog:
 		{
-			DrawGameStateExitDialog(*(GameStateExitDialogData*)data, window);
+			((GameStateExitDialogData*)data)->Draw(window);
 			break;
 		}
 		case GameStateType::Records:
 		{
-			DrawGameStateRecords(*(GameStateRecordsData*)data, window);
+			((GameStateRecordsData*)data)->Draw(window);
 			break;
 		}
 		default:
@@ -170,27 +165,27 @@ namespace ArkanoidGame
 		{
 		case GameStateType::MainMenu:
 		{
-			HandleGameStateMainMenuWindowEvent(*(GameStateMainMenuData*)data, event);
+			((GameStateMainMenuData*)data)->HandleWindowEvent(event);
 			break;
 		}
 		case GameStateType::Playing:
 		{
-			HandleGameStatePlayingWindowEvent(*(GameStatePlayingData*)data, event);
+			((GameStatePlayingData*)data)->HandleWindowEvent(event);
 			break;
 		}
 		case GameStateType::GameOver:
 		{
-			HandleGameStateGameOverWindowEvent(*(GameStateGameOverData*)data, event);
+			((GameStateGameOverData*)data)->HandleWindowEvent(event);
 			break;
 		}
 		case GameStateType::ExitDialog:
 		{
-			HandleGameStateExitDialogWindowEvent(*(GameStateExitDialogData*)data, event);
+			((GameStateExitDialogData*)data)->HandleWindowEvent(event);
 			break;
 		}
 		case GameStateType::Records:
 		{
-			HandleGameStateRecordsWindowEvent(*(GameStateRecordsData*)data, event);
+			((GameStateRecordsData*)data)->HandleWindowEvent(event);
 			break;
 		}
 		default:

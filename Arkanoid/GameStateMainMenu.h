@@ -8,20 +8,22 @@ namespace ArkanoidGame
 {
 	class Game;
 
-	struct GameStateMainMenuData
+	class GameStateMainMenuData
 	{
-		sf::Font font;
+		public:
 
-		Menu menu;
+			void Init();
+			void HandleWindowEvent(const sf::Event& event);
+			void Update(float deltaTime);
+			void Draw(sf::RenderWindow& window);
 
-		sf::SoundBuffer soundBtnHoverBuffer;
-		sf::Sound soundBtnHover;
+		private:
+
+			sf::Font font;
+			Menu menu;
+
+			sf::SoundBuffer soundBtnHoverBuffer;
+			sf::Sound soundBtnHover;
 	};
-
-	void InitGameStateMainMenu(GameStateMainMenuData& data);
-	void ShutdownGameStateMainMenu(GameStateMainMenuData& data);
-	void HandleGameStateMainMenuWindowEvent(GameStateMainMenuData& data, const sf::Event& event);
-	void UpdateGameStateMainMenu(GameStateMainMenuData& data, float timeDelta);
-	void DrawGameStateMainMenu(GameStateMainMenuData& data, sf::RenderWindow& window);
 }
 
