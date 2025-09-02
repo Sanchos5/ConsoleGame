@@ -9,8 +9,8 @@ namespace ArkanoidGame
 	{
 		public:
 
-			void Init();
-			void Update(float deltaTime);
+			void Init() override;
+			void Update(float deltaTime) override;
 
 			void ReboundFromPlatform();
 

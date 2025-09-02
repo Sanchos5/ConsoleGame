@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "GameStateData.h"
 
 namespace ArkanoidGame
 {
@@ -27,7 +28,7 @@ namespace ArkanoidGame
 			GameState& operator= (const GameState& state) = delete;
 			GameState& operator= (GameState&& state) noexcept {
 				type = state.type;
-				data = state.data;
+				data = std::move(state.data);
 				isExclusivelyVisible = state.isExclusivelyVisible;
 				state.data = nullptr;
 				return *this;
@@ -47,10 +48,9 @@ namespace ArkanoidGame
 
 		private:
 
-			void* CopyData(const GameState& state) const;
+			std::unique_ptr<GameStateData> data = nullptr;
 
 			GameStateType type = GameStateType::None;
-			void* data = nullptr;
 			bool isExclusivelyVisible = false;
 	};
 }

@@ -4,17 +4,18 @@
 #include "SFML/Audio.hpp"
 #include "Ball.h"
 #include "Platform.h"
+#include "GameStateData.h"
 
 namespace ArkanoidGame
 {
-	class GameStatePlayingData
+	class GameStatePlayingData : public GameStateData
 	{
 		public:
 
-			void Init();
-			void HandleWindowEvent(const sf::Event& event);
-			void Update(float deltaTime);
-			void Draw(sf::RenderWindow& window);
+			void HandleWindowEvent(const sf::Event& event) override;
+			void Init() override;
+			void Update(float deltaTime) override;
+			void Draw(sf::RenderWindow& window) override;
 
 		private:
 
@@ -27,8 +28,7 @@ namespace ArkanoidGame
 			//sf::SoundBuffer soundBackgroundBuffer;
 
 			//Game data
-			Platform platform;
-			Ball ball;
+			std::vector<std::shared_ptr<GameObject>> gameObjects;
 
 			// UI data
 			sf::Font font;

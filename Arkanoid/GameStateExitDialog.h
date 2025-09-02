@@ -1,17 +1,18 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "GameStateData.h"
 
 namespace ArkanoidGame
 {
-	class GameStateExitDialogData
+	class GameStateExitDialogData : public GameStateData
 	{
 		public:
 
-			void Init();
-			void HandleWindowEvent(const sf::Event& event);
-			void Update(float deltaTime);
-			void Draw(sf::RenderWindow& window);
+			void HandleWindowEvent(const sf::Event& event) override;
+			void Init() override;
+			void Update(float deltaTime) override;
+			void Draw(sf::RenderWindow& window) override;
 
 		private:
 

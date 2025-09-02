@@ -31,8 +31,15 @@ namespace ArkanoidGame
 		inputHintText.setString(L"Используйте клавишы WASD для перемещения, ESC для выхода");
 		inputHintText.setOrigin(GetTextOrigin(inputHintText, { 1.f, 0.f }));
 
-		platform.Init();
-		ball.Init();
+		gameObjects.emplace_back(std::make_shared<Platform>());
+		gameObjects.emplace_back(std::make_shared<Ball>());
+
+		for (auto&& object : gameObjects)
+		{
+			object->Init();
+		}
+		//platform.Init();
+		//ball.Init();
 
 		//DifficultyLevelState(data);
 
@@ -85,15 +92,21 @@ namespace ArkanoidGame
 
 	void GameStatePlayingData::Update(float deltaTime)
 	{
-		platform.Update(deltaTime);
-		ball.Update(deltaTime);
-
-		const bool isCollision = platform.CheckCollisionWithBall(ball);
-		if (isCollision) {
-			ball.ReboundFromPlatform();
+		for(auto&& object : gameObjects)
+		{
+			object->Update(deltaTime);
 		}
 
-		const bool isGameFinished = !isCollision && ball.GetPosition().y > platform.GetRect().top;
+		const Platform* platform = (Platform*)gameObjects[0].get();
+		Ball* ball = (Ball*)gameObjects[1].get();
+
+		const bool isCollision = platform->CheckCollisionWithBall(*ball);
+		if (isCollision) 
+		{
+			ball->ReboundFromPlatform();
+		}
+
+		const bool isGameFinished = !isCollision && ball->GetPosition().y > platform->GetRect().top;
 
 		if (isGameFinished)
 		{
@@ -154,8 +167,10 @@ namespace ArkanoidGame
 		window.draw(background);
 
 		// Draw game objects
-		platform.Draw(window);
-		ball.Draw(window);
+		for (auto&& object : gameObjects)
+		{
+			object->Draw(window);
+		}
 
 		scoreText.setOrigin(GetTextOrigin(scoreText, { 0.f, 0.f }));
 		scoreText.setPosition(10.f, 10.f);
