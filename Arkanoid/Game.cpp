@@ -10,11 +10,11 @@ namespace ArkanoidGame
 		// Generate fake records table
 		recordsTable =
 		{
-			{"John", rand() % 10},
-			{"Jane", rand() % 10 },
-			{"Alice", rand() % 10 },
-			{"Bob", rand() % 10 },
-			{"Clementine", rand() % 10 },
+			{"John", rand() % 1000},
+			{"Jane", rand() % 1000 },
+			{"Alice", rand() % 1000 },
+			{"Bob", rand() % 1000 },
+			{"Clementine", rand() % 1000 },
 		};
 
 		stateChangeType = GameStateChangeType::None;

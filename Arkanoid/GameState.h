@@ -12,6 +12,7 @@ namespace ArkanoidGame
 		GameOver,
 		ExitDialog,
 		Records,
+		GameWin,
 	};
 
 	class GameState
@@ -38,7 +39,8 @@ namespace ArkanoidGame
 			bool IsExclusivelyVisible() const { return isExclusivelyVisible; }
 
 			template<class T>
-			T* GetData() const {
+			T* GetData() const 
+			{
 				return static_cast<T>(data);
 			}
 

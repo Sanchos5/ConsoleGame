@@ -1,6 +1,5 @@
 #pragma once
-#include "GameObject.h"
-#include "Sprite.h"
+#include <SFML/Graphics.hpp>
 
 namespace ArkanoidGame
 {
@@ -8,14 +7,14 @@ namespace ArkanoidGame
 	{
 		public:
 
+			GameObject(const std::string& texturePath, const sf::Vector2f& position, float width, float height);
 			virtual ~GameObject() = default;
 
-			virtual void Init() = 0;
 			virtual void Update(float deltaTime) = 0;
 			virtual void Draw(sf::RenderWindow& window);
 
 			const sf::Vector2f& GetPosition() const { return sprite.getPosition(); }
-			const sf::FloatRect& GetRect() const { return sprite.getGlobalBounds(); }
+			sf::FloatRect GetRect() const { return sprite.getGlobalBounds(); }
 
 		protected:
 

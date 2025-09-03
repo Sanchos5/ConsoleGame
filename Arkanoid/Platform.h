@@ -2,18 +2,23 @@
 
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
+#include "Collision.h"
 
 namespace ArkanoidGame
 {
 	class Ball;
 
-	class Platform : public GameObject
+	class Platform : public GameObject, public Collision
 	{
 		public:
-			void Init() override;
-			void Update(float timeDelta) override;
 
-			bool CheckCollisionWithBall(const Ball& ball) const;
+			Platform(const sf::Vector2f& position);
+
+			void Update(float deltaTime) override;
+
+			bool GetCollision(std::shared_ptr<Collision> collision) const override;
+			void OnHit() override {}
+			bool CheckCollision(std::shared_ptr<Collision> collision) override;
 
 		private:
 			void Move(float speed);

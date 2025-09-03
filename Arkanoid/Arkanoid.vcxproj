@@ -144,9 +144,11 @@
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Arkanoid.cpp" />
+    <ClCompile Include="Block.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameStateData.cpp" />
+    <ClCompile Include="GameStateGameWin.cpp" />
     <ClCompile Include="GameStateRecords.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameStateExitDialog.cpp" />
@@ -161,9 +163,13 @@
   <ItemGroup>
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Block.h" />
+    <ClInclude Include="Collision.h" />
+    <ClInclude Include="DelayedAction.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameStateData.h" />
+    <ClInclude Include="GameStateGameWin.h" />
     <ClInclude Include="GameStateRecords.h" />
     <ClInclude Include="GameSettings.h" />
     <ClInclude Include="GameState.h" />
@@ -174,6 +180,7 @@
     <ClInclude Include="Math.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Platform.h" />
+    <ClInclude Include="randomizer.h" />
     <ClInclude Include="Sprite.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
