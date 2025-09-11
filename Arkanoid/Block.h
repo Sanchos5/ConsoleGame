@@ -17,6 +17,8 @@ namespace ArkanoidGame
 			void Update(float timeDelta) override;
 			bool IsBroken();
 
+			bool isHit = false;
+
 		protected:
 
 			void OnHit() override;
@@ -29,7 +31,7 @@ namespace ArkanoidGame
 
 			SmoothDestroyableBlock(const sf::Vector2f& position, const sf::Color& color = sf::Color::Green);
 			~SmoothDestroyableBlock() = default;
-			void Update(float timeDelta) override;
+			void Update(float deltaTime) override;
 			bool GetCollision(std::shared_ptr<Collision> collisionObject) const override;
 
 		protected:
@@ -51,6 +53,23 @@ namespace ArkanoidGame
 				int i = 0;
 				++i;
 			};
+	};
+
+	class HeavyDestroyableBlock : public Block, public DelayedAction
+	{
+		public:
+
+			HeavyDestroyableBlock(const sf::Vector2f& position, const sf::Color& color = sf::Color::Red);
+			~HeavyDestroyableBlock() = default;
+			void Update(float deltaTime) override;
+
+			
+		protected:
+
+			void OnHit() override;
+			void FinalAction() override;
+			void EachTickAction(float deltaTime) override;
+			sf::Color color;
 	};
 }
 

@@ -114,13 +114,19 @@ namespace ArkanoidGame
 
 						GetBallInverse(ballPos, blockRect, needInverseDirX, needInverseDirY);
 
-						score += 10;
+						
+						if (block->isHit == true)
+						{
+							score += 10;
+						}
 						
 					}
 					return block->IsBroken();
 				}),
 			blocks.end()
 		);
+
+		
 
 		scoreText.setString(L"Ñ÷¸ò: " + std::to_wstring(score));
 		
@@ -174,15 +180,19 @@ namespace ArkanoidGame
 		int row = 0;
 		for (; row < BLOCKS_COUNT_ROWS; ++row) 
 		{
-			for (int col = 0; col < BLOCKS_COUNT_IN_ROW; ++col) 
+			for (int col = 0; col < BLOCKS_COUNT_IN_ROW ; ++col) 
 			{
 				blocks.emplace_back(std::make_shared<SmoothDestroyableBlock>(sf::Vector2f({ BLOCK_SHIFT + BLOCK_WIDTH / 2.f + col * (BLOCK_WIDTH + BLOCK_SHIFT), 100.f + row * BLOCK_HEIGHT })));
 			}
 		}
-		/*for (int col = 0; col < 3; ++col) 
+		for (int col = 0; col < BLOCKS_COUNT_IN_ROW; ++col)
 		{
-			blocks.emplace_back(std::make_shared<UnbreackableBlock>(sf::Vector2f({ SCREEN_WIDTH / 2.f - BLOCK_WIDTH - BLOCK_SHIFT / 2.f + col * (BLOCK_WIDTH + BLOCK_SHIFT), 100.f + row * BLOCK_HEIGHT })));
-		}*/
+			blocks.emplace_back(std::make_shared<HeavyDestroyableBlock>(sf::Vector2f({ BLOCK_SHIFT + BLOCK_WIDTH / 2.f + col * (BLOCK_WIDTH + BLOCK_SHIFT), 100.f + row * BLOCK_HEIGHT })));
+		}
+		for (int col = 0; col < 3; ++col) 
+		{
+			blocks.emplace_back(std::make_shared<UnbreackableBlock>(sf::Vector2f({ SCREEN_WIDTH / 2.f - BLOCK_WIDTH - BLOCK_SHIFT / 2.f + col * (BLOCK_WIDTH + BLOCK_SHIFT), 100.f + (row + 1) * BLOCK_HEIGHT })));
+		}
 	}
 
 	void GameStatePlayingData::GetBallInverse(const sf::Vector2f& ballPos, const sf::FloatRect& blockRect, bool& needInverseDirX, bool& needInverseDirY) 

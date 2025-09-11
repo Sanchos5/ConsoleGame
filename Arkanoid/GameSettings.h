@@ -22,7 +22,7 @@ namespace ArkanoidGame
 	const float BALL_ACCELERATION = 10.0f;
 
 	const unsigned int BLOCKS_COUNT_ROWS = 5;
-	const unsigned int BLOCKS_COUNT_IN_ROW = 10;
+	const unsigned int BLOCKS_COUNT_IN_ROW = 13;
 	const unsigned int BLOCK_SHIFT = 6;
 	const unsigned int BLOCK_WIDTH = (SCREEN_WIDTH - (BLOCKS_COUNT_IN_ROW + 1) * BLOCK_SHIFT) / BLOCKS_COUNT_IN_ROW;
 	const unsigned int BLOCK_HEIGHT = 20;
