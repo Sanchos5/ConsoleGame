@@ -5,13 +5,19 @@
 #include "Ball.h"
 #include "Platform.h"
 #include "GameStateData.h"
+#include "BlockFactory.h"
+#include "LevelLoader.h"
+#include "IObserver.h"
+
+#include <unordered_map>
 
 namespace ArkanoidGame
 {
 	class Game;
 	class Block;
+	class BlockFactory;
 
-	class GameStatePlayingData : public GameStateData
+	class GameStatePlayingData : public GameStateData, public IObserver, public std::enable_shared_from_this<GameStatePlayingData>
 	{
 		public:
 
@@ -19,6 +25,9 @@ namespace ArkanoidGame
 			void Init() override;
 			void Update(float deltaTime) override;
 			void Draw(sf::RenderWindow& window) override;
+
+			void Notify(std::shared_ptr<IObservable> observable) override;
+			void LoadNextLevel();
 
 		private:
 
@@ -50,6 +59,14 @@ namespace ArkanoidGame
 			//sf::Sound soundAppleEat;
 			//sf::Sound soundDeath;
 			//sf::Sound soundBackground;
+
+			//Blocks creator
+			std::unordered_map<BlockType, std::unique_ptr<BlockFactory>> factories;
+			int breackableBlocksCount = 0;
+
+			//Levels
+			LevelLoader levelLoader;
+			int currentLevel = 0;
 	};
 }
 

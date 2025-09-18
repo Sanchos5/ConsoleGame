@@ -7,7 +7,7 @@ namespace ArkanoidGame
 {
 	void GameStateExitDialogData::Init()
 	{
-		assert(font.loadFromFile(FONTS_PATH + "Roboto-Regular.ttf"));
+		assert(font.loadFromFile(SETTINGS.FONTS_PATH + "Roboto-Regular.ttf"));
 
 		hintText.setString(L"Вы уверены что хотите завершить эту игру? Enter - Да, Esc - Нет");
 		hintText.setFont(font);

@@ -3,10 +3,11 @@
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
 #include "Collision.h"
+#include "IObserver.h"
 
 namespace ArkanoidGame
 {
-	class Ball : public GameObject, public Collision
+	class Ball : public GameObject, public Collision, public IObservable
 	{
 		public:
 
@@ -20,6 +21,8 @@ namespace ArkanoidGame
 
 			bool GetCollision(std::shared_ptr<Collision> collision) const  override;
 			void ChangeAngle(float x);
+
+			void Restart() override;
 
 		private:
 

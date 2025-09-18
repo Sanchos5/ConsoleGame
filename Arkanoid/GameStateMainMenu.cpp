@@ -6,9 +6,9 @@ namespace ArkanoidGame
 {
 	void GameStateMainMenuData::Init()
 	{
-		assert(font.loadFromFile(FONTS_PATH + "Roboto-Regular.ttf"));
+		assert(font.loadFromFile(SETTINGS.FONTS_PATH + "Roboto-Regular.ttf"));
 
-		assert(soundBtnHoverBuffer.loadFromFile(SOUNDS_PATH + "\\menu-hover.wav"));
+		assert(soundBtnHoverBuffer.loadFromFile(SETTINGS.SOUNDS_PATH + "\\menu-hover.wav"));
 
 		soundBtnHover.setBuffer(soundBtnHoverBuffer);
 

@@ -16,10 +16,13 @@ namespace ArkanoidGame
 			const sf::Vector2f& GetPosition() const { return sprite.getPosition(); }
 			sf::FloatRect GetRect() const { return sprite.getGlobalBounds(); }
 
+			virtual void Restart();
+
 		protected:
 
 			sf::Sprite sprite;
 			sf::Texture texture;
+			const sf::Vector2f startPosition;
 	};
 }
 

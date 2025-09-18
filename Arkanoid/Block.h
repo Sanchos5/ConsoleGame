@@ -3,11 +3,12 @@
 #include "Ball.h"
 #include "Collision.h"
 #include "DelayedAction.h"
+#include "IObserver.h"
 
 
 namespace ArkanoidGame
 {
-	class Block : public GameObject, public Collision
+	class Block : public GameObject, public Collision, public IObservable
 	{
 		public:
 
@@ -55,21 +56,16 @@ namespace ArkanoidGame
 			};
 	};
 
-	class HeavyDestroyableBlock : public Block, public DelayedAction
+	class ThreeHitBlock : public SmoothDestroyableBlock
 	{
 		public:
 
-			HeavyDestroyableBlock(const sf::Vector2f& position, const sf::Color& color = sf::Color::Red);
-			~HeavyDestroyableBlock() = default;
-			void Update(float deltaTime) override;
-
+			ThreeHitBlock(const sf::Vector2f& position);
 			
 		protected:
 
 			void OnHit() override;
-			void FinalAction() override;
-			void EachTickAction(float deltaTime) override;
-			sf::Color color;
+			void StageChange();
 	};
 }
 

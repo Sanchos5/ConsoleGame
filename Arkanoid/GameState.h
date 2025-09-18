@@ -50,7 +50,7 @@ namespace ArkanoidGame
 
 		private:
 
-			std::unique_ptr<GameStateData> data = nullptr;
+			std::shared_ptr<GameStateData> data = nullptr;
 
 			GameStateType type = GameStateType::None;
 			bool isExclusivelyVisible = false;
