@@ -11,7 +11,7 @@ namespace
 namespace ArkanoidGame
 {
 	Block::Block(const sf::Vector2f& position, const sf::Color& color)
-		: GameObject(SETTINGS.TEXTURES_PATH + TEXTURE_ID + ".png", position, SETTINGS.PLATFORM_WIDTH, SETTINGS.PLATFORM_HEIGHT)
+		: GameObject(SETTINGS.TEXTURES_PATH + TEXTURE_ID + ".png", position, static_cast<float>(SETTINGS.PLATFORM_WIDTH), static_cast<float>(SETTINGS.PLATFORM_HEIGHT))
 	{
 		sprite.setColor(color);
 	}
@@ -75,6 +75,7 @@ namespace ArkanoidGame
 	void SmoothDestroyableBlock::OnHit()
 	{
 		isHit = true;
+		ScoreValue = 10;
 		StartTimer(SETTINGS.BREAK_DELAY);
 	}
 
@@ -113,11 +114,13 @@ namespace ArkanoidGame
 		: SmoothDestroyableBlock(position, sf::Color::Red)
 	{
 		hitCount = 3;
+		ScoreValue = 50;
 	}
 
 	void ThreeHitBlock::OnHit()
 	{
 		--hitCount;
+		StageChange();
 
 		if(hitCount == 0)
 		{
@@ -133,7 +136,7 @@ namespace ArkanoidGame
 		{
 			sprite.setColor(color.Yellow);
 		}
-		else if (hitCount > 1)
+		else if (hitCount == 1)
 		{
 			sprite.setColor(color.Green);
 		}

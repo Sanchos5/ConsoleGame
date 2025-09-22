@@ -25,83 +25,80 @@ namespace ArkanoidGame
 
 		Game& game = Application::Instance().GetGame();
 
-		MenuItem startGame;
 		setTextParameters(startGame.text, L"Начать игру", 24);
 		startGame.onPressCallback = [](MenuItem&)
 			{
-				Application::Instance().GetGame().SwitchStateTo(GameStateType::Playing);
+				Application::Instance().GetGame().StartGame();
 			};
 		
 		const bool isEasy = game.IsEnableDifficultyLevel(DifficultyLevel::Easy);
-		MenuItem difficultyEasy;
 		setTextParameters(difficultyEasy.text, L"Лёгкий: " + std::wstring(isEasy ? L"Вкл" : L"Выкл"), 24);
-		difficultyEasy.onPressCallback = [](MenuItem& item)
+		difficultyEasy.onPressCallback = [this](MenuItem& item)
 			{
 				Game& game = Application::Instance().GetGame();
 				bool newEasy = !game.IsEnableDifficultyLevel(DifficultyLevel::Easy);
-				game.SetDifficultyLevel(DifficultyLevel::Easy, newEasy);
+				game.SetDifficultyLevel(DifficultyLevel::Easy);
 				item.text.setString(L"Лёгкий: " + std::wstring(newEasy ? L"Вкл" : L"Выкл"));
+				UpdateDifficultyMenuItems();
+				
 			};
 
 		const bool isNormal = game.IsEnableDifficultyLevel(DifficultyLevel::Normal);
-		MenuItem difficultyNormal;
 		setTextParameters(difficultyNormal.text, L"Нормальный: " + std::wstring(isNormal ? L"Вкл" : L"Выкл"), 24);
-		difficultyNormal.onPressCallback = [](MenuItem& item)
+		difficultyNormal.onPressCallback = [this](MenuItem& item)
 			{
 				Game& game = Application::Instance().GetGame();
 				bool newNormal = !game.IsEnableDifficultyLevel(DifficultyLevel::Normal);
-				game.SetDifficultyLevel(DifficultyLevel::Normal, newNormal);
+				game.SetDifficultyLevel(DifficultyLevel::Normal);
 				item.text.setString(L"Нормальный: " + std::wstring(newNormal ? L"Вкл" : L"Выкл"));
+				UpdateDifficultyMenuItems();
 			};
 
-
 		const bool isHard = game.IsEnableDifficultyLevel(DifficultyLevel::Hard);
-		MenuItem difficultyHard;
 		setTextParameters(difficultyHard.text, L"Сложный: " + std::wstring(isHard ? L"Вкл" : L"Выкл"), 24);
-		difficultyHard.onPressCallback = [](MenuItem& item)
+		difficultyHard.onPressCallback = [this](MenuItem& item)
 			{
 				Game& game = Application::Instance().GetGame();
 				bool newHard = !game.IsEnableDifficultyLevel(DifficultyLevel::Hard);
-				game.SetDifficultyLevel(DifficultyLevel::Hard, newHard);
+				game.SetDifficultyLevel(DifficultyLevel::Hard);
 				item.text.setString(L"Сложный: " + std::wstring(newHard ? L"Вкл" : L"Выкл"));
+				UpdateDifficultyMenuItems();
 			};
 
 		const bool isInsane = game.IsEnableDifficultyLevel(DifficultyLevel::Insane);
-		MenuItem difficultyInsane;
 		setTextParameters(difficultyInsane.text, L"Безумный: " + std::wstring(isInsane ? L"Вкл" : L"Выкл"), 24);
-		difficultyInsane.onPressCallback = [](MenuItem& item)
+		difficultyInsane.onPressCallback = [this](MenuItem& item)
 			{
 				Game& game = Application::Instance().GetGame();
 				bool newInsane = !game.IsEnableDifficultyLevel(DifficultyLevel::Insane);
-				game.SetDifficultyLevel(DifficultyLevel::Insane, newInsane);
+				game.SetDifficultyLevel(DifficultyLevel::Insane);
 				item.text.setString(L"Безумный: " + std::wstring(newInsane ? L"Вкл" : L"Выкл"));
+				UpdateDifficultyMenuItems();
 			};
 
 		const bool isImpossible = game.IsEnableDifficultyLevel(DifficultyLevel::Impossible);
-		MenuItem difficultyImpossible;
 		setTextParameters(difficultyImpossible.text, L"Невозможный: " + std::wstring(isImpossible ? L"Вкл" : L"Выкл"), 24);
-		difficultyImpossible.onPressCallback = [](MenuItem& item)
+		difficultyImpossible.onPressCallback = [this](MenuItem& item)
 			{
 				Game& game = Application::Instance().GetGame();
 				bool newImpossible = !game.IsEnableDifficultyLevel(DifficultyLevel::Impossible);
-				game.SetDifficultyLevel(DifficultyLevel::Impossible, newImpossible);
+				game.SetDifficultyLevel(DifficultyLevel::Impossible);
 				item.text.setString(L"Невозможный: " + std::wstring(newImpossible ? L"Вкл" : L"Выкл"));
+				UpdateDifficultyMenuItems();
 			};
 
-		MenuItem difficulty;
 		setTextParameters(difficulty.text, L"Уровень сложности", 24);
 		setTextParameters(difficulty.hintText, L"Выберите уровень сложности", 48, sf::Color::Red);
 		difficulty.childrenOrientation = Orientation::Vertical;
 		difficulty.childrenAlignment = Alignment::Middle;
 		difficulty.childrenSpacing = 10.f;
-		difficulty.childrens.push_back(difficultyEasy);
-		difficulty.childrens.push_back(difficultyNormal);
-		difficulty.childrens.push_back(difficultyHard);
-		difficulty.childrens.push_back(difficultyInsane);
-		difficulty.childrens.push_back(difficultyImpossible);
+		difficulty.children.push_back(&difficultyEasy);
+		difficulty.children.push_back(&difficultyNormal);
+		difficulty.children.push_back(&difficultyHard);
+		difficulty.children.push_back(&difficultyInsane);
+		difficulty.children.push_back(&difficultyImpossible);
 		
 		const bool isSound = game.IsEnableOptions(GameOptions::Sound);
-		MenuItem optionsSound;
 		setTextParameters(optionsSound.text, L"Звук: " + std::wstring(isSound ? L"Вкл" : L"Выкл"), 24);
 		optionsSound.onPressCallback = [](MenuItem& item)
 			{
@@ -112,7 +109,6 @@ namespace ArkanoidGame
 			};
 
 		const bool isMusic = game.IsEnableOptions(GameOptions::Music);
-		MenuItem optionsMusic;
 		setTextParameters(optionsMusic.text, L"Музыка: " + std::wstring(isMusic ? L"Вкл" : L"Выкл"), 24);
 		optionsMusic.onPressCallback = [](MenuItem& item)
 			{
@@ -122,57 +118,51 @@ namespace ArkanoidGame
 				item.text.setString(L"Музыка: " + std::wstring(newMusic ? L"Вкл" : L"Выкл"));
 			};
 		
-		MenuItem options;
 		setTextParameters(options.text, L"Настройки", 24);
 		setTextParameters(options.hintText, L"Настройки", 48, sf::Color::Red);
 		options.childrenOrientation = Orientation::Vertical;
 		options.childrenAlignment = Alignment::Middle;
 		options.childrenSpacing = 10.f;
 
-		options.childrens.push_back(optionsSound);
-		options.childrens.push_back(optionsMusic);
+		options.children.push_back(&optionsSound);
+		options.children.push_back(&optionsMusic);
 		
-		MenuItem records;
 		setTextParameters(records.text, L"Таблица рекордов", 24);
 		records.onPressCallback = [](MenuItem&)
 			{
-				Application::Instance().GetGame().PushState(GameStateType::Records, true);
+				Application::Instance().GetGame().ShowRecords();
 			};
 		
-		MenuItem yesItem;
 		setTextParameters(yesItem.text, L"Да", 24);
 		yesItem.onPressCallback = [](MenuItem&) 
 			{
-				Application::Instance().GetGame().SwitchStateTo(GameStateType::None);
+				Application::Instance().GetGame().QuitGame();
 			};
 
-		MenuItem noItem;
 		setTextParameters(noItem.text, L"Нет", 24);
 		noItem.onPressCallback = [&](MenuItem&)
 			{
 				menu.GoBack();
 			};
 
-		MenuItem exitGame;
 		setTextParameters(exitGame.text, L"Выйти из игры", 24);
 
 		setTextParameters(exitGame.hintText, L"Вы уверены?", 48, sf::Color::Red);
 		exitGame.childrenOrientation = Orientation::Horizontal;
 		exitGame.childrenAlignment = Alignment::Middle;
 		exitGame.childrenSpacing = 10.f;
-		exitGame.childrens.push_back(yesItem);
-		exitGame.childrens.push_back(noItem);
+		exitGame.children.push_back(&yesItem);
+		exitGame.children.push_back(&noItem);
 
-		MenuItem mainMenu;
 		setTextParameters(mainMenu.hintText, L"Arcanoid", 48, sf::Color::Red);
 		mainMenu.childrenOrientation = Orientation::Vertical;
 		mainMenu.childrenAlignment = Alignment::Middle;
 		mainMenu.childrenSpacing = 10.f;
-		mainMenu.childrens.push_back(startGame);
-		mainMenu.childrens.push_back(difficulty);
-		mainMenu.childrens.push_back(options);
-		mainMenu.childrens.push_back(records);
-		mainMenu.childrens.push_back(exitGame);
+		mainMenu.children.push_back(&startGame);
+		mainMenu.children.push_back(&difficulty);
+		mainMenu.children.push_back(&options);
+		mainMenu.children.push_back(&records);
+		mainMenu.children.push_back(&exitGame);
 
 		menu.Init(mainMenu);
 	}
@@ -210,6 +200,27 @@ namespace ArkanoidGame
 
 	void GameStateMainMenuData::Update(float deltaTime)
 	{
+		
+	}
+
+	void GameStateMainMenuData::UpdateDifficultyMenuItems()
+	{
+		Game& game = Application::Instance().GetGame();
+
+		const bool isEasy = game.IsEnableDifficultyLevel(DifficultyLevel::Easy);
+		difficultyEasy.text.setString(L"Лёгкий: " + std::wstring(isEasy ? L"Вкл" : L"Выкл"));
+
+		const bool isNormal = game.IsEnableDifficultyLevel(DifficultyLevel::Normal);
+		difficultyNormal.text.setString(L"Нормальный: " + std::wstring(isNormal ? L"Вкл" : L"Выкл"));
+
+		const bool isHard = game.IsEnableDifficultyLevel(DifficultyLevel::Hard);
+		difficultyHard.text.setString(L"Сложный: " + std::wstring(isHard ? L"Вкл" : L"Выкл"));
+
+		const bool isInsane = game.IsEnableDifficultyLevel(DifficultyLevel::Insane);
+		difficultyInsane.text.setString(L"Безумный: " + std::wstring(isInsane ? L"Вкл" : L"Выкл"));
+
+		const bool isImpossible = game.IsEnableDifficultyLevel(DifficultyLevel::Impossible);
+		difficultyImpossible.text.setString(L"Невозможный: " + std::wstring(isImpossible ? L"Вкл" : L"Выкл"));
 		
 	}
 

@@ -22,13 +22,15 @@ namespace ArkanoidGame
 			bool GetCollision(std::shared_ptr<Collision> collision) const  override;
 			void ChangeAngle(float x);
 
-			void Restart() override;
+			void restart() override;
+			void SetMultiplySpeed(float speed) { multiplySpeed = speed; };
 
 		private:
 
 			void OnHit();
 			sf::Vector2f direction;
 			float lastAngle = 90;
+			float multiplySpeed = 1.f;
 	};
 }
 

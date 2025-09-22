@@ -4,6 +4,7 @@
 #include "SFML/Audio.hpp"
 #include "Ball.h"
 #include "Platform.h"
+#include "GameBonus.h"
 #include "GameStateData.h"
 #include "BlockFactory.h"
 #include "LevelLoader.h"
@@ -29,6 +30,8 @@ namespace ArkanoidGame
 			void Notify(std::shared_ptr<IObservable> observable) override;
 			void LoadNextLevel();
 
+			void DifficultyLevelState();
+
 		private:
 
 			void createBlocks();
@@ -39,13 +42,15 @@ namespace ArkanoidGame
 			sf::Texture platformTexture;
 			sf::Texture ballTexture;
 
-			//sf::SoundBuffer soundAppleEatBuffer;
-			//sf::SoundBuffer soundDeathBuffer;
-			//sf::SoundBuffer soundBackgroundBuffer;
+			sf::SoundBuffer soundAppleEatBuffer;
+			sf::SoundBuffer soundDeathBuffer;
+			sf::SoundBuffer soundBackgroundBuffer;
 
 			//Game data
 			std::vector<std::shared_ptr<GameObject>> gameObjects;
 			std::vector<std::shared_ptr<Block>> blocks;
+			std::vector<std::shared_ptr<GameBonus>> bonuses;
+			std::vector<std::shared_ptr<GameBonus>> activeBonuses;
 
 			int score = 0;
 
@@ -56,9 +61,9 @@ namespace ArkanoidGame
 			sf::RectangleShape background;
 
 			//Sound
-			//sf::Sound soundAppleEat;
-			//sf::Sound soundDeath;
-			//sf::Sound soundBackground;
+			sf::Sound soundAppleEat;
+			sf::Sound soundDeath;
+			sf::Sound soundBackground;
 
 			//Blocks creator
 			std::unordered_map<BlockType, std::unique_ptr<BlockFactory>> factories;

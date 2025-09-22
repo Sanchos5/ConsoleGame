@@ -1,5 +1,6 @@
 #include "Platform.h"
 #include "Ball.h"
+#include "GameBonus.h"
 #include "GameSettings.h"
 #include "Sprite.h"
 #include <algorithm>
@@ -12,7 +13,7 @@ namespace
 namespace ArkanoidGame
 {
 	Platform::Platform(const sf::Vector2f& position) 
-		: GameObject(SETTINGS.TEXTURES_PATH + TEXTURE_ID + ".png", position, SETTINGS.PLATFORM_WIDTH, SETTINGS.PLATFORM_HEIGHT)
+		: GameObject(SETTINGS.TEXTURES_PATH + TEXTURE_ID + ".png", position, static_cast<float>(SETTINGS.PLATFORM_PLAYER_WIDTH), static_cast<float>(SETTINGS.PLATFORM_HEIGHT))
 	{
 	}
 
@@ -31,7 +32,7 @@ namespace ArkanoidGame
 	void Platform::Move(float speed)
 	{
 		auto position = sprite.getPosition();
-		position.x = std::clamp(position.x + speed, SETTINGS.PLATFORM_WIDTH / 2.f, SETTINGS.SCREEN_WIDTH - SETTINGS.PLATFORM_WIDTH / 2.f);
+		position.x = std::clamp(position.x + speed, (SETTINGS.PLATFORM_PLAYER_WIDTH * multiplyWidth) / 2.f + 10.f, SETTINGS.SCREEN_WIDTH - (SETTINGS.PLATFORM_PLAYER_WIDTH * multiplyWidth) / 2.f + 10.f);
 		sprite.setPosition(position);
 	}
 
@@ -49,12 +50,12 @@ namespace ArkanoidGame
 		
 		if (ballPos.x < rect.left) 
 		{
-			return sqr(ballPos.x - rect.left) + sqr(ballPos.y - rect.top) < sqr(SETTINGS.BALL_SIZE / 2.0);
+			return sqr(ballPos.x - rect.left) + sqr(ballPos.y - rect.top) < sqr(static_cast<float>(SETTINGS.BALL_SIZE) / 2.0);
 		}
 
 		if (ballPos.x > rect.left + rect.width) 
 		{
-			return sqr(ballPos.x - rect.left - rect.width) + sqr(ballPos.y - rect.top) < sqr(SETTINGS.BALL_SIZE / 2.0);
+			return sqr(ballPos.x - rect.left - rect.width) + sqr(ballPos.y - rect.top) < sqr(static_cast<float>(SETTINGS.BALL_SIZE) / 2.0);
 		}
 
 		return std::fabs(ballPos.y - rect.top) <= SETTINGS.BALL_SIZE / 2.0;
@@ -62,17 +63,17 @@ namespace ArkanoidGame
 
 	bool Platform::CheckCollision(std::shared_ptr<Collision> collision) 
 	{
-		auto ball = std::static_pointer_cast<Ball>(collision);
-		if (!ball)
-			return false;
-
-		if (GetCollision(ball)) 
+		if(auto ball = std::static_pointer_cast<Ball>(collision))
 		{
-			auto rect = GetRect();
-			auto ballPosInOlatform = (ball->GetPosition().x - (rect.left + rect.width / 2)) / (rect.width / 2);
-			ball->ChangeAngle(90 - 20 * ballPosInOlatform);
-			return true;
+			if (GetCollision(ball))
+			{
+				auto rect = GetRect();
+				auto ballPosInOlatform = (ball->GetPosition().x - (rect.left + rect.width / 2)) / (rect.width / 2);
+				ball->ChangeAngle(90 - 20 * ballPosInOlatform);
+				return true;
+			}
 		}
+		
 		return false;
 	}
 }

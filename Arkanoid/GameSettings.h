@@ -28,8 +28,9 @@ namespace ArkanoidGame
 			const unsigned int SCREEN_HEIGHT = 600;
 			const float TIME_PER_FRAME = 1.f / 60.f; // 60 fps
 
-			const unsigned int PLATFORM_WIDTH = 60;
+			const unsigned int PLATFORM_WIDTH = 50;
 			const unsigned int PLATFORM_HEIGHT = 20;
+			const unsigned int PLATFORM_PLAYER_WIDTH = 100;
 			const float PLATFORM_SPEED = 300.f;
 
 			const unsigned int BALL_SIZE = 20;
@@ -37,7 +38,7 @@ namespace ArkanoidGame
 			const float BALL_ACCELERATION = 10.0f;
 
 			const unsigned int BLOCKS_COUNT_ROWS = 5;
-			const unsigned int BLOCKS_COUNT_IN_ROW = 13;
+			const unsigned int BLOCKS_COUNT_IN_ROW = 15;
 			const unsigned int BLOCK_SHIFT = 6;
 			const unsigned int BLOCK_WIDTH = (SCREEN_WIDTH - (BLOCKS_COUNT_IN_ROW + 1) * BLOCK_SHIFT) / BLOCKS_COUNT_IN_ROW;
 			const unsigned int BLOCK_HEIGHT = 20;
@@ -48,6 +49,8 @@ namespace ArkanoidGame
 			const std::string GAME_NAME = "ArkanoidGame";
 
 			const float BREAK_DELAY = 0.2f;
+
+			const unsigned int BONUS_SIZE = 30;
 	};
 }
 

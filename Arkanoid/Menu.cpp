@@ -8,18 +8,18 @@ namespace ArkanoidGame
 		rootItem = item;
 
 		InitMenuItem(rootItem);
-		if (!rootItem.childrens.empty())
+		if (!rootItem.children.empty())
 		{
-			SelectMenuItem(rootItem.childrens.front());
+			SelectMenuItem(*rootItem.children.front());
 		}
 	}
 
 	void Menu::InitMenuItem(MenuItem& item)
 	{
-		for (auto& child : item.childrens)
+		for (auto& child : item.children)
 		{
-			child.parent = &item;
-			InitMenuItem(child);
+			child->parent = &item;
+			InitMenuItem(*child);
 		}
 	}
 
@@ -28,12 +28,12 @@ namespace ArkanoidGame
 		MenuItem& expandedItem = GetCurrentContext();
 
 		std::vector<sf::Text*> texts;
-		texts.reserve(expandedItem.childrens.size());
-		for (auto& child : expandedItem.childrens)
+		texts.reserve(expandedItem.children.size());
+		for (auto& child : expandedItem.children)
 		{
-			if (child.isEnabled)
+			if (child->isEnabled)
 			{
-				texts.push_back(&child.text);
+				texts.push_back(&child->text);
 			}
 		}
 
@@ -59,15 +59,16 @@ namespace ArkanoidGame
 		}
 
 		// default behaviour
-		if (!selectedItem->childrens.empty()) {
-			SelectMenuItem(selectedItem->childrens.front());
+		if (!selectedItem->children.empty()) {
+			SelectMenuItem(*selectedItem->children.front());
 		}
 	}
 
 	void Menu::GoBack()
 	{
 		MenuItem& parent = GetCurrentContext();
-		if (&parent != &rootItem) {
+		if (&parent != &rootItem) 
+		{
 			SelectMenuItem(parent);
 		}
 	}
@@ -82,14 +83,14 @@ namespace ArkanoidGame
 		MenuItem* parent = selectedItem->parent;
 		assert(parent); // There always should be parent
 
-		auto it = std::find_if(parent->childrens.begin(), parent->childrens.end(), [this](const auto& item)
+		auto it = std::find_if(parent->children.begin(), parent->children.end(), [this](const auto& item)
 			{
-				return selectedItem == &item;
+				return selectedItem == item;
 			});
 
-		if (it != parent->childrens.begin())
+		if (it != parent->children.begin())
 		{
-			SelectMenuItem(*std::prev(it));
+			SelectMenuItem(**std::prev(it));
 		}
 	}
 
@@ -103,14 +104,14 @@ namespace ArkanoidGame
 		MenuItem* parent = selectedItem->parent;
 		assert(parent); // There always should be parent
 
-		auto it = std::find_if(parent->childrens.begin(), parent->childrens.end(), [this](const auto& item)
+		auto it = std::find_if(parent->children.begin(), parent->children.end(), [this](const auto& item)
 			{
-				return selectedItem == &item;
+				return selectedItem == item;
 			});
 		it = std::next(it);
-		if (it != parent->childrens.end())
+		if (it != parent->children.end())
 		{
-			SelectMenuItem(*it);
+			SelectMenuItem(**it);
 		}
 	}
 

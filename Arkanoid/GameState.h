@@ -41,7 +41,7 @@ namespace ArkanoidGame
 			template<class T>
 			T* GetData() const 
 			{
-				return static_cast<T>(data);
+				return static_cast<T*>(data.get());
 			}
 
 			void Update(float deltaTime);
@@ -49,10 +49,9 @@ namespace ArkanoidGame
 			void HandleWindowEvent(sf::Event& event);
 
 		private:
-
-			std::shared_ptr<GameStateData> data = nullptr;
-
+			
 			GameStateType type = GameStateType::None;
+			std::shared_ptr<GameStateData> data = nullptr;
 			bool isExclusivelyVisible = false;
 	};
 }

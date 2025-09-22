@@ -28,7 +28,7 @@ namespace ArkanoidGame
 			}
 			else if (event.key.code == sf::Keyboard::Enter)
 			{
-				Application::Instance().GetGame().SwitchStateTo(GameStateType::MainMenu);
+				Application::Instance().GetGame().ExitGame();
 			}
 		}
 	}

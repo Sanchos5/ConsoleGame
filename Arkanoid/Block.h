@@ -20,10 +20,12 @@ namespace ArkanoidGame
 
 			bool isHit = false;
 
+			int ScoreValue = 0;
 		protected:
 
-			void OnHit() override;
+			void OnHit();
 			int hitCount = 1;
+			
 	};
 
 	class SmoothDestroyableBlock : public Block, public DelayedAction

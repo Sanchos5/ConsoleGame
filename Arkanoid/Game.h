@@ -58,26 +58,26 @@ namespace ArkanoidGame
 			~Game();
 
 			void SetOption(GameOptions option, bool value);
-			void SetDifficultyLevel(DifficultyLevel level, bool value);
+			void SetDifficultyLevel(DifficultyLevel level);
 			bool IsEnableOptions(GameOptions option);
 			bool IsEnableDifficultyLevel(DifficultyLevel level);
 
 			const RecordsTable& GetRecordsTable() const { return recordsTable; }
 			int GetRecordByPlayerId(const std::string& playerId) const;
 
+			// Remove current game state from the stack
+			void PopState();
+			void UpdateRecord(const std::string& playerId, int score);
 		private:
 
 			// Add new game state on top of the stack
 			void PushState(GameStateType stateType, bool isExclusivelyVisible);
 
-			// Remove current game state from the stack
-			void PopState();
-
 			// Remove all game states from the stack and add new one
 			void SwitchStateTo(GameStateType newState);
 
 			void Shutdown();
-			void UpdateRecord(const std::string& playerId, int score);
+			
 			void HandleWindowEvents(sf::RenderWindow& window);
 			bool Update(float deltaTime);
 			void Draw(sf::RenderWindow& window);

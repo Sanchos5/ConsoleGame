@@ -173,16 +173,9 @@ namespace ArkanoidGame
 		}
 	}
 
-	void Game::SetDifficultyLevel(DifficultyLevel level, bool value)
+	void Game::SetDifficultyLevel(DifficultyLevel level)
 	{
-		if (value)
-		{
-			difficulty = level;
-		}
-		else
-		{
-			difficulty = (DifficultyLevel)((std::uint8_t)difficulty & ~(std::uint8_t)level);
-		}
+		difficulty = level;
 	}
 
 	bool Game::IsEnableOptions(GameOptions option)

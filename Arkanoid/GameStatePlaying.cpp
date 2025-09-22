@@ -14,9 +14,9 @@ namespace ArkanoidGame
 		// Init game resources (terminate if error)
 		assert(font.loadFromFile(SETTINGS.FONTS_PATH + "Roboto-Regular.ttf"));
 
-		//assert(data.soundAppleEatBuffer.loadFromFile(SOUNDS_PATH + "\\AppleEat.wav"));
-		//assert(data.soundDeathBuffer.loadFromFile(SOUNDS_PATH + "\\GameOver.wav"));
-		//assert(data.soundBackgroundBuffer.loadFromFile(SOUNDS_PATH + "\\Background.wav"));
+		assert(soundAppleEatBuffer.loadFromFile(SETTINGS.SOUNDS_PATH + "\\AppleEat.wav"));
+		assert(soundDeathBuffer.loadFromFile(SETTINGS.SOUNDS_PATH + "\\GameOver.wav"));
+		assert(soundBackgroundBuffer.loadFromFile(SETTINGS.SOUNDS_PATH + "\\Background.wav"));
 
 		//factoriesInit
 		factories.emplace(BlockType::Simple, std::make_unique<SimpleBlockFactory>());
@@ -24,7 +24,7 @@ namespace ArkanoidGame
 		factories.emplace(BlockType::Unbreackable, std::make_unique<UnbreackableBlockFactory>());
 
 		// Init background
-		background.setSize(sf::Vector2f(SETTINGS.SCREEN_WIDTH, SETTINGS.SCREEN_HEIGHT));
+		background.setSize(sf::Vector2f(static_cast<float>(SETTINGS.SCREEN_WIDTH), static_cast<float>(SETTINGS.SCREEN_HEIGHT)));
 		background.setPosition(0.f, 0.f);
 		background.setFillColor(sf::Color(0, 0, 0));
 
@@ -38,50 +38,57 @@ namespace ArkanoidGame
 		inputHintText.setString(L"Используйте клавишы A D для перемещения, ESC для выхода");
 		inputHintText.setOrigin(GetTextOrigin(inputHintText, { 1.f, 0.f }));
 
-		gameObjects.emplace_back(std::make_shared<Platform>(sf::Vector2f({ SETTINGS.SCREEN_WIDTH / 2.f, SETTINGS.SCREEN_HEIGHT - SETTINGS.PLATFORM_HEIGHT / 2.f })));
+		auto platform = std::make_shared<Platform>(sf::Vector2f({ SETTINGS.SCREEN_WIDTH / 2.f, SETTINGS.SCREEN_HEIGHT - SETTINGS.PLATFORM_HEIGHT / 2.f }));
+		gameObjects.emplace_back(platform);
 		auto ball = std::make_shared<Ball>(sf::Vector2f({ SETTINGS.SCREEN_WIDTH / 2.f, SETTINGS.SCREEN_HEIGHT - SETTINGS.PLATFORM_HEIGHT - SETTINGS.BALL_SIZE / 2.f }));
 		ball->AddObserver(weak_from_this());
 		gameObjects.emplace_back(ball);
 
+		DifficultyLevelState();
 		createBlocks();
 
-		//DifficultyLevelState(data);
-
-		//data.sound.stop();
-
-		/*soundBackground.setBuffer(soundBackgroundBuffer);
+		soundBackground.setBuffer(soundBackgroundBuffer);
 		if (Application::Instance().GetGame().IsEnableOptions(GameOptions::Music))
 		{
 			soundBackground.setLoop(true);
 			soundBackground.play();
 		}
-		soundAppleEat.setBuffer(data.soundAppleEatBuffer);
-		soundDeath.setBuffer(data.soundDeathBuffer);*/
+		soundAppleEat.setBuffer(soundAppleEatBuffer);
+		soundDeath.setBuffer(soundDeathBuffer);
 	}
 
-	/*void DifficultyLevelState(GameStatePlayingData& data)
+	void GameStatePlayingData::DifficultyLevelState()
 	{
-		if (Application::Instance().GetGame().IsEnableDifficultyLevel(DifficultyLevel::Easy))
+		Game& game = Application::Instance().GetGame();
+		auto platform = std::dynamic_pointer_cast<Platform>(gameObjects[0]);
+		auto ball = std::dynamic_pointer_cast<Ball>(gameObjects[1]);
+
+		if (game.IsEnableDifficultyLevel(DifficultyLevel::Easy))
 		{
-			data.snake.speed = INITIAL_SPEED * 0.5f;
+			platform->SetWidth(1.5f);
+			ball->SetMultiplySpeed(0.8f);
 		}
-		else if (Application::Instance().GetGame().IsEnableDifficultyLevel(DifficultyLevel::Normal))
+		else if (game.IsEnableDifficultyLevel(DifficultyLevel::Normal))
 		{
-			data.snake.speed = INITIAL_SPEED;
+			platform->SetWidth(1.f);
+			ball->SetMultiplySpeed(1.f);
 		}
-		else if (Application::Instance().GetGame().IsEnableDifficultyLevel(DifficultyLevel::Hard))
+		else if (game.IsEnableDifficultyLevel(DifficultyLevel::Hard))
 		{
-			data.snake.speed = INITIAL_SPEED * 2.f;
+			platform->SetWidth(0.8f);
+			ball->SetMultiplySpeed(1.2f);
 		}
-		else if (Application::Instance().GetGame().IsEnableDifficultyLevel(DifficultyLevel::Insane))
+		else if (game.IsEnableDifficultyLevel(DifficultyLevel::Insane))
 		{
-			data.snake.speed = INITIAL_SPEED * 3.f;
+			platform->SetWidth(0.6f);
+			ball->SetMultiplySpeed(1.4f);
 		}
-		else if (Application::Instance().GetGame().IsEnableDifficultyLevel(DifficultyLevel::Impossible))
+		else if (game.IsEnableDifficultyLevel(DifficultyLevel::Impossible))
 		{
-			data.snake.speed = INITIAL_SPEED * 4.f;
+			platform->SetWidth(0.4f);
+			ball->SetMultiplySpeed(1.6f);
 		}
-	}*/
+	}
 
 	void GameStatePlayingData::HandleWindowEvent(const sf::Event& event)
 	{
@@ -100,6 +107,7 @@ namespace ArkanoidGame
 
 		std::for_each(gameObjects.begin(), gameObjects.end(), updateFunctor);
 		std::for_each(blocks.begin(), blocks.end(), updateFunctor);
+		std::for_each(bonuses.begin(), bonuses.end(), updateFunctor);
 
 		std::shared_ptr <Platform> platform = std::dynamic_pointer_cast<Platform>(gameObjects[0]);
 		std::shared_ptr<Ball> ball = std::dynamic_pointer_cast<Ball>(gameObjects[1]);
@@ -123,12 +131,20 @@ namespace ArkanoidGame
 
 						GetBallInverse(ballPos, blockRect, needInverseDirX, needInverseDirY);
 
-						
+						soundAppleEat.play();
+
 						if (block->isHit == true)
 						{
-							score += 10;
+							score += block->ScoreValue;
+
+							if ((rand() % 100) < 50)
+							{
+								BonusType type = static_cast<BonusType>(rand() % static_cast<int>(BonusType::Count));
+								auto bonus = std::make_shared<GameBonus>(ballPos, type);
+								bonus->AddObserver(weak_from_this());
+								bonuses.emplace_back(bonus);
+							}
 						}
-						
 					}
 					return block->IsBroken();
 				}),
@@ -145,6 +161,47 @@ namespace ArkanoidGame
 		{
 			ball->InvertDirectionY();
 		}
+
+		for (auto it = bonuses.begin(); it != bonuses.end(); )
+		{
+			auto& bonus = *it;
+			bonus->Update(deltaTime);
+
+			// Проверка столкновения с платформой
+			if (bonus->GetRect().intersects(platform->GetRect()))
+			{
+				bonus->OnCollect(*platform, *ball);
+				activeBonuses.emplace_back(bonus);
+				it = bonuses.erase(it); // удаляем бонус
+				 
+			}
+			// Проверка выхода за пределы экрана
+			else if (bonus->GetPosition().y > SETTINGS.SCREEN_HEIGHT) 
+			{
+				it = bonuses.erase(it);
+			}
+			else
+			{
+				++it;
+			}
+		}
+
+		// Деактивация бонусов по таймеру:
+		for (auto it = activeBonuses.begin(); it != activeBonuses.end(); )
+		{
+			auto& bonus = *it;
+			bonus->Update(deltaTime);
+
+			if (!bonus->IsActive()) 
+			{
+				bonus->OnEffectEnd(*platform, *ball);
+				it = activeBonuses.erase(it);
+			}
+			else 
+			{
+				++it;
+			}
+		}
 	}
 
 	void GameStatePlayingData::LoadNextLevel()
@@ -158,8 +215,8 @@ namespace ArkanoidGame
 		{
 			std::shared_ptr <Platform> platform = std::dynamic_pointer_cast<Platform>(gameObjects[0]);
 			std::shared_ptr<Ball> ball = std::dynamic_pointer_cast<Ball>(gameObjects[1]);
-			platform->Restart();
-			ball->Restart();
+			platform->restart();
+			ball->restart();
 
 			blocks.clear();
 			++currentLevel;
@@ -177,6 +234,7 @@ namespace ArkanoidGame
 		// Draw game objects
 		std::for_each(gameObjects.begin(), gameObjects.end(), drawFunc);
 		std::for_each(blocks.begin(), blocks.end(), drawFunc);
+		std::for_each(bonuses.begin(), bonuses.end(), drawFunc);
 
 		scoreText.setOrigin(GetTextOrigin(scoreText, { 0.f, 0.f }));
 		scoreText.setPosition(10.f, 10.f);
@@ -245,21 +303,15 @@ namespace ArkanoidGame
 			{
 				game.LoadNextLevel();
 			}
-			/*else
-			{
-				auto percent = random<int>(0, 100);
-				if (SETTINGS.BONUS_PROPABILITY_PERCENT >= percent) {
-					BonusType bonusType = (BonusType)(random<int>(0, (int)BonusType::Count - 1));
-					bonuses.at(bonusType).Activate();
-				}
-			}*/
 		}
 		else if (auto ball = std::dynamic_pointer_cast<Ball>(observable); ball)
 		{
 			if (ball->GetPosition().y > gameObjects.front()->GetRect().top) 
 			{
-				//gameOverSound.play();
-				Application::Instance().GetGame().LooseGame();
+				Game& game = Application::Instance().GetGame();
+				soundDeath.play();
+				game.UpdateRecord(SETTINGS.PLAYER_NAME, score);
+				game.LooseGame();
 			}
 		}
 	}

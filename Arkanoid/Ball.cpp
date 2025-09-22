@@ -13,7 +13,7 @@ namespace
 namespace ArkanoidGame
 {
 	Ball::Ball(const sf::Vector2f& position)
-		: GameObject(SETTINGS.TEXTURES_PATH + TEXTURE_ID + ".png", position, SETTINGS.BALL_SIZE, SETTINGS.BALL_SIZE)
+		: GameObject(SETTINGS.TEXTURES_PATH + TEXTURE_ID + ".png", position, static_cast<float>(SETTINGS.BALL_SIZE), static_cast<float>(SETTINGS.BALL_SIZE))
 	{
 		const float angle = 90;
 		const auto pi = std::acos(-1.f);
@@ -21,9 +21,10 @@ namespace ArkanoidGame
 		direction.y = std::sin(pi / 180.f * angle);
 	}
 
-	void Ball::Update(float timeDelta)
+	void Ball::Update(float deltaTime)
 	{
-		const auto pos = sprite.getPosition() + SETTINGS.BALL_SPEED * timeDelta * direction;
+		deltaTime *= multiplySpeed;
+		const auto pos = sprite.getPosition() + SETTINGS.BALL_SPEED * deltaTime * direction;
 		sprite.setPosition(pos);
 
 		if (pos.x - SETTINGS.BALL_SIZE / 2.f <= 0 || pos.x + SETTINGS.BALL_SIZE / 2.f >= SETTINGS.SCREEN_WIDTH) {
@@ -47,7 +48,8 @@ namespace ArkanoidGame
 		direction.y *= -1;
 	}
 
-	bool Ball::GetCollision(std::shared_ptr<Collision> collision) const {
+	bool Ball::GetCollision(std::shared_ptr<Collision> collision) const 
+	{
 		auto gameObject = std::dynamic_pointer_cast<GameObject>(collision);
 		assert(gameObject);
 		return GetRect().intersects(gameObject->GetRect());
@@ -67,9 +69,9 @@ namespace ArkanoidGame
 		direction.y = -1 * abs(std::sin(pi / 180.f * angle));
 	}
 
-	void Ball::Restart()
+	void Ball::restart()
 	{
-		GameObject::Restart();
+		GameObject::restart();
 		const float angle = 90;
 		const auto pi = std::acos(-1.f);
 		direction.x = std::cos(pi / 180.f * angle);
