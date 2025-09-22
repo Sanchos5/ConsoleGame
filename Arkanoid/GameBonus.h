@@ -12,8 +12,7 @@ namespace ArkanoidGame
 	{
 		ExpandPlatform,
 		SlowBall,
-		//ExtraLife,
-		//MultiBall,
+		ExtraLife,
 		Count
 	};
 

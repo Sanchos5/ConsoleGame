@@ -53,12 +53,14 @@ namespace ArkanoidGame
 			std::vector<std::shared_ptr<GameBonus>> activeBonuses;
 
 			int score = 0;
+			int lives = 1;
 
 			// UI data
 			sf::Font font;
 			sf::Text scoreText;
 			sf::Text inputHintText;
 			sf::RectangleShape background;
+			sf::Text livesText;
 
 			//Sound
 			sf::Sound soundAppleEat;

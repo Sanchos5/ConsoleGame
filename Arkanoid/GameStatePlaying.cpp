@@ -137,7 +137,7 @@ namespace ArkanoidGame
 						{
 							score += block->ScoreValue;
 
-							if ((rand() % 100) < 10)
+							if ((rand() % 100) < 100)
 							{
 								BonusType type = static_cast<BonusType>(rand() % static_cast<int>(BonusType::Count));
 								auto bonus = std::make_shared<GameBonus>(ballPos, type);
@@ -170,6 +170,11 @@ namespace ArkanoidGame
 			// Проверка столкновения с платформой
 			if (bonus->GetRect().intersects(platform->GetRect()))
 			{
+				if(BonusType::ExtraLife == bonus->GetType())
+				{
+					lives++;
+				}
+
 				bonus->OnCollect(*platform, *ball);
 				activeBonuses.emplace_back(bonus);
 				it = bonuses.erase(it); // удаляем бонус
@@ -243,6 +248,13 @@ namespace ArkanoidGame
 		sf::Vector2f viewSize = window.getView().getSize();
 		inputHintText.setPosition(viewSize.x - 10.f, 10.f);
 		window.draw(inputHintText);
+
+		livesText.setFont(font);
+		livesText.setCharacterSize(24);
+		livesText.setFillColor(sf::Color::White);
+		livesText.setString(L"Жизни: " + std::to_wstring(lives));
+		livesText.setPosition(10.f, 40.f);
+		window.draw(livesText);
 	}
 
 	void GameStatePlayingData::createBlocks()
@@ -308,10 +320,24 @@ namespace ArkanoidGame
 		{
 			if (ball->GetPosition().y > gameObjects.front()->GetRect().top) 
 			{
-				Game& game = Application::Instance().GetGame();
-				soundDeath.play();
-				game.UpdateRecord(SETTINGS.PLAYER_NAME, score);
-				game.LooseGame();
+				lives--;
+
+				if(lives < 0)
+				{
+					lives = 0;
+					Game& game = Application::Instance().GetGame();
+					soundDeath.play();
+					game.UpdateRecord(SETTINGS.PLAYER_NAME, score);
+					game.LooseGame();
+				}
+				else
+				{
+					// Рестарт платформы и шарика
+					auto platform = std::dynamic_pointer_cast<Platform>(gameObjects[0]);
+					auto ball = std::dynamic_pointer_cast<Ball>(gameObjects[1]);
+					if (platform) platform->restart();
+					if (ball) ball->restart();
+				}
 			}
 		}
 	}

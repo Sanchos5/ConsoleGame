@@ -4,6 +4,7 @@
 #include <assert.h>
 #include "Ball.h"
 #include "Platform.h"
+#include "Application.h"
 
 namespace
 {
@@ -28,11 +29,17 @@ namespace ArkanoidGame
 			void Revert(Platform&, Ball& ball) override { ball.SetMultiplySpeed(1.0f); }
 	};
 
+	class ExtraLifeEffect : public IBonusEffect 
+	{
+		public:
+			void Apply(Platform&, Ball&) override {}
+			void Revert(Platform&, Ball&) override {}
+	};
+
 	static std::unique_ptr<IBonusEffect> CreateEffect(BonusType type) {
 		switch (type) {
 		case BonusType::ExpandPlatform: return std::make_unique<ExpandPlatformEffect>();
-		//case BonusType::ExtraLife: return std::make_unique<ExtraLifeEffect>();
-		//case BonusType::MultiBall: return std::make_unique<MultiBallEffect>();
+		case BonusType::ExtraLife: return std::make_unique<ExtraLifeEffect>();
 		case BonusType::SlowBall: return std::make_unique<SlowBallEffect>();
 		default: return nullptr;
 		}
@@ -60,6 +67,12 @@ namespace ArkanoidGame
 
 	void GameBonus::OnCollect(Platform& platform, Ball& ball)
 	{
+		if (type == BonusType::ExtraLife) 
+		{
+			active = false;
+			return;
+		}
+
 		if (!effectApplied && effect)
 		{
 			effect->Apply(platform, ball);
