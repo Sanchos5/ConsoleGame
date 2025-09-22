@@ -137,7 +137,7 @@ namespace ArkanoidGame
 						{
 							score += block->ScoreValue;
 
-							if ((rand() % 100) < 50)
+							if ((rand() % 100) < 10)
 							{
 								BonusType type = static_cast<BonusType>(rand() % static_cast<int>(BonusType::Count));
 								auto bonus = std::make_shared<GameBonus>(ballPos, type);

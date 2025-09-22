@@ -41,7 +41,7 @@ namespace ArkanoidGame
 	GameBonus::GameBonus(const sf::Vector2f& position, BonusType type)
 		: GameObject(SETTINGS.TEXTURES_PATH + TEXTURE_ID + ".png", position, static_cast<float>(SETTINGS.BONUS_SIZE), static_cast<float>(SETTINGS.BONUS_SIZE)), type(type), effect(CreateEffect(type))
 	{
-		duration = 5.f; // 5-10 секунд
+		duration = 5.f + static_cast<float>(rand() % 6);; // 5-10 секунд
 	}
 
 	void GameBonus::Update(float deltaTime)
