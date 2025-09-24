@@ -10,7 +10,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Snake", "Snake\Snake.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Arkanoid", "Arkanoid\Arkanoid.vcxproj", "{35D91029-0D6D-4729-85B2-96B8051724F6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RogaliqueGame", "RogaliqueGame\RogaliqueGame.vcxproj", "{86E12DA6-AC8F-4802-8A4C-AB5C62A8BE57}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RoguelikeGame", "RogaliqueGame\RoguelikeGame.vcxproj", "{86E12DA6-AC8F-4802-8A4C-AB5C62A8BE57}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{FF52744B-2E5F-4EEB-BC59-64AE9AC89DA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,14 @@ Global
 		{86E12DA6-AC8F-4802-8A4C-AB5C62A8BE57}.Release|x64.Build.0 = Release|x64
 		{86E12DA6-AC8F-4802-8A4C-AB5C62A8BE57}.Release|x86.ActiveCfg = Release|Win32
 		{86E12DA6-AC8F-4802-8A4C-AB5C62A8BE57}.Release|x86.Build.0 = Release|Win32
+		{FF52744B-2E5F-4EEB-BC59-64AE9AC89DA5}.Debug|x64.ActiveCfg = Debug|x64
+		{FF52744B-2E5F-4EEB-BC59-64AE9AC89DA5}.Debug|x64.Build.0 = Debug|x64
+		{FF52744B-2E5F-4EEB-BC59-64AE9AC89DA5}.Debug|x86.ActiveCfg = Debug|Win32
+		{FF52744B-2E5F-4EEB-BC59-64AE9AC89DA5}.Debug|x86.Build.0 = Debug|Win32
+		{FF52744B-2E5F-4EEB-BC59-64AE9AC89DA5}.Release|x64.ActiveCfg = Release|x64
+		{FF52744B-2E5F-4EEB-BC59-64AE9AC89DA5}.Release|x64.Build.0 = Release|x64
+		{FF52744B-2E5F-4EEB-BC59-64AE9AC89DA5}.Release|x86.ActiveCfg = Release|Win32
+		{FF52744B-2E5F-4EEB-BC59-64AE9AC89DA5}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
