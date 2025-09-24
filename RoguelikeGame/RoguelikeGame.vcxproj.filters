@@ -2,147 +2,132 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Application.cpp">
-      <Filter>Файлы заголовки</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Arkanoid.cpp">
-      <Filter>Файлы заголовки</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Ball.cpp">
-      <Filter>Файлы заголовки</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Block.cpp">
-      <Filter>Файлы заголовки</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="BlockFactory.cpp">
-      <Filter>Файлы заголовки</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>Файлы заголовки</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="GameBonus.cpp">
-      <Filter>Файлы заголовки</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Файлы заголовки</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="GameState.cpp">
-      <Filter>Файлы заголовки</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="GameStateData.cpp">
-      <Filter>Файлы заголовки</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="GameStateExitDialog.cpp">
-      <Filter>Файлы заголовки</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="GameStateGameOver.cpp">
-      <Filter>Файлы заголовки</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="GameStateGameWin.cpp">
-      <Filter>Файлы заголовки</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="GameStateMainMenu.cpp">
-      <Filter>Файлы заголовки</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="GameStatePlaying.cpp">
-      <Filter>Файлы заголовки</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="GameStateRecords.cpp">
-      <Filter>Файлы заголовки</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="LevelLoader.cpp">
-      <Filter>Файлы заголовки</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Math.cpp">
-      <Filter>Файлы заголовки</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Menu.cpp">
-      <Filter>Файлы заголовки</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Platform.cpp">
-      <Filter>Файлы заголовки</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
-      <Filter>Файлы заголовки</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="Ball.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="Block.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="BlockFactory.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="Collision.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="DelayedAction.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="GameBonus.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="GameSettings.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="GameState.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="GameStateData.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="GameStateExitDialog.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="GameStateGameOver.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="GameStateGameWin.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="GameStateMainMenu.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="GameStatePlaying.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="GameStateRecords.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="IObserver.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="LevelLoader.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="Math.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="Platform.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="randomizer.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы заголовки</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

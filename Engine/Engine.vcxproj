@@ -148,7 +148,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\RoguelikeGame\IDelayedAction.h" />
     <ClInclude Include="..\RoguelikeGame\GameObject.h" />
+    <ClInclude Include="..\RoguelikeGame\IObserver.h" />
+    <ClInclude Include="..\RoguelikeGame\randomizer.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />

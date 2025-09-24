@@ -150,7 +150,6 @@
     <ClCompile Include="BlockFactory.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameBonus.cpp" />
-    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameStateData.cpp" />
     <ClCompile Include="GameStateGameWin.cpp" />
     <ClCompile Include="GameStateRecords.cpp" />
@@ -171,10 +170,8 @@
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockFactory.h" />
     <ClInclude Include="Collision.h" />
-    <ClInclude Include="DelayedAction.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameBonus.h" />
-    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameStateData.h" />
     <ClInclude Include="GameStateGameWin.h" />
     <ClInclude Include="GameStateRecords.h" />
@@ -184,12 +181,10 @@
     <ClInclude Include="GameStateGameOver.h" />
     <ClInclude Include="GameStateMainMenu.h" />
     <ClInclude Include="GameStatePlaying.h" />
-    <ClInclude Include="IObserver.h" />
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Platform.h" />
-    <ClInclude Include="randomizer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sprite.h" />
   </ItemGroup>

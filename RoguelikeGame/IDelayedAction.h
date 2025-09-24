@@ -4,7 +4,7 @@
 
 namespace RoguelikeGame
 {
-	class DelayedAction
+	class IDelayedAction
 	{
 		public:
 
