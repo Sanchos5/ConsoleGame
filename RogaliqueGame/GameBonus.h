@@ -3,7 +3,7 @@
 #include "GameObject.h"
 #include "IObserver.h"
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	class Ball;
 	class Platform;

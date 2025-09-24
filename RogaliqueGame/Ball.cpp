@@ -10,7 +10,7 @@ namespace
 	const std::string TEXTURE_ID = "ball";
 }
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	Ball::Ball(const sf::Vector2f& position)
 		: GameObject(SETTINGS.TEXTURES_PATH + TEXTURE_ID + ".png", position, static_cast<float>(SETTINGS.BALL_SIZE), static_cast<float>(SETTINGS.BALL_SIZE))

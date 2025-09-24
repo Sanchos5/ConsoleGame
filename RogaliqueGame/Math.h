@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	struct Vector2D
 	{

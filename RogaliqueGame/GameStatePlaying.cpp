@@ -7,7 +7,7 @@
 #include "assert.h"
 #include <sstream>
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	void GameStatePlayingData::Init()
 	{

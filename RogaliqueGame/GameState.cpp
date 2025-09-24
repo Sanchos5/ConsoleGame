@@ -8,7 +8,7 @@
 
 #include <assert.h>
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	GameState::GameState(GameStateType type, bool isExclusivelyVisible)
 		: type(type)

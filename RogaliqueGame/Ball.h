@@ -5,7 +5,7 @@
 #include "Collision.h"
 #include "IObserver.h"
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	class Ball : public GameObject, public Collision, public IObservable
 	{

@@ -3,7 +3,7 @@
 #include "Math.h"
 #include <assert.h>
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	void GameStateExitDialogData::Init()
 	{

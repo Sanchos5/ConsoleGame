@@ -6,7 +6,7 @@
 #include "IObserver.h"
 
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	class Block : public GameObject, public Collision, public IObservable
 	{

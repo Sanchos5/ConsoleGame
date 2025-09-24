@@ -4,7 +4,7 @@
 #include <vector>
 #include "GameStateData.h"
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	class GameStateRecordsData : public GameStateData
 	{

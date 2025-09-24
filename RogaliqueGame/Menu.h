@@ -5,7 +5,7 @@
 #include <list>
 #include <functional>
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	struct MenuItem
 	{

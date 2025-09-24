@@ -4,7 +4,7 @@
 #include <assert.h>
 #include <sstream>
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	const char* PLAYER_NAME = "Player";
 

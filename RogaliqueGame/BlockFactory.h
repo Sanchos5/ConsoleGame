@@ -2,7 +2,7 @@
 #include <memory>
 #include "SFML/Graphics.hpp"
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	class Block;
 

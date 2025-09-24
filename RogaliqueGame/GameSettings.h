@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	class GameWorld
 	{
@@ -46,7 +46,7 @@ namespace RogaliqueGame
 			const int MAX_RECORDS_TABLE_SIZE = 5;
 			const char* PLAYER_NAME = "Player"; // We need to define this constant in some SPP
 
-			const std::string GAME_NAME = "RogaliqueGame";
+			const std::string GAME_NAME = "RoguelikeGame";
 
 			const float BREAK_DELAY = 0.2f;
 

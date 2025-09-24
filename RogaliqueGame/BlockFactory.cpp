@@ -1,7 +1,7 @@
 #include "BlockFactory.h"
 #include "Block.h"
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	int BlockFactory::GetCreatedBreackableBlocksCount() {
 

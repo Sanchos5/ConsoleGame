@@ -7,7 +7,7 @@
 #include <memory>
 #include <map>
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	enum class BlockType
 	{

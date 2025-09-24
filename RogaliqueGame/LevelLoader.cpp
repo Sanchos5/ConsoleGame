@@ -5,7 +5,7 @@
 #include <assert.h>
 #include <filesystem>
 
-namespace RogaliqueGame 
+namespace RoguelikeGame 
 {
 	Level& LevelLoader::GetLevel(int i) 
 	{

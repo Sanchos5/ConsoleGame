@@ -4,7 +4,7 @@
 #include "GameStatePlaying.h"
 
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	Game::Game()
 	{

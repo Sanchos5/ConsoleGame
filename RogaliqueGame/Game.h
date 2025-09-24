@@ -8,7 +8,7 @@
 #include "Sprite.h"
 #include <unordered_map>
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	enum class GameOptions : std::uint8_t
 	{

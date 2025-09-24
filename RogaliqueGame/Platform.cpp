@@ -10,7 +10,7 @@ namespace
 	const std::string TEXTURE_ID = "platform";
 }
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	Platform::Platform(const sf::Vector2f& position) 
 		: GameObject(SETTINGS.TEXTURES_PATH + TEXTURE_ID + ".png", position, (float)SETTINGS.PLATFORM_PLAYER_WIDTH, (float)SETTINGS.PLATFORM_HEIGHT)

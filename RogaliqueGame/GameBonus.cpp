@@ -12,7 +12,7 @@ namespace
 	const std::string TEXTURE_ID = "ball";
 }
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	// Ёффекты
 	class ExpandPlatformEffect : public IBonusEffect 

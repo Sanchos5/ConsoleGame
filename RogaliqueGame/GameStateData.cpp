@@ -1,6 +1,6 @@
 #include "GameStateData.h"
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 
 }

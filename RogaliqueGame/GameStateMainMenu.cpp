@@ -2,7 +2,7 @@
 #include "Application.h"
 #include <assert.h>
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	void GameStateMainMenuData::Init()
 	{

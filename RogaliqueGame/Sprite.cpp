@@ -1,7 +1,7 @@
 #include "Sprite.h"
 #include "GameSettings.h"
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	void InitSprite(sf::Sprite& sprite, float desiredWidth, float desiredHeight, const sf::Texture& texture)
 	{

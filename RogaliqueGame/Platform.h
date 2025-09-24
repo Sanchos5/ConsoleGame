@@ -4,7 +4,7 @@
 #include "GameObject.h"
 #include "Collision.h"
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	class Ball;
 	class GameBonus;

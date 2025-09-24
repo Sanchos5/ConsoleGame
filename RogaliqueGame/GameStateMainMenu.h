@@ -5,7 +5,7 @@
 #include "Menu.h"
 #include "GameStateData.h"
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	class Game;
 

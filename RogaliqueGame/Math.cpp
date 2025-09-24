@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <SFML/Graphics.hpp>
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	Position2D GetRandomPositionInScreen(float screenWidth, float screenHeight)
 	{

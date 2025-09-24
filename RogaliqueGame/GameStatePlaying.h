@@ -12,7 +12,7 @@
 
 #include <unordered_map>
 
-namespace RogaliqueGame
+namespace RoguelikeGame
 {
 	class Game;
 	class Block;
