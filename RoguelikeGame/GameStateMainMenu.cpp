@@ -1,14 +1,14 @@
 #include "GameStateMainMenu.h"
-#include "Application.h"
+//#include "Application.h"
 #include <assert.h>
 
 namespace RoguelikeGame
 {
 	void GameStateMainMenuData::Init()
 	{
-		assert(font.loadFromFile(SETTINGS.FONTS_PATH + "Roboto-Regular.ttf"));
+		//assert(font.loadFromFile(SETTINGS.FONTS_PATH + "Roboto-Regular.ttf"));
 
-		assert(soundBtnHoverBuffer.loadFromFile(SETTINGS.SOUNDS_PATH + "\\menu-hover.wav"));
+		//assert(soundBtnHoverBuffer.loadFromFile(SETTINGS.SOUNDS_PATH + "\\menu-hover.wav"));
 
 		soundBtnHover.setBuffer(soundBtnHoverBuffer);
 
@@ -23,9 +23,9 @@ namespace RoguelikeGame
 				}
 			};
 
-		Game& game = Application::Instance().GetGame();
+		//Game& game = Application::Instance().GetGame();
 
-		setTextParameters(startGame.text, L"Начать игру", 24);
+		/*setTextParameters(startGame.text, L"Начать игру", 24);
 		startGame.onPressCallback = [](MenuItem&)
 			{
 				Application::Instance().GetGame().StartGame();
@@ -85,7 +85,7 @@ namespace RoguelikeGame
 				game.SetDifficultyLevel(DifficultyLevel::Impossible);
 				item.text.setString(L"Невозможный: " + std::wstring(newImpossible ? L"Вкл" : L"Выкл"));
 				UpdateDifficultyMenuItems();
-			};
+			};*/
 
 		setTextParameters(difficulty.text, L"Уровень сложности", 24);
 		setTextParameters(difficulty.hintText, L"Выберите уровень сложности", 48, sf::Color::Red);
@@ -98,7 +98,7 @@ namespace RoguelikeGame
 		difficulty.children.push_back(&difficultyInsane);
 		difficulty.children.push_back(&difficultyImpossible);
 		
-		const bool isSound = game.IsEnableOptions(GameOptions::Sound);
+		/*const bool isSound = game.IsEnableOptions(GameOptions::Sound);
 		setTextParameters(optionsSound.text, L"Звук: " + std::wstring(isSound ? L"Вкл" : L"Выкл"), 24);
 		optionsSound.onPressCallback = [](MenuItem& item)
 			{
@@ -116,7 +116,7 @@ namespace RoguelikeGame
 				bool newMusic = !game.IsEnableOptions(GameOptions::Music);
 				game.SetOption(GameOptions::Music, newMusic);
 				item.text.setString(L"Музыка: " + std::wstring(newMusic ? L"Вкл" : L"Выкл"));
-			};
+			};*/
 		
 		setTextParameters(options.text, L"Настройки", 24);
 		setTextParameters(options.hintText, L"Настройки", 48, sf::Color::Red);
@@ -127,7 +127,7 @@ namespace RoguelikeGame
 		options.children.push_back(&optionsSound);
 		options.children.push_back(&optionsMusic);
 		
-		setTextParameters(records.text, L"Таблица рекордов", 24);
+		/*setTextParameters(records.text, L"Таблица рекордов", 24);
 		records.onPressCallback = [](MenuItem&)
 			{
 				Application::Instance().GetGame().ShowRecords();
@@ -137,7 +137,7 @@ namespace RoguelikeGame
 		yesItem.onPressCallback = [](MenuItem&) 
 			{
 				Application::Instance().GetGame().QuitGame();
-			};
+			};*/
 
 		setTextParameters(noItem.text, L"Нет", 24);
 		noItem.onPressCallback = [&](MenuItem&)
@@ -171,7 +171,7 @@ namespace RoguelikeGame
 	{
 		if (event.type == sf::Event::KeyPressed)
 		{
-			if (event.key.code == sf::Keyboard::Escape)
+			/*if (event.key.code == sf::Keyboard::Escape)
 			{
 				menu.GoBack();
 			}
@@ -182,7 +182,7 @@ namespace RoguelikeGame
 					soundBtnHover.play();
 				}
 				menu.PressOnSelectedItem();
-			}
+			}*/
 
 			Orientation orientation = menu.GetCurrentContext().childrenOrientation;
 			if (orientation == Orientation::Vertical && event.key.code == sf::Keyboard::Up ||
@@ -205,7 +205,7 @@ namespace RoguelikeGame
 
 	void GameStateMainMenuData::UpdateDifficultyMenuItems()
 	{
-		Game& game = Application::Instance().GetGame();
+		/*Game& game = Application::Instance().GetGame();
 
 		const bool isEasy = game.IsEnableDifficultyLevel(DifficultyLevel::Easy);
 		difficultyEasy.text.setString(L"Лёгкий: " + std::wstring(isEasy ? L"Вкл" : L"Выкл"));
@@ -220,7 +220,7 @@ namespace RoguelikeGame
 		difficultyInsane.text.setString(L"Безумный: " + std::wstring(isInsane ? L"Вкл" : L"Выкл"));
 
 		const bool isImpossible = game.IsEnableDifficultyLevel(DifficultyLevel::Impossible);
-		difficultyImpossible.text.setString(L"Невозможный: " + std::wstring(isImpossible ? L"Вкл" : L"Выкл"));
+		difficultyImpossible.text.setString(L"Невозможный: " + std::wstring(isImpossible ? L"Вкл" : L"Выкл"));*/
 		
 	}
 

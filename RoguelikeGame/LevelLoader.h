@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Block.h"
+//#include "Block.h"
 
 #include <vector>
 #include <string>
@@ -18,7 +18,7 @@ namespace RoguelikeGame
 
 	struct Level
 	{
-		std::vector<std::pair<sf::Vector2i, BlockType>> m_blocks;
+		//std::vector<std::pair<sf::Vector2i, BlockType>> m_blocks;
 	};
 
 	class LevelLoader final

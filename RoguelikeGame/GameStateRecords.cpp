@@ -1,5 +1,5 @@
 #include "GameStateRecords.h"
-#include "Application.h"
+//#include "Application.h"
 #include "GameSettings.h"
 #include "Math.h"
 #include <assert.h>
@@ -18,27 +18,27 @@ namespace RoguelikeGame
 
 		tableTexts.reserve(SETTINGS.MAX_RECORDS_TABLE_SIZE);
 
-		const Game& game = Application::Instance().GetGame();
-		std::map<int, std::string> sortedRecordsTable;
+		//const Game& game = Application::Instance().GetGame();
+		/*std::map<int, std::string> sortedRecordsTable;
 		for (const auto& item : game.GetRecordsTable())
 		{
 			sortedRecordsTable[item.second] = item.first;
-		}
+		}*/
 
-		auto it = sortedRecordsTable.rbegin();
-		for (int i = 0; i < SETTINGS.MAX_RECORDS_TABLE_SIZE && it != sortedRecordsTable.rend(); ++i, ++it)
-		{
-			tableTexts.emplace_back(); // Create text in place
-			sf::Text& text = tableTexts.back();
+		//auto it = sortedRecordsTable.rbegin();
+		//for (int i = 0; i < SETTINGS.MAX_RECORDS_TABLE_SIZE && it != sortedRecordsTable.rend(); ++i, ++it)
+		//{
+		//	tableTexts.emplace_back(); // Create text in place
+		//	sf::Text& text = tableTexts.back();
 
-			// We can use streams for writing into string and reading from it
-			std::stringstream sstream;
-			sstream << i + 1 << ". " << it->second << ": " << it->first;
-			text.setString(sstream.str());
-			text.setFont(font);
-			text.setFillColor(sf::Color::White);
-			text.setCharacterSize(24);
-		}
+		//	// We can use streams for writing into string and reading from it
+		//	std::stringstream sstream;
+		//	sstream << i + 1 << ". " << it->second << ": " << it->first;
+		//	text.setString(sstream.str());
+		//	text.setFont(font);
+		//	text.setFillColor(sf::Color::White);
+		//	text.setCharacterSize(24);
+		//}
 	}
 
 	void GameStateRecordsData::HandleWindowEvent(const sf::Event& event)
@@ -47,7 +47,7 @@ namespace RoguelikeGame
 		{
 			if (event.key.code == sf::Keyboard::Escape)
 			{
-				Application::Instance().GetGame().PopState();
+				//Application::Instance().GetGame().PopState();
 			}
 		}
 	}

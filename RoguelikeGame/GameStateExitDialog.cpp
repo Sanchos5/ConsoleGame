@@ -1,5 +1,5 @@
 #include "GameStateExitDialog.h"
-#include "Application.h"
+//#include "Application.h"
 #include "Math.h"
 #include <assert.h>
 
@@ -7,7 +7,7 @@ namespace RoguelikeGame
 {
 	void GameStateExitDialogData::Init()
 	{
-		assert(font.loadFromFile(SETTINGS.FONTS_PATH + "Roboto-Regular.ttf"));
+		//assert(font.loadFromFile(SETTINGS.FONTS_PATH + "Roboto-Regular.ttf"));
 
 		hintText.setString(L"Вы уверены что хотите завершить эту игру? Enter - Да, Esc - Нет");
 		hintText.setFont(font);
@@ -24,11 +24,11 @@ namespace RoguelikeGame
 		{
 			if (event.key.code == sf::Keyboard::Escape)
 			{
-				Application::Instance().GetGame().PopState();
+				//Application::Instance().GetGame().PopState();
 			}
 			else if (event.key.code == sf::Keyboard::Enter)
 			{
-				Application::Instance().GetGame().ExitGame();
+				//Application::Instance().GetGame().ExitGame();
 			}
 		}
 	}

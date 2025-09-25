@@ -1,5 +1,5 @@
 #include "GameStateGameWin.h"
-#include "Application.h"
+//#include "Application.h"
 #include "Game.h"
 #include "Math.h"
 #include <assert.h>
@@ -33,14 +33,14 @@ namespace RoguelikeGame
 	{
 		if (event.type == sf::Event::KeyPressed)
 		{
-			if (event.key.code == sf::Keyboard::Space)
+			/*if (event.key.code == sf::Keyboard::Space)
 			{
 				Application::Instance().GetGame().StartGame();
 			}
 			else if (event.key.code == sf::Keyboard::Escape)
 			{
 				Application::Instance().GetGame().ExitGame();
-			}
+			}*/
 		}
 	}
 

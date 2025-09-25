@@ -2,11 +2,11 @@
 
 #include "SFML/Graphics.hpp"
 #include "SFML/Audio.hpp"
-#include "Ball.h"
-#include "Platform.h"
+//#include "Ball.h"
+//#include "Platform.h"
 #include "GameBonus.h"
 #include "GameStateData.h"
-#include "BlockFactory.h"
+//#include "BlockFactory.h"
 #include "LevelLoader.h"
 #include "IObserver.h"
 
@@ -15,8 +15,8 @@
 namespace RoguelikeGame
 {
 	class Game;
-	class Block;
-	class BlockFactory;
+	//class Block;
+	//class BlockFactory;
 
 	class GameStatePlayingData : public GameStateData, public IObserver, public std::enable_shared_from_this<GameStatePlayingData>
 	{
@@ -47,8 +47,8 @@ namespace RoguelikeGame
 			sf::SoundBuffer soundBackgroundBuffer;
 
 			//Game data
-			std::vector<std::shared_ptr<GameObject>> gameObjects;
-			std::vector<std::shared_ptr<Block>> blocks;
+			//std::vector<std::shared_ptr<GameObject>> gameObjects;
+			//std::vector<std::shared_ptr<Block>> blocks;
 			std::vector<std::shared_ptr<GameBonus>> bonuses;
 			std::vector<std::shared_ptr<GameBonus>> activeBonuses;
 
@@ -68,7 +68,7 @@ namespace RoguelikeGame
 			sf::Sound soundBackground;
 
 			//Blocks creator
-			std::unordered_map<BlockType, std::unique_ptr<BlockFactory>> factories;
+			//std::unordered_map<BlockType, std::unique_ptr<BlockFactory>> factories;
 			int breackableBlocksCount = 0;
 
 			//Levels

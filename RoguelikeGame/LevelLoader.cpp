@@ -54,7 +54,7 @@ namespace RoguelikeGame
 				{
 					if (c != ' ') 
 					{
-						levels.back().m_blocks.emplace_back(std::make_pair(sf::Vector2i{ x, y }, CharToBlockType(c)));
+						//levels.back().m_blocks.emplace_back(std::make_pair(sf::Vector2i{ x, y }, CharToBlockType(c)));
 					}
 					++x;
 				}
