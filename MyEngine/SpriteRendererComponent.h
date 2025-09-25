@@ -1,5 +1,6 @@
 #pragma once
 #include "TransformComponent.h"
+#include "Vector.h"
 #include <SFML/Graphics.hpp>
 #include <memory>
 
@@ -24,6 +25,7 @@ namespace MyEngine
 
 		private:
 
+			Vector2Df scale;
 			sf::Sprite* sprite;
 			TransformComponent* transform;
 
