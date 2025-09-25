@@ -1,7 +1,7 @@
 #include "Sprite.h"
-#include "GameSettings.h"
+//#include "GameSettings.h"
 
-namespace RoguelikeGame
+namespace Engine
 {
 	void InitSprite(sf::Sprite& sprite, float desiredWidth, float desiredHeight, const sf::Texture& texture)
 	{
@@ -40,10 +40,10 @@ namespace RoguelikeGame
 
 	void SetSpriteRandomPosition(sf::Sprite& sprite, const sf::FloatRect& rect, const std::list<sf::Sprite>& collection)
 	{
-		do {
+		/*do {
 			const auto newPosition = GetRandomSpritePositionInRectangle(sprite, rect);
 			sprite.setPosition(newPosition);
-		} while (FullCheckCollisions(collection.begin(), collection.end(), sprite));
+		} while (FullCheckCollisions(collection.begin(), collection.end(), sprite));*/
 	}
 
 	bool CheckSpriteIntersection(const sf::Sprite& sprite1, const sf::Sprite& sprite2) {
