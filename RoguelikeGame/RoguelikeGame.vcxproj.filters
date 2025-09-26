@@ -52,6 +52,15 @@
     <ClCompile Include="Music.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="AI.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Floor.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collision.h">
@@ -109,6 +118,15 @@
       <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="Music.h">
+      <Filter>Файлы заголовки</Filter>
+    </ClInclude>
+    <ClInclude Include="AI.h">
+      <Filter>Файлы заголовки</Filter>
+    </ClInclude>
+    <ClInclude Include="Floor.h">
+      <Filter>Файлы заголовки</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
       <Filter>Файлы заголовки</Filter>
     </ClInclude>
   </ItemGroup>

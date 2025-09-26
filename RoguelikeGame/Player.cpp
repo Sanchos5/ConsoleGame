@@ -5,13 +5,15 @@
 
 namespace RoguelikeGame
 {
-	Player::Player()
+	Player::Player(const MyEngine::Vector2Df& position)
 	{
-		gameObject = MyEngine::GameWorld::Instance()->CreateGameObject();
-		auto playerRenderer = gameObject->AddComponent<MyEngine::SpriteRendererComponent>();
+		gameObject = MyEngine::GameWorld::Instance()->CreateGameObject("Player");
+		auto transform = gameObject->GetComponent<MyEngine::TransformComponent>();
+		transform->SetWorldPosition(position);
 
-		playerRenderer->SetTexture(*MyEngine::ResourceSystem::Instance()->GetTextureShared("ball"));
-		playerRenderer->SetPixelSize(32, 32);
+		auto renderer = gameObject->AddComponent<MyEngine::SpriteRendererComponent>();
+		renderer->SetTexture(*MyEngine::ResourceSystem::Instance()->GetTextureMapElementShared("player", 0));
+		renderer->SetPixelSize(100, 100);
 
 		auto playerCamera = gameObject->AddComponent<MyEngine::CameraComponent>();
 		playerCamera->SetWindow(&MyEngine::RenderSystem::Instance()->GetMainWindow());
@@ -36,10 +38,10 @@ namespace RoguelikeGame
 
 		auto collider = gameObject->AddComponent<MyEngine::SpriteColliderComponent>();
 
-		auto music = gameObject->AddComponent<MyEngine::AudioComponent>();
-		music->SetAudio(*MyEngine::ResourceSystem::Instance()->GetSound("music"));
-		music->Play();
-		music->SetLoop(true);
+		//auto music = gameObject->AddComponent<MyEngine::AudioComponent>();
+		//music->SetAudio(*MyEngine::ResourceSystem::Instance()->GetSound("music"));
+		//music->Play();
+		//music->SetLoop(true);
 
 	}
 

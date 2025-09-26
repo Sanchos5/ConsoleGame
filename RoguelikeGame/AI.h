@@ -5,14 +5,15 @@
 #include "RenderSystem.h"
 #include "InputComponent.h"
 #include "GameObject.h"
+#include "Vector.h"
 
 namespace RoguelikeGame
 {
-	class Player
+	class AI
 	{
 		public:
 
-			Player(const MyEngine::Vector2Df& position);
+			AI(const MyEngine::Vector2Df& position, MyEngine::GameObject* player);
 			MyEngine::GameObject* GetGameObject();
 
 		private:
@@ -20,4 +21,3 @@ namespace RoguelikeGame
 			MyEngine::GameObject* gameObject;
 	};
 }
-

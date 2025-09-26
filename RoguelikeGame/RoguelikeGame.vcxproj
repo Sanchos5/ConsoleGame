@@ -143,6 +143,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AI.cpp" />
+    <ClCompile Include="Floor.cpp" />
     <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="DeveloperLevel.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -160,10 +162,13 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Music.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AI.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DeveloperLevel.h" />
+    <ClInclude Include="Floor.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameBonus.h" />
     <ClInclude Include="GameStateData.h" />
@@ -181,6 +186,7 @@
     <ClInclude Include="Music.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyEngine\MyEngine.vcxproj">
