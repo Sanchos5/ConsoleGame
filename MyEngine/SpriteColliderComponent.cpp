@@ -14,7 +14,7 @@ namespace MyEngine
 		}
 
 		sprite = gameObject->GetComponent<SpriteRendererComponent>()->GetSprite();
-		//PhysicsSystem::Instance()->Subscribe(this);
+		PhysicsSystem::Instance()->Subscribe(this);
 	}
 
 	SpriteColliderComponent::~SpriteColliderComponent()
@@ -23,7 +23,7 @@ namespace MyEngine
 		{
 			std::destroy_at(&bounds);
 		}
-		//PhysicsSystem::Instance()->Unsubscribe(this);
+		PhysicsSystem::Instance()->Unsubscribe(this);
 	}
 
 	void SpriteColliderComponent::Update(float deltaTime)

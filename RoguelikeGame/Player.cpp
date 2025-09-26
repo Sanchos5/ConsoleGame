@@ -1,6 +1,7 @@
 #include "Player.h"
 #include <ResourceSystem.h>
 #include <SpriteColliderComponent.h>
+#include <AudioComponent.h>
 
 namespace RoguelikeGame
 {
@@ -30,9 +31,16 @@ namespace RoguelikeGame
 		transform->Print();
 		testTransform->Print();*/
 
-		//auto body = gameObject->AddComponent<MyEngine::RigidbodyComponent>();
+		auto rigidbody = gameObject->AddComponent<MyEngine::RigidbodyComponent>();
+		rigidbody->SetKinematic(false);
 
 		auto collider = gameObject->AddComponent<MyEngine::SpriteColliderComponent>();
+
+		auto music = gameObject->AddComponent<MyEngine::AudioComponent>();
+		music->SetAudio(*MyEngine::ResourceSystem::Instance()->GetSound("music"));
+		music->Play();
+		music->SetLoop(true);
+
 	}
 
 	MyEngine::GameObject* Player::GetGameObject()

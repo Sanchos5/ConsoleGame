@@ -1,5 +1,21 @@
 #pragma once
-class Collision
-{
-};
+#include <SFML/Graphics.hpp>
 
+namespace MyEngine
+{
+	class ColliderComponent;
+
+	struct Collision
+	{
+		public:
+
+			Collision(ColliderComponent* newFirst, ColliderComponent* newSecond, sf::FloatRect newCollisionRect) :
+				first(newFirst), second(newSecond), collisionRect(newCollisionRect) { };
+
+		private:
+
+			ColliderComponent* first;
+			ColliderComponent* second;
+			sf::FloatRect collisionRect;
+	};
+}

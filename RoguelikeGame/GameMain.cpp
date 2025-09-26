@@ -30,6 +30,9 @@ int main()
 
 	MyEngine::ResourceSystem::Instance()->LoadTexture("ball", "Resources/Textures/ball.png");
 
+	ResourceSystem::Instance()->LoadSound("music", "Resources/Sounds/Background.wav");
+	
+
 	auto developerLevel = std::make_shared<DeveloperLevel>();
 	developerLevel->Start();
 
