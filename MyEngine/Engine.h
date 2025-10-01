@@ -20,5 +20,7 @@ namespace MyEngine
 
 			Engine();
 			~Engine() = default;
+
+			void setupLogger();
 	};
 }

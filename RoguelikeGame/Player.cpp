@@ -2,6 +2,8 @@
 #include <ResourceSystem.h>
 #include <SpriteColliderComponent.h>
 #include <AudioComponent.h>
+#include <StatsComponent.h>
+#include <AttackComponent.h>
 
 namespace RoguelikeGame
 {
@@ -38,10 +40,11 @@ namespace RoguelikeGame
 
 		auto collider = gameObject->AddComponent<MyEngine::SpriteColliderComponent>();
 
-		//auto music = gameObject->AddComponent<MyEngine::AudioComponent>();
-		//music->SetAudio(*MyEngine::ResourceSystem::Instance()->GetSound("music"));
-		//music->Play();
-		//music->SetLoop(true);
+		//Health Component
+		auto statsComponent = gameObject->AddComponent<MyEngine::StatsComponent>(100.f, 50.f);
+
+		//Attack Component
+		auto attackComponent = gameObject->AddComponent<MyEngine::AttackComponent>(10.0f);
 
 	}
 

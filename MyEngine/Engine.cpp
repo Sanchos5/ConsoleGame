@@ -3,6 +3,7 @@
 #include <iostream>
 #include "GameWorld.h"
 #include "RenderSystem.h"
+#include "Logger.h"
 
 namespace MyEngine
 {
@@ -16,12 +17,16 @@ namespace MyEngine
 	{
 		unsigned int seed = (unsigned int)time(nullptr);
 		srand(seed);
+
+		setupLogger();
 	}
 
 	void Engine::Run()
 	{
 		sf::Clock gameClock;
 		sf::Event event;
+
+		LOG_INFO("Программа запущена!");
 
 		while (RenderSystem::Instance()->GetMainWindow().isOpen())
 		{
@@ -50,5 +55,15 @@ namespace MyEngine
 
 			RenderSystem::Instance()->GetMainWindow().display();
 		}
+	}
+
+	void Engine::setupLogger()
+	{
+		auto logger = std::make_shared<Logger>();
+		logger->addSink(std::make_shared<ConsoleSink>());
+		logger->addSink(std::make_shared<FileSink>("log.txt"));
+
+		LoggerRegistry::getInstance().registerLogger("global", logger);
+		LoggerRegistry::getInstance().setDefaultLogger(logger);
 	}
 }

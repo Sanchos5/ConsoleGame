@@ -41,7 +41,22 @@ namespace MyEngine
 
 				T* newComponent = new T(this);
 				components.push_back(newComponent);
-				std::cout << "Add new component: " << newComponent << std::endl;
+
+				return newComponent;
+			}
+
+			template <typename T, typename... Args>
+			T* AddComponent(Args&&... args)
+			{
+				if constexpr (!std::is_base_of<Component, T>::value)
+				{
+					std::cout << "T must be derived from Component." << std::endl;
+					return nullptr;
+				}
+
+				T* newComponent = new T(this, std::forward<Args>(args)...);
+				components.push_back(newComponent);
+
 				return newComponent;
 			}
 

@@ -2,6 +2,7 @@
 #include "ResourceSystem.h"
 #include "SpriteColliderComponent.h"
 //#include "MovementComponent.h"
+#include <AttackComponent.h>
 
 #include <FollowComponent.h>
 
@@ -20,12 +21,17 @@ namespace RoguelikeGame
 
 		auto follower = gameObject->AddComponent<MyEngine::FollowComponent>();
 		follower->SetTarget(player);
-		follower->SetSpeed(120.0f);
+		follower->SetSpeed(100.0f);
 
 		auto rigidbody = gameObject->AddComponent<MyEngine::RigidbodyComponent>();
 		rigidbody->SetKinematic(false);
 
 		auto collideer = gameObject->AddComponent<MyEngine::SpriteColliderComponent>();
+
+		//Attack Component
+		auto attackComponent = gameObject->AddComponent<MyEngine::AttackComponent>(10.0f);
+		//attackComponent->Attack(player);
+		//attackComponent->SetAttackPower(5.0f);
 	}
 
 	MyEngine::GameObject* AI::GetGameObject()
