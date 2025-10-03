@@ -6,18 +6,25 @@
 #include "InputComponent.h"
 #include "GameObject.h"
 #include "Vector.h"
+#include <Pawn.h>
+
+using namespace MyEngine;
 
 namespace RoguelikeGame
 {
-	class AI
+	class AI : public Pawn
 	{
 		public:
 
-			AI(const MyEngine::Vector2Df& position, MyEngine::GameObject* player);
-			MyEngine::GameObject* GetGameObject();
+			AI(const Vector2Df& position, GameObject* player);
+			GameObject* GetGameObject();
+
+			void Update(float deltaTime) override;
+
+			GameObject* player = nullptr;
 
 		private:
 
-			MyEngine::GameObject* gameObject;
+			GameObject* gameObject;
 	};
 }

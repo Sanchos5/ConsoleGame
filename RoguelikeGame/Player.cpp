@@ -2,12 +2,15 @@
 #include <ResourceSystem.h>
 #include <SpriteColliderComponent.h>
 #include <AudioComponent.h>
+#include <MovementComponent.h>
 #include <StatsComponent.h>
 #include <AttackComponent.h>
+#include <Logger.h>
 
 namespace RoguelikeGame
 {
 	Player::Player(const MyEngine::Vector2Df& position)
+		: Pawn(GetGameObject())
 	{
 		gameObject = MyEngine::GameWorld::Instance()->CreateGameObject("Player");
 		auto transform = gameObject->GetComponent<MyEngine::TransformComponent>();
@@ -22,6 +25,8 @@ namespace RoguelikeGame
 		playerCamera->SetBaseResolution(1280, 720);
 
 		auto playerInput = gameObject->AddComponent<MyEngine::InputComponent>();
+		auto movement = gameObject->AddComponent<MyEngine::MovementComponent>();
+		movement->SetSpeed(400.f);
 
 		/*auto transform = gameObject->GetComponent<MyEngine::TransformComponent>();
 		transform->RotateBy(90.f);
@@ -41,11 +46,16 @@ namespace RoguelikeGame
 		auto collider = gameObject->AddComponent<MyEngine::SpriteColliderComponent>();
 
 		//Health Component
-		auto statsComponent = gameObject->AddComponent<MyEngine::StatsComponent>(100.f, 50.f);
-
+		auto statsComponent = gameObject->AddComponent<MyEngine::StatsComponent>(100.f, 0.f);
+		LOG_INFO("Player Health: " + std::to_string(statsComponent->GetCurrentHealth()) + "/" + std::to_string(statsComponent->GetMaxHealth()));
+		
 		//Attack Component
 		auto attackComponent = gameObject->AddComponent<MyEngine::AttackComponent>(10.0f);
 
+	}
+
+	void Player::Update(float deltaTime)
+	{
 	}
 
 	MyEngine::GameObject* Player::GetGameObject()

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "AttackComponent.h"
 
+
 namespace MyEngine
 {
 	AttackComponent::AttackComponent(GameObject* gameObject, float attackPower)

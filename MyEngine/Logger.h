@@ -34,7 +34,7 @@ class ConsoleSink : public LogSink
             {
                 case LogLevel::INFO: return "[INFO]";
                 case LogLevel::WARNING: return "[WARNING]";
-                case LogLevel::ERRORS: return "[ERROR]";
+                case LogLevel::ERRORS: return "[ERRORS]";
                 default: return "[UNKNOWN]";
             }
         }
@@ -74,7 +74,7 @@ class FileSink : public LogSink
             {
                 case LogLevel::INFO: return "[INFO]";
                 case LogLevel::WARNING: return "[WARNING]";
-                case LogLevel::ERRORS: return "[ERROR]";
+                case LogLevel::ERRORS: return "[ERRORS]";
                 default: return "[UNKNOWN]";
             }
         }
@@ -147,5 +147,5 @@ class LoggerRegistry
 };
 
 #define LOG_INFO(message) LoggerRegistry::getInstance().getLogger("global")->info(message)
-#define LOG_WARN(message) LoggerRegistry::getInstance().getLogger(L"global")->warn(message)
-#define LOG_ERROR(message) LoggerRegistry::getInstance().getLogger(L"global")->error(message)
+#define LOG_WARN(message) LoggerRegistry::getInstance().getLogger("global")->warn(message)
+#define LOG_ERROR(message) LoggerRegistry::getInstance().getLogger("global")->error(message)

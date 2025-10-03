@@ -26,7 +26,7 @@ namespace MyEngine
 		sf::Clock gameClock;
 		sf::Event event;
 
-		LOG_INFO("Программа запущена!");
+		LOG_INFO("Logger initialized.");
 
 		while (RenderSystem::Instance()->GetMainWindow().isOpen())
 		{
@@ -65,5 +65,6 @@ namespace MyEngine
 
 		LoggerRegistry::getInstance().registerLogger("global", logger);
 		LoggerRegistry::getInstance().setDefaultLogger(logger);
+
 	}
 }

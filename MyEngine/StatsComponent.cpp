@@ -28,7 +28,7 @@ namespace MyEngine
 		if (armor < 0)
 		{
 			armor = 0;
-			LOG_INFO("the armor was broken");
+			//LOG_INFO("the armor was broken");
 		}
 
 		currentHealth -= damage;
@@ -37,7 +37,7 @@ namespace MyEngine
 			currentHealth = 0;
 		}
 
-		LOG_INFO("Healed " + std::to_string(damage) + " damage, current health: " + std::to_string(currentHealth));
+		//LOG_INFO("Healed " + std::to_string(damage) + " damage, current health: " + std::to_string(currentHealth));
 	}
 
 	void StatsComponent::Heal(float amount)
@@ -49,6 +49,6 @@ namespace MyEngine
 			currentHealth = maxHealth;
 		}
 
-		LOG_INFO("Healed " + std::to_string(amount) + " health, current health: " + std::to_string(currentHealth));
+		//LOG_INFO("Healed " + std::to_string(amount) + " health, current health: " + std::to_string(currentHealth));
 	}
 }
