@@ -28,10 +28,10 @@ int main()
 	}
 	else
 	{
-		std::cerr << "Не удалось выделить консоль." << std::endl;
+		LOG_ERROR("Failed to allocate console.");
 	}
 
-	MyEngine::RenderSystem::Instance()->SetMainWindow(new sf::RenderWindow(sf::VideoMode(1280, 720), "Roguelike"));
+	RenderSystem::Instance()->SetMainWindow(new sf::RenderWindow(sf::VideoMode(1280, 720), "Roguelike"));
 
 	ResourceSystem::Instance()->LoadTextureMap("player", "Resources/TextureMaps/Player.png", { 48, 63 }, 4, false);
 	ResourceSystem::Instance()->LoadTextureMap("AI", "Resources/TextureMaps/Player.png", { 48, 63 }, 4, false);

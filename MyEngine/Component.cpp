@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Component.h"
 #include <iostream>
+#include "Logger.h"
 
 namespace MyEngine
 {
@@ -8,7 +9,7 @@ namespace MyEngine
 
 	Component::~Component()
 	{
-		std::cout << "Deleted component: " << this << std::endl;
+		LOG_INFO("Deleted component: " + std::string("this"));
 	}
 
 	GameObject* Component::GetGameObject()

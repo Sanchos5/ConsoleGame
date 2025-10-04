@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "MovementComponent.h"
+#include "Logger.h"
 
 namespace MyEngine
 {
@@ -11,7 +12,7 @@ namespace MyEngine
 
 		if (input == nullptr)
 		{
-			std::cout << "Need input component for movement" << std::endl;
+			LOG_WARN("Need input component for movement");
 			gameObject->RemoveComponent(this);
 		}
 	}

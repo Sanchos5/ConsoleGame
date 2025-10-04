@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CameraComponent.h"
 #include "TransformComponent.h"
+#include "Logger.h"
 
 namespace MyEngine
 {
@@ -30,7 +31,7 @@ namespace MyEngine
 	{
 		if (window == nullptr)
 		{
-			std::cout << "NULL window render." << std::endl;
+			LOG_ERROR("NULL window render.");
 		}
 	}
 
@@ -48,7 +49,7 @@ namespace MyEngine
 	{
 		if (newZoom <= 0)
 		{
-			std::cout << "Not allowed zoom lesser or equal than zero." << std::endl;
+			LOG_ERROR("Not allowed zoom lesser or equal than zero.");
 			return;
 		}
 		view->zoom(newZoom);
