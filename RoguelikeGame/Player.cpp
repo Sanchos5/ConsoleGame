@@ -1,6 +1,8 @@
 #include "Player.h"
 #include <ResourceSystem.h>
 #include <SpriteColliderComponent.h>
+#include <SpriteDirectionComponent.h>
+#include <SpriteMovementAnimationComponent.h>
 #include <AudioComponent.h>
 #include <MovementComponent.h>
 #include <StatsComponent.h>
@@ -25,25 +27,19 @@ namespace RoguelikeGame
 		playerCamera->SetBaseResolution(1280, 720);
 
 		auto playerInput = gameObject->AddComponent<MyEngine::InputComponent>();
+
 		auto movement = gameObject->AddComponent<MyEngine::MovementComponent>();
 		movement->SetSpeed(400.f);
 
-		/*auto transform = gameObject->GetComponent<MyEngine::TransformComponent>();
-		transform->RotateBy(90.f);
-		transform->MoveBy({ 1.f, 0.f });
-
-		auto test = MyEngine::GameWorld::Instance()->CreateGameObject();
-		auto testTransform = test->GetComponent<MyEngine::TransformComponent>();
-		testTransform->SetParent(transform);
-
-		transform->RotateBy(-90.f);
-		transform->Print();
-		testTransform->Print();*/
+		auto spriteDirection = gameObject->AddComponent<MyEngine::SpriteDirectionComponent>();
 
 		auto rigidbody = gameObject->AddComponent<MyEngine::RigidbodyComponent>();
 		rigidbody->SetKinematic(false);
 
 		auto collider = gameObject->AddComponent<MyEngine::SpriteColliderComponent>();
+
+		auto animator = gameObject->AddComponent<MyEngine::SpriteMovementAnimationComponent>();
+		animator->Initialize("player", 6.f);
 
 		//Health Component
 		auto statsComponent = gameObject->AddComponent<MyEngine::StatsComponent>(100.f, 0.f);
