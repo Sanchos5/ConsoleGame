@@ -41,3 +41,7 @@
 [INFO] Logger initialized.
 [INFO] Player Health: 100.000000/100.000000
 [INFO] Logger initialized.
+[INFO] Player Health: 100.000000/100.000000
+[INFO] Logger initialized.
+[INFO] Player Health: 100.000000/100.000000
+[INFO] Logger initialized.

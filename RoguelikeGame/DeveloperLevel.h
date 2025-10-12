@@ -20,14 +20,16 @@ namespace RoguelikeGame
 			void Restart() override;
 			void Stop() override;
 
+			std::vector<std::unique_ptr<Wall>> walls;
+			std::vector<std::unique_ptr<Floor>> floors;
+
 		private:
 
 			std::shared_ptr<Player> player;
 			std::shared_ptr<AI> ai;
 			std::unique_ptr<Music> music;
 
-			std::vector<std::unique_ptr<Wall>> walls;
-			std::vector<std::unique_ptr<Floor>> floors;
+			
 
 	};
 }

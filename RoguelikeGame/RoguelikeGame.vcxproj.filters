@@ -61,6 +61,9 @@
     <ClCompile Include="Wall.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="MazeGenerator.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collision.h">
@@ -127,6 +130,9 @@
       <Filter>Файлы заголовки</Filter>
     </ClInclude>
     <ClInclude Include="Wall.h">
+      <Filter>Файлы заголовки</Filter>
+    </ClInclude>
+    <ClInclude Include="MazeGenerator.h">
       <Filter>Файлы заголовки</Filter>
     </ClInclude>
   </ItemGroup>
