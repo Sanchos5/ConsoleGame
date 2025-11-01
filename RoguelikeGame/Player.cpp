@@ -12,7 +12,7 @@
 namespace RoguelikeGame
 {
 	Player::Player(const MyEngine::Vector2Df& position)
-		: Pawn(GetGameObject())
+		: gameObject(GetGameObject())
 	{
 		gameObject = MyEngine::GameWorld::Instance()->CreateGameObject("Player");
 		auto transform = gameObject->GetComponent<MyEngine::TransformComponent>();
@@ -46,12 +46,8 @@ namespace RoguelikeGame
 		LOG_INFO("Player Health: " + std::to_string(statsComponent->GetCurrentHealth()) + "/" + std::to_string(statsComponent->GetMaxHealth()));
 		
 		//Attack Component
-		auto attackComponent = gameObject->AddComponent<MyEngine::AttackComponent>(10.0f);
+		auto attackComponent = gameObject->AddComponent<MyEngine::AttackComponent>(10.0f, gameObject);
 
-	}
-
-	void Player::Update(float deltaTime)
-	{
 	}
 
 	MyEngine::GameObject* Player::GetGameObject()

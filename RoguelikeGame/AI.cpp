@@ -10,7 +10,7 @@
 namespace RoguelikeGame
 {
 	AI::AI(const Vector2Df& position, GameObject* player)
-		: Pawn(gameObject), player(player)
+		: gameObject(gameObject), player(player)
 	{
 		gameObject = MyEngine::GameWorld::Instance()->CreateGameObject("AI");
 		auto transform = gameObject->GetComponent<MyEngine::TransformComponent>();
@@ -30,34 +30,34 @@ namespace RoguelikeGame
 		auto collideer = gameObject->AddComponent<MyEngine::SpriteColliderComponent>();
 
 		//Attack Component
-		auto attackComponent = gameObject->AddComponent<MyEngine::AttackComponent>(10.0f);
+		auto attackComponent = gameObject->AddComponent<MyEngine::AttackComponent>(10.0f, player);
 
 		
 	}
 
-	void AI::Update(float deltaTime)
-	{
-		// Получаем компоненты
-		auto attackComponent = gameObject->GetComponent<MyEngine::AttackComponent>();
-		auto transform = gameObject->GetComponent<MyEngine::TransformComponent>();
+	//void AI::Update(float deltaTime)
+	//{
+	//	// Получаем компоненты
+	//	auto attackComponent = gameObject->GetComponent<MyEngine::AttackComponent>();
+	//	auto transform = gameObject->GetComponent<MyEngine::TransformComponent>();
 
-		// Получаем позицию AI и игрока
-		auto playerTransform = player ? player->GetComponent<MyEngine::TransformComponent>() : nullptr;
-		if (!playerTransform) return;
+	//	// Получаем позицию AI и игрока
+	//	auto playerTransform = player ? player->GetComponent<MyEngine::TransformComponent>() : nullptr;
+	//	if (!playerTransform) return;
 
-		auto aiPos = transform->GetWorldPosition();
-		auto playerPos = playerTransform->GetWorldPosition();;
+	//	auto aiPos = transform->GetWorldPosition();
+	//	auto playerPos = playerTransform->GetWorldPosition();;
 
-		// Проверяем дистанцию
-		float distance = (aiPos - playerPos).GetLength();
-		if (distance < 500.0f) // например, 100 — радиус атаки
-		{
-			// Атакуем игрока
-			attackComponent->Attack(player); // реализуйте метод Attack, если его нет
-		}
+	//	// Проверяем дистанцию
+	//	float distance = (aiPos - playerPos).GetLength();
+	//	if (distance < 500.0f) // например, 100 — радиус атаки
+	//	{
+	//		// Атакуем игрока
+	//		//attackComponent->Attack(player); // реализуйте метод Attack, если его нет
+	//	}
 
 
-	}
+	//}
 
 	MyEngine::GameObject* AI::GetGameObject()
 	{

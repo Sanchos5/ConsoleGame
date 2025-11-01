@@ -9,14 +9,12 @@
 
 namespace RoguelikeGame
 {
-	class Player : public MyEngine::Pawn
+	class Player
 	{
 		public:
 
 			Player(const MyEngine::Vector2Df& position);
 			MyEngine::GameObject* GetGameObject();
-
-			void Update(float deltaTime) override;
 
 		private:
 

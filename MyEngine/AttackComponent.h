@@ -5,11 +5,18 @@
 
 namespace MyEngine
 {
+	struct AttackInfo
+	{
+		int damage;
+		float range;
+		float cooldown;
+	};
+
 	class AttackComponent : public Component
 	{
 		public:
 
-			AttackComponent(GameObject* gameObject, float attackPower);
+			AttackComponent(GameObject* gameObject, float attackPower, GameObject* target);
 
 			void Update(float deltaTime) override;
 			void Render() override;
@@ -18,7 +25,9 @@ namespace MyEngine
 
 			void SetAttackPower(float newAttackPower);
 
-			void Attack(GameObject* target);
+			void Attack();
+
+			GameObject* target;
 
 		private:
 

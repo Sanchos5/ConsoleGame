@@ -4,13 +4,14 @@
 
 namespace MyEngine
 {
-	AttackComponent::AttackComponent(GameObject* gameObject, float attackPower)
-		: Component(gameObject), attackPower(attackPower)
+	AttackComponent::AttackComponent(GameObject* gameObject, float attackPower, GameObject* target)
+		: Component(gameObject), attackPower(attackPower), target(target)
 	{
 	}
 
 	void AttackComponent::Update(float deltaTime)
 	{
+		//Attack();
 	}
 
 	void AttackComponent::Render()
@@ -22,7 +23,7 @@ namespace MyEngine
 		attackPower = newAttackPower;
 	}
 
-	void AttackComponent::Attack(GameObject* target)
+	void AttackComponent::Attack()
 	{
 		if (!target)
 		{

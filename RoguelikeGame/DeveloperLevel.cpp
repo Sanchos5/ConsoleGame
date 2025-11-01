@@ -74,8 +74,8 @@ namespace RoguelikeGame
 		}
 
 		// Maze Generator
-		MazeGenerator mazeGenerator(width, height, this);
-		mazeGenerator.Generate();
+		//MazeGenerator mazeGenerator(width, height, this);
+		//mazeGenerator.Generate();
 
 		player = std::make_unique<Player>(std::forward<MyEngine::Vector2Df>({ width / 2 * 128.f, height / 2 * 128.f }));
 		ai = std::make_unique<AI>(std::forward<MyEngine::Vector2Df>({ width / 3 * 120.f, height / 3 * 120.f }), player->GetGameObject());

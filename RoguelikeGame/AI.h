@@ -12,14 +12,12 @@ using namespace MyEngine;
 
 namespace RoguelikeGame
 {
-	class AI : public Pawn
+	class AI
 	{
 		public:
 
 			AI(const Vector2Df& position, GameObject* player);
 			GameObject* GetGameObject();
-
-			void Update(float deltaTime) override;
 
 			GameObject* player = nullptr;
 

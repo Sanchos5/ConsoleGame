@@ -16,10 +16,14 @@ namespace MyEngine
 			float GetHorizontalAxis() const;
 			float GetVerticalAxis() const;
 
+			bool IsAttack() const { return isAttack; }
+
 		private:
 
 			float horizontalAxis = 0.f;
 			float verticalAxis = 0.f;
+
+			bool isAttack = false;
 	};
 }
 

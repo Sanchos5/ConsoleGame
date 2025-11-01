@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "InputComponent.h"
+#include "AttackComponent.h"
+#include "Logger.h"
 
 namespace MyEngine
 {
@@ -25,6 +27,16 @@ namespace MyEngine
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
 			horizontalAxis -= 1.0f;
+		}
+
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		{
+			isAttack = true;
+			LOG_INFO("Attack: " + std::to_string(isAttack));
+		}
+		else
+		{
+			isAttack = false;
 		}
 	}
 
